@@ -47,6 +47,10 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 node v12.18.0
 npm 7.8.0
 
+
+# 公式のRedux + JSテンプレートまたはCreateReactApp用のRedux + TSテンプレートを使用
+`npx create-react-app my-app --template redux`
+
 ## installs
 1. 基本になるものをinstalls 
 ### sass
@@ -64,13 +68,8 @@ npm 7.8.0
 ### react-transition-form 
 `npm install react-transition-group --save`
 
-# git clone で作成する
-（上記の 基本になるものをinstallsは、すでにインストール済み）
 
-`git clone https://github.com/hiramatsuYoshiaki/react-start.git`
-`npm i`
-`cd react-start`
-`npm start`
+
 
 
 
