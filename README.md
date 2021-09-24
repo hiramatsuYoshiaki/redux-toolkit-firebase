@@ -53,20 +53,9 @@ npm 7.8.0
 
 ## installs
 1. 基本になるものをinstalls 
-### sass
-`npm install node sass`
-### 
-`npm install --save normalize-scss`
-
-### router
-`npm i react-router-dom`
-
-### material-ui
-`npm install @material-ui/core`
-`npm install @material-ui/icons`
-
-### react-transition-form 
-`npm install react-transition-group --save`
+```
+npm install firebase
+```
 
 
 
@@ -223,7 +212,7 @@ service cloud.firestore {
       git commit -m ".gitignore added .env"
       git push 
     ```
-2. .envを作成する
+2. .envを作成する()
   1-1 プロジェクトのルートに.envを作成する。
   1.2 プロジェクトのホーム画面の歯車アイコンのメニューの[プロジェクトの設定]をクリック
   1-3 SDK の設定と構成に表示されているfirebaseConfigの内容から.envを作成する。
@@ -237,9 +226,9 @@ service cloud.firestore {
     REACT_APP_MEASUREMENT_ID="..."
     REACT_APP_GOOGLE_MAPS_API_KEY='...'
   ```
-  
+   
 2. config.jsの作成
-  2-1 プロジェクトのルートにfirebaseフォルダーを作成してconfig.jsファイルを作成する。
+  2-1 プロジェクトのsrcにfirebaseフォルダーを作成してconfig.jsファイルを作成する。
   ```
     export const firebaseConfig = {
       apiKey: process.env.REACT_APP_API_KEY,
@@ -251,26 +240,10 @@ service cloud.firestore {
       measurementId: process.env.REACT_APP_MEASUREMENT_ID
     };  
   ```
-3. index.jsの作成 
-  3-1 firebaseフォルダーにindex.jsファイルを作成する。
-  ```
-    import firebase from "firebase/app"
-    import "firebase/auth";
-    import "firebase/firestore";
-    import "firebase/functions";
-    import "firebase/storage";
-    import {firebaseConfig} from "./config";
 
-    firebase.initializeApp(firebaseConfig); 
-    export const auth = firebase.auth();
-    export const db = firebase.firestore();
-    export const functions = firebase.functions();
-    export const storage = firebase.storage();
-    export const fb = firebase;
-    export const FirebaseFieldValue = firebase.firestore.FieldValue
-    export const FirebaseTimestamp = firebase.firestore.Timestamp;  
 
-  ```
+
+
 # Cloud Firestore を使ってみる 
 version9
 https://firebase.google.com/docs/firestore/quickstart?hl=ja#web-v9_4

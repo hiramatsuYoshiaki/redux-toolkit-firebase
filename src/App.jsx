@@ -1,15 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+// import logo from './logo.svg';
+// import { Counter } from './features/counter/Counter';
+import { initializeApp } from 'firebase/app';
+import {firebaseConfig} from "./firebase/config";
+import  Auth  from './features/auth/Auth'
 import './App.css';
 
 function App() {
+  initializeApp(firebaseConfig); 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
+        <Auth />
+        
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        {/* <Counter /> */}
+        {/* <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <span>
@@ -49,7 +55,7 @@ function App() {
           >
             React Redux
           </a>
-        </span>
+        </span> */}
       </header>
     </div>
   );
