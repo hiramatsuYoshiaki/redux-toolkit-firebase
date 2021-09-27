@@ -3,15 +3,15 @@ import React from 'react';
 // import { Counter } from './features/counter/Counter';
 import { initializeApp } from 'firebase/app';
 import {firebaseConfig} from "./firebase/config";
-import  Auth  from './features/auth/Auth'
-import './App.css';
+import  AppRouter  from './AppRouter'
+
 
 function App() {
   initializeApp(firebaseConfig); 
   return (
-    <div className="App">
-      <header className="App-header">
-        <Auth />
+        <>
+        <AppRouter />
+        {/* <Auth /> */}
         
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         {/* <Counter /> */}
@@ -56,8 +56,7 @@ function App() {
             React Redux
           </a>
         </span> */}
-      </header>
-    </div>
+      </>
   );
 }
 

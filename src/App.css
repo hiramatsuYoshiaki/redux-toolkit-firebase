@@ -1,7 +1,27 @@
-.App {
+/* .App {
   text-align: center;
+} */
+.App-wraper{
+  overflow:hidden;
+}
+.App-container{
+  display: flex;
+  flex-direction: column;
+}
+.App-header{
+}
+.App-main{
+  /* Take the remaining height */
+  flex-grow: 1;
+
+  /* Layout the left sidebar, main content and right sidebar */
+  display: flex;
+  flex-direction: row;
+}
+.App-footer{
 }
 
+/* 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,4 +56,4 @@
   100% {
     transform: translateY(0px);
   }
-}
+} */

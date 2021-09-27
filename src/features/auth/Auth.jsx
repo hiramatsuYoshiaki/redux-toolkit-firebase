@@ -10,7 +10,7 @@ import {
 } from './authSlice'; 
 import {getAuth, 
     onAuthStateChanged,
-    signInWithEmailAndPassword,
+    signInWithEmailAndPassword,  
     signOut,
 } from 'firebase/auth' 
 
@@ -28,43 +28,40 @@ const Auth = () => {
         e.preventDefault()
         // console.log('email',email);
         // console.log('password',password);
+        const inputValue = {email:email, password:password}
+        dispatch(signInAsync(inputValue))
 
-        dispatch(signInAsync())
-
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                // console.log('login user:', user );
-                // setUser(user)
-                // dispatch-------------------------------------------
-                dispatch(signinAction({
-                    isSignIn: true,
-                    role:"admin",
-                    uid: user.uid,
-                    username:user.displayName,
-                    email:user.email,
-                    photoURL:user.photoURL
-                }))
-            })
-            .catch((error) => {
-                console.log('error code',error.code);
-                console.log('errorMessage',error.message); 
-                // setUser(null)
-            });
+        // const auth = getAuth();
+        // signInWithEmailAndPassword(auth, email, password)
+        //     .then((userCredential) => {
+        //         const user = userCredential.user;
+        //         // dispatch-------------------------------------------
+        //         dispatch(signinAction({
+        //             isSignIn: true,
+        //             role:"admin",
+        //             uid: user.uid,
+        //             username:user.displayName,
+        //             email:user.email,
+        //             photoURL:user.photoURL,
+        //             status:'idle'
+        //         }))
+        //     })
+        //     .catch((error) => {
+        //         console.log('error code',error.code);
+        //         console.log('errorMessage',error.message); 
+        //         // setUser(null)
+        //     });
    }
    const signout = () => {
        dispatch(signOutAsync())
-       const auth = getAuth();
-        signOut(auth).then(() => {
-            // console.log('Sign-out successful')
-            // setUser(null)
-            // dispatch-------------------------------------------
-            dispatch(singoutAction())
-        }).catch((error) => {
-            console.log('error code',error.code);
-            console.log('errorMessage',error.message);
-        });
+    //    const auth = getAuth();
+    //     signOut(auth).then(() => {
+    //         // dispatch-------------------------------------------
+    //         dispatch(singoutAction())
+    //     }).catch((error) => {
+    //         console.log('error code',error.code);
+    //         console.log('errorMessage',error.message);
+    //     });
    }
 
    useEffect(()=>{
@@ -95,11 +92,15 @@ const Auth = () => {
 
     return (
         <div>
+            <h3>redux toolkit</h3>
+            <div>status:{userProfile.status}</div>
+            <br />
             {/* <button onClick={()=> dispatch(aaa())}>aaa</button> */}
             {/* <button onClick={()=> dispatch(listenAuthState())}>listenAuth</button> */}
             {userProfile.isSignIn === true
                 ?   <div>
-                        <div>Hello!</div>
+                        <div>ようこそ</div>
+                        <div>{userProfile.email}でログインしています。</div>
                         <div>isSignIn:{userProfile.isSignIn? 'true' : 'false'}</div>
                         <div>role:{userProfile.role}</div>
                         <div>uid:{userProfile.uid}</div>
@@ -108,12 +109,12 @@ const Auth = () => {
                         <div>photoURL:{userProfile.photoURL}</div>
                         <button 
                             onClick={signout}>
-                                Sing out
+                                サインアウト
                         </button>
 
                     </div>
                 :   <div>
-                        Sign In 
+                        サインインしてください。 
                         <form 
                             onSubmit={singin}
                         >
@@ -139,11 +140,18 @@ const Auth = () => {
                                 </label>
                             </div>
                             <div>
-                                <input type="submit" value="Singin" />
+                                <input type="submit" value="サインイン" />
                             </div>
                         </form>
+                        <br />
+                        <br />
+                        <div>
+                            <button>Create Account</button>
+                        </div>
+                        <div>
+                            <button>Foget password</button>
+                        </div>
                     </div>
-                    
         }
         </div>
     )

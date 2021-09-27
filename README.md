@@ -53,10 +53,11 @@ npm 7.8.0
 
 ## installs
 1. 基本になるものをinstalls 
-```
-npm install firebase
-```
+### firebase
+`npm install firebase`
 
+### router
+`npm i react-router-dom` 
 
 
 
