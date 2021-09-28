@@ -1,12 +1,19 @@
 .TopAppBar-containe {
-    min-height: 10vh;
+    height:3.2rem;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    border:1px solid #000;
+    justify-content: space-between;
+    padding:.8rem;
   }
 .TopAppBar-button{
-  margin: 0 .8rem 0 0 
+  margin: 0 .8rem 0 0; 
+  padding:.4rem;
+  border:none;
+  background-color: lightblue;
+  font-size: calc(8px + 2vmin);
+  cursor:pointer;
+}
+button:hover {
+  color:rgb(68, 138, 138);
 }

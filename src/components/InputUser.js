@@ -1,0 +1,13 @@
+import {useState} from 'react'
+export const InputUser = initialValues => {
+    const [values, setValues] = useState(initialValues)
+    return [ 
+        values, 
+        e => {
+            setValues({
+                ...values,
+                [e.target.name]: e.target.value//インプット項目と値をステートに追加
+            })
+        }
+    ]
+}

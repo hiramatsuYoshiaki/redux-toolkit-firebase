@@ -10,7 +10,7 @@ import {
 } from './authSlice'; 
 import {getAuth, 
     onAuthStateChanged,
-    signInWithEmailAndPassword,  
+    signInWithEmailAndPassword,   
     signOut,
 } from 'firebase/auth' 
 
@@ -24,7 +24,7 @@ const Auth = () => {
 //    console.log('uid',userProfile.uid)
 //    console.log('isSignIn',userProfile.isSignIn)
    
-   const singin = (e) => {
+   const singin = (e) => { 
         e.preventDefault()
         // console.log('email',email);
         // console.log('password',password);

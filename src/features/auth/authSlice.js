@@ -137,4 +137,6 @@ const authSlice = createSlice({
 // }
 export const { signinAction,singoutAction } = authSlice.actions
 export const selectUser = (state) => state.auth.user
+export const selectIsSignIn = (state) => state.auth.user.isSignIn
+export const selectStatus = (state) => state.auth.user.status
 export default authSlice.reducer
