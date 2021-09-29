@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk  } from '@reduxjs/toolkit'
 import { listenAuth } from './listenAuth'
 import { signin } from './signin'
 import { signout } from './signout'
-// import { listenAuthState } from './listenAuthState'
+import { createAccount } from './createAccount'
 
 //staet
 const initialState = {
@@ -47,6 +47,26 @@ export const signOutAsync = createAsyncThunk(
         return signInUser.data
     }
 )
+//firebase auth createUserWithEmailAndPassword
+export const createAccountAsync = createAsyncThunk(
+  'auth/createAccount',
+  async (inputValue) => {
+      console.log('createAccount =============')
+      console.log('inputValue.email',inputValue.email)
+        console.log('inputValue.password',inputValue.password)
+        console.log('inputValue.displayName',inputValue.displayName)
+        console.log('inputValue.photoURL',inputValue.photoURL)
+        const signInUser = await createAccount(inputValue.email, 
+                                                inputValue.password,
+                                                inputValue.displayName,
+                                                inputValue.photoURL,
+                                              )
+        console.log('signInUser',signInUser)
+        return signInUser.data
+  }
+)
+
+
 
 //action
 const authSlice = createSlice({
@@ -126,6 +146,26 @@ const authSlice = createSlice({
             console.log('auth/signOutAsync*********',action) 
           })
           .addCase(signOutAsync.rejected, (state, action) => {
+            state.user.isSignIn = false;
+            state.user.status = 'idle'
+          })
+        //firebase auth onCreateUserWithEmailAndPassword
+        //firebase auth updateProfile
+        .addCase(createAccountAsync.pending, (state) => {
+            state.user.isSignIn = false;
+            state.user.status = 'loading'
+          })
+        .addCase(createAccountAsync.fulfilled, (state, action) => {
+            state.user.isSignIn = action.payload.isSignIn;
+            state.user.role = action.payload.role
+            state.user.uid = action.payload.uid
+            state.user.username = action.payload.username
+            state.user.email = action.payload.email
+            state.user.photoURL = action.payload.photoURL
+            state.user.status = 'idle'
+            console.log('auth/createAccountAsync*********',action) 
+          })
+          .addCase(createAccountAsync.rejected, (state, action) => {
             state.user.isSignIn = false;
             state.user.status = 'idle'
           })

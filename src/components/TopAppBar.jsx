@@ -1,11 +1,21 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import {useSelector} from 'react-redux'
-import { selectUser,selectIsSignIn } from '../features/auth/authSlice';
+import { useDispatch,useSelector} from 'react-redux'
+import { listenAuthState,selectUser,selectIsSignIn,selectStatus } from '../features/auth/authSlice';
+import {LoadingSpiner} from '../components/index'
+
 import './TopAppBar.css';
 
 const TopAppBar = () => {
+    const dispatch = useDispatch()
     const isSignIn = useSelector(selectIsSignIn)
+    const isLoding = useSelector(selectStatus)
+    // const {username} = useSelector(selectUser)
+    useEffect(()=>{
+        if(isSignIn !== true){
+            dispatch(listenAuthState())
+        }
+    },[isSignIn,dispatch])
     return (
         <div className="TopAppBar-containe">
             <div>
@@ -18,7 +28,7 @@ const TopAppBar = () => {
                     ?
                         <div>
                             <Link to={"/account"} >
-                                <button className="TopAppBar-button">User</button>
+                                <button className="TopAppBar-button">Account</button>
                             </Link>
                             <Link to={"/signout"} >
                                 <button className="TopAppBar-button">Sing-Out</button>
@@ -29,9 +39,8 @@ const TopAppBar = () => {
                         <button className="TopAppBar-button" >Sing-In</button>
                         </Link>
                 }
-                
-                
             </div>
+            <LoadingSpiner isLoading={isLoding}/>
         </div>
     )
 }

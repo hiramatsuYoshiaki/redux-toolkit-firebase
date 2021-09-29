@@ -1,15 +1,17 @@
-import React,{useEffect} from 'react'
-import {Link} from 'react-router-dom'
+import React from 'react'
+import {Link, Redirect} from 'react-router-dom'
 import {InputForm} from '../components/index'
 import {InputUser} from '../components/InputUser'
 import {useDispatch,useSelector} from 'react-redux'
-import {listenAuthState, signInAsync,selectIsSignIn} from '../features/auth/authSlice'
-import { Redirect} from 'react-router-dom'
+import {signInAsync,selectIsSignIn} from '../features/auth/authSlice'
+// import {LoadingSpiner} from '../components/index'
+
 import './page.css'
 
 const SignIn = () => {
     const dispatch = useDispatch()
     const isSignIn = useSelector(selectIsSignIn)
+    // const isLoding = useSelector(selectStatus)
     // const history = useHistory()
     // const handleNavigation = (path) => {
     //     history.push(path)
@@ -25,17 +27,17 @@ const SignIn = () => {
     })
     const signIn = (e) => {
         e.preventDefault()
-        alert('submit email: ' + values.email + ' password: ' + values.password)
+        // alert('submit email: ' + values.email + ' password: ' + values.password)
         dispatch(signInAsync(values))
     }
-    useEffect(()=>{
-        if(isSignIn !== true){
-            dispatch(listenAuthState())
-        }
-    },[isSignIn,dispatch])
-    
+    // useEffect(()=>{
+    //     if(isSignIn !== true){
+    //         dispatch(listenAuthState())
+    //     }
+    // },[isSignIn,dispatch])
+
     return (
-        <div className="page-container">
+        <div className="page-container"> 
 
            {isSignIn === true
             ? 
@@ -76,8 +78,9 @@ const SignIn = () => {
                 </div>
             </div>
            }
+           {/* <LoadingSpiner isLoading={isLoding}/> */}
         </div>
     )
 }
 
-export default SignIn
+export default SignIn 
