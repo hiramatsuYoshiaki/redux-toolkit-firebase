@@ -4,7 +4,7 @@ import {InputForm} from '../components/index'
 import {InputUser} from '../components/InputUser'
 import {useDispatch,useSelector} from 'react-redux'
 import {createAccountAsync, selectIsSignIn,} from '../features/auth/authSlice'
-import './page.css'
+import './page.scss'
 
 const CreateAccount = () => {
     const dispatch = useDispatch()

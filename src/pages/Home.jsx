@@ -2,7 +2,7 @@ import React,{useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import {listenAuthState, selectIsSignIn,selectStatus} from '../features/auth/authSlice'
 import {LoadingSpiner} from '../components/index'
-import './page.css'
+import './page.scss'
 const Home = () => {
     const dispatch = useDispatch()
     const isSignIn = useSelector(selectIsSignIn) 

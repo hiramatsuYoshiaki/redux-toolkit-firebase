@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Home, SignIn, SignOut, CreateAccount, ResetPassword, Account, NotFound } from './pages/index'
 import { TopAppBar } from './components/index'
 // import  Auth  from './features/auth/Auth'
-import './App.css';
+import './App.scss';
 
 const AppRouter = () => {
     return (

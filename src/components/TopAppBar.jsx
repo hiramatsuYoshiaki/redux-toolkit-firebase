@@ -4,7 +4,7 @@ import { useDispatch,useSelector} from 'react-redux'
 import { listenAuthState,selectUser,selectIsSignIn,selectStatus } from '../features/auth/authSlice';
 import {LoadingSpiner} from '../components/index'
 
-import './TopAppBar.css';
+import './TopAppBar.scss';
 
 const TopAppBar = () => {
     const dispatch = useDispatch()

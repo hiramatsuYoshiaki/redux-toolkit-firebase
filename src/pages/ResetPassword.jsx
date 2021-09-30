@@ -5,7 +5,7 @@ import {InputUser} from '../components/InputUser'
 import {useSelector} from 'react-redux'
 import {selectIsSignIn} from '../features/auth/authSlice'
 import { useHistory } from 'react-router-dom'
-import './page.css'
+import './page.scss'
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 const styles={

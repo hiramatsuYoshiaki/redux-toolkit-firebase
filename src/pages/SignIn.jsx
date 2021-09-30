@@ -6,7 +6,7 @@ import {useDispatch,useSelector} from 'react-redux'
 import {signInAsync,selectIsSignIn} from '../features/auth/authSlice'
 // import {LoadingSpiner} from '../components/index'
 
-import './page.css'
+import './page.scss'
 
 const SignIn = () => {
     const dispatch = useDispatch()

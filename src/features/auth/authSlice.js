@@ -48,7 +48,7 @@ export const signOutAsync = createAsyncThunk(
     }
 )
 //firebase auth createUserWithEmailAndPassword
-export const createAccountAsync = createAsyncThunk(
+export const createAccountAsync = createAsyncThunk( 
   'auth/createAccount',
   async (inputValue) => {
       console.log('createAccount =============')

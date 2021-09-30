@@ -7,7 +7,7 @@ import {signOutAsync,
 import { Redirect} from 'react-router-dom'
 // import {LoadingSpiner} from '../components/index'
 
-import './page.css'
+import './page.scss'
 const styles={
     wraper:{
         width:"100%",
