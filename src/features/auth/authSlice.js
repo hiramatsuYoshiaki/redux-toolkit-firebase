@@ -13,7 +13,7 @@ const initialState = {
         username:"",
         email:"",
         photoURL:"",
-        status: 'idle',
+        status: 'idle', 
     }
 } 
 //firebase auth onAuthStateChanged
@@ -21,14 +21,14 @@ export const listenAuthState = createAsyncThunk(
     'auth/listenAuthState',
     async () => {
         const signInUser = await listenAuth()
-        console.log(signInUser.data.email)
+        // console.log(signInUser.data.email)
         return signInUser.data //<--------payloadに渡される
     }
 )
 //firebase auth signInWithEmailAndPassword
 export const signInAsync = createAsyncThunk(
     'auth/signIn',
-    async (inputValue) => {
+    async (inputValue) => { 
         console.log('inputValue.email',inputValue.email)
         console.log('inputValue.password',inputValue.password)
         console.log('signIn ==============')
@@ -104,7 +104,7 @@ const authSlice = createSlice({
             state.user.email = action.payload.email
             state.user.photoURL = action.payload.photoURL
             state.user.status = 'idle'
-            console.log('auth/listenAuthState*********',action) //payload: signInUser.data listenAuthState
+            // console.log('auth/listenAuthState*********',action) //payload: signInUser.data listenAuthState
           })
           .addCase(listenAuthState.rejected, (state, action) => {
             state.user.isSignIn = false;

@@ -1,23 +1,23 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth' 
 export const listenAuth = () => {
-    console.log('listenAuth')
+    // console.log('listenAuth')
     return new Promise((resolve) =>{
         const auth = getAuth()
         onAuthStateChanged(auth, (user) => {
             if(user){
-                console.log('onAuthStateChanged singin')
+                // console.log('onAuthStateChanged singin')
                 resolve({ 
                     data: {
                         isSignIn: true,
                         role:"",
                         uid: user.uid,
-                        username:user.displayName,
+                        username:user.displayName, 
                         email:user.email,
                         photoURL:user.photoURL
                     } 
                 })
             }else{
-                console.log('onAuthStateChanged not singin')
+                // console.log('onAuthStateChanged not singin')
                 resolve({
                     data:{
                         isSignIn: false,

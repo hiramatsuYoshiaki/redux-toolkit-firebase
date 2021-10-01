@@ -10,14 +10,13 @@ const TopAppBar = () => {
     const dispatch = useDispatch()
     const isSignIn = useSelector(selectIsSignIn)
     const isLoding = useSelector(selectStatus)
-    // const {username} = useSelector(selectUser)
     useEffect(()=>{
         if(isSignIn !== true){
             dispatch(listenAuthState())
         }
     },[isSignIn,dispatch])
     return (
-        <div className="TopAppBar-containe">
+        <div className="TopAppBar-containe"> 
             <div>
                 <Link to={"/"} >
                     <button className="TopAppBar-button" >TODO</button>

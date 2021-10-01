@@ -3,9 +3,8 @@ import {useSelector, useDispatch} from 'react-redux'
 import { selectUser,
         selectIsSignIn,
         } from '../features/auth/authSlice'
-import { Link, Redirect,useHistory} from 'react-router-dom'
-import {GetAvater} from '../components/index'
-// import logo from '../logo.svg'
+import { selectorAvater,setDounloadURL,getAvatorAsync } from '../features/storage/storageSlice'
+import { Link, Redirect,useHistory} from 'react-router-dom' 
 import './page.scss'
 
 const styles={
@@ -16,19 +15,34 @@ const styles={
     listContainer:{
         alignItems: 'center',
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between', 
         borderBottom: '1px solid grey',
         margin: 0,
         padding: '8px 8px',
     },
+    avater:{
+        borderRadius: '50%',
+        width:"100%",
+        height:"100%",  
+        border:"1px solid gery",
+    },
 }
 
 const Account = () => {
+    // console.log('account------start');
     const dispatch = useDispatch()
     const isSignIn = useSelector(selectIsSignIn)
     const profile = useSelector(selectUser)
+    const photoURL = profile.photoURL
+    const dounloadURL = useSelector(selectorAvater)
+    // console.log('auth photoURL',photoURL);
+    useEffect(()=>{
+        // console.log('useEffect storege getAvater');
+        if(photoURL !== ''){
+            dispatch(getAvatorAsync(photoURL))
+        }
+    },[photoURL,dispatch])
     return (
-        // <div className="page-container">  
         <div className="page-fexed-container">  
             {isSignIn === false 
             ? <div>
@@ -39,10 +53,11 @@ const Account = () => {
               </div>
             : <div style={styles.wraper}> 
                 <div >
+                    {/* avater componentにする */}
                     <div className="page-account-FeatureListContainer">
                         <div className="page-FeatureListContainer_image">
                             <div className="page-avaterContainer"> 
-                                <GetAvater url={profile.photoURL} />
+                                <img src={dounloadURL} alt="avater" style={styles.avater} />
                             </div>
                         </div>
                         <div className="page-FeatureListContainer_feature">
@@ -51,7 +66,7 @@ const Account = () => {
                         </div>
                     </div>
 
-                    
+                    {/* auth profile  componentにする */}
                     <div>
                         <div className="page-listContainer">
                             <div>Name</div>
@@ -86,7 +101,7 @@ const Account = () => {
                 </button> */}
                 </div>
               </div>
-                <div>firestore</div>
+                {/* <div>firestore</div> */}
               </div>
             }
         </div>
