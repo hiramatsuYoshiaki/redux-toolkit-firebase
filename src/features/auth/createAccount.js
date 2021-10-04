@@ -1,10 +1,10 @@
 import { getAuth, createUserWithEmailAndPassword,updateProfile } from 'firebase/auth'
 export const createAccount = (email, password, displayName, photoURL) => {
-    console.log('createAccount')
-    console.log('email',email)
-    console.log('password',password)
-    console.log('displayName',displayName)
-    console.log('photoURL',photoURL)
+    // console.log('createAccount')
+    // console.log('email',email)
+    // console.log('password',password)
+    // console.log('displayName',displayName)
+    // console.log('photoURL',photoURL)
     return new Promise((resolve) =>{
         const auth = getAuth()
         // createUserWithEmailAndPassword------------------------------
@@ -16,9 +16,9 @@ export const createAccount = (email, password, displayName, photoURL) => {
                 displayName: displayName, 
                 photoURL: photoURL
             }).then(() => {
-                console.log('Profile updated! ok++++++++++++++++++++');
-                console.log('displayName',displayName);
-                console.log('photoURL',photoURL);
+                // console.log('Profile updated! ok++++++++++++++++++++');
+                // console.log('displayName',displayName);
+                // console.log('photoURL',photoURL);
                 resolve({ 
                     data: {
                         isSignIn: true,
@@ -30,8 +30,8 @@ export const createAccount = (email, password, displayName, photoURL) => {
                         } 
                     })
             }).catch((error) => {
-                console.log('errorCode',error.code);
-                console.log('errorMessage',error.message);
+                // console.log('errorCode',error.code);
+                // console.log('errorMessage',error.message);
                 resolve({
                     data:{
                         isSignIn: false,
@@ -45,8 +45,8 @@ export const createAccount = (email, password, displayName, photoURL) => {
             });
         })
         .catch((error) => {
-            console.log('errorCode',error.code);
-            console.log('errorMessage',error.message);
+            // console.log('errorCode',error.code);
+            // console.log('errorMessage',error.message);
                     resolve({
                     data:{
                         isSignIn: false,

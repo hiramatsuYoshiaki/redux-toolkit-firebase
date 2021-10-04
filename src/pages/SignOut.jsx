@@ -28,8 +28,8 @@ const SingOut = () => {
         <div className="page-container"> 
             {isSignIn === false 
             ?
-            // <Redirect push to='/' />
-            <Redirect push to='/signin' />
+            <Redirect push to='/' />
+            // <Redirect push to='/signin' />
             :
             <div style={styles.wraper}>
                 <div>

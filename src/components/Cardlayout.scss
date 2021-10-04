@@ -1,0 +1,30 @@
+/* ブレイクポイント */
+$mobileBreakPoint: 600px; //600
+$tabletBreakPoint: 768px; // 768
+$desktopBreakPoint: 960px; //960
+$widescreenBreakPoint: 1280px; //1280
+$fullhdBreakPoint: 1920px; //1920
+.c-cl-cards {
+    display: flex;
+    width:100%;
+
+    /* Put a card in the next row when previous cards take all width */
+    flex-wrap: wrap;
+
+    margin-left: -8px;
+    margin-right: -8px;
+    // border:1px solid grey;
+}
+
+.c-cl-cards__item {
+    flex-basis: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+    // border:1px dotted grey;
+    @media (min-width: $tabletBreakPoint) {
+        flex-basis: 50%;
+    } 
+    @media (min-width: $fullhdBreakPoint) {
+        flex-basis: 25%;
+    } 
+}

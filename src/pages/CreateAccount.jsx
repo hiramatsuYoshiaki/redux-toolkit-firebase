@@ -39,8 +39,8 @@ const CreateAccount = () => {
 
             {isSignIn === true
             ? 
-            // <Redirect push to="/" />
-            <Redirect push to='/signout' />
+            <Redirect push to="/" />
+            // <Redirect push to='/signout' />
             :
             <div>
                 <div>アカウントを作成します。</div>

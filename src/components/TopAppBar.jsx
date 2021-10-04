@@ -18,7 +18,7 @@ const TopAppBar = () => {
     return (
         <div className="TopAppBar-containe"> 
             <div>
-                <Link to={"/"} >
+                <Link to="/" >
                     <button className="TopAppBar-button" >TODO</button>
                 </Link>
             </div>
@@ -26,15 +26,15 @@ const TopAppBar = () => {
                 {isSignIn === true 
                     ?
                         <div>
-                            <Link to={"/account"} >
+                            <Link to="/account" >
                                 <button className="TopAppBar-button">Account</button>
                             </Link>
-                            <Link to={"/signout"} >
+                            <Link to="/signout" >
                                 <button className="TopAppBar-button">Sing-Out</button>
                             </Link>
                         </div>
                     :
-                        <Link to={"/signin"} >
+                        <Link to="/signin" >
                         <button className="TopAppBar-button" >Sing-In</button>
                         </Link>
                 }

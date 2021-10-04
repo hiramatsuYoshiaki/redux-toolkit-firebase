@@ -5,6 +5,7 @@ import { selectUser,
         } from '../features/auth/authSlice'
 import { selectorAvater,setDounloadURL,getAvatorAsync } from '../features/storage/storageSlice'
 import { Link, Redirect,useHistory} from 'react-router-dom' 
+import { AvatarFeature } from '../components/index'
 import './page.scss'
 
 const styles={
@@ -24,7 +25,7 @@ const styles={
         borderRadius: '50%',
         width:"100%",
         height:"100%",  
-        border:"1px solid gery",
+        border:"1px solid gery",  
     },
 }
 
@@ -34,7 +35,7 @@ const Account = () => {
     const isSignIn = useSelector(selectIsSignIn)
     const profile = useSelector(selectUser)
     const photoURL = profile.photoURL
-    const dounloadURL = useSelector(selectorAvater)
+    const downloadURL = useSelector(selectorAvater)
     // console.log('auth photoURL',photoURL);
     useEffect(()=>{
         // console.log('useEffect storege getAvater');
@@ -53,18 +54,19 @@ const Account = () => {
               </div>
             : <div style={styles.wraper}> 
                 <div >
+                    <AvatarFeature downloadURL={downloadURL} name={profile.username} email={profile.email}/>
                     {/* avater componentにする */}
-                    <div className="page-account-FeatureListContainer">
+                    {/* <div className="page-account-FeatureListContainer">
                         <div className="page-FeatureListContainer_image">
                             <div className="page-avaterContainer"> 
-                                <img src={dounloadURL} alt="avater" style={styles.avater} />
+                                <img src={downloadURL} alt="avater" style={styles.avater} />
                             </div>
                         </div>
                         <div className="page-FeatureListContainer_feature">
                             <div>{profile.username}</div>
                             <div>{profile.email}</div>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* auth profile  componentにする */}
                     <div>
@@ -72,7 +74,7 @@ const Account = () => {
                             <div>Name</div>
                             <div>{profile.username}</div>
                         </div>
-                        <div className="page-listContainer">
+                        <div className="page-listContainer"> 
                             <div>E-mail</div>
                             <div>{profile.email}</div>
                         </div>

@@ -41,8 +41,8 @@ const SignIn = () => {
 
            {isSignIn === true
             ? 
-            // <Redirect push to="/" />
-            <Redirect push to='/signout' />
+            <Redirect push to="/" />
+            // <Redirect push to='/signout' />
             :
             <div>
                 <div>
