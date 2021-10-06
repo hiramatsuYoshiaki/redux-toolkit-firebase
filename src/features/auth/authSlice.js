@@ -13,7 +13,7 @@ const initialState = {
         username:"",
         email:"",
         photoURL:"",
-        status: 'idle', 
+        status: 'idle',  
     }
 } 
 //firebase auth onAuthStateChanged

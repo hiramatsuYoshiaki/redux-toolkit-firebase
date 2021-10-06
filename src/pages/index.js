@@ -5,3 +5,6 @@ export {default as CreateAccount} from './CreateAccount'
 export {default as ResetPassword} from './ResetPassword'
 export {default as Account} from './Account'
 export {default as NotFound} from './NotFound'
+
+export {default as Welcom} from './Welcom'
+export {default as Activities} from './Activities'

@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch,useSelector} from 'react-redux'
-import { listenAuthState,selectUser,selectIsSignIn,selectStatus } from '../features/auth/authSlice';
+import { listenAuthState,selectIsSignIn,selectStatus } from '../features/auth/authSlice';
 import {LoadingSpiner} from '../components/index'
 
 import './TopAppBar.scss';
