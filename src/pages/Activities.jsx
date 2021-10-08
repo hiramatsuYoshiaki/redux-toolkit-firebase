@@ -46,7 +46,6 @@ const Activities = () => {
         <div className="page-fexed-container">  
             {isSignIn === false 
             ? <>
-                {/* <Redirect to='/' ></Redirect> */}
                 <div>サインインしていません</div>
                 <Link to='/signin' >
                     <button>サインイン</button>
@@ -54,22 +53,7 @@ const Activities = () => {
               </>
             : 
             <>
-                {/* <div>
-                    <button onClick={createTodo}>Todo Create</button>
-                </div>
-                <div>
-                    <button onClick={listTodo}>Todo List</button>
-                </div>
-                <div>
-                    <div>uid:{user.uid}</div>
-                    <div>name:{user.username}</div>
-                </div> */}
                 <CardLayoutLink items={items} />
-
-                {/* <Link to="/activities/todo">
-                    <button>Todo</button>
-                </Link> */}
-                
             </>
             }
         </div>

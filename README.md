@@ -59,6 +59,11 @@ npm 7.8.0
 `npm install firebase`
 ### router
 `npm i react-router-dom` 
+### moment (date format)
+`npm install moment`  
+### nanoid (id generate)
+`npm install --save nanoid`
+
 
 
 
@@ -275,3 +280,8 @@ v9
 https://firebase.google.com/docs/web/modular-upgrade
 
 
+# firestore serverTimestampの表示
+```
+const timeStamp = serverTimestamp()
+const timestampDate = moment(timeStamp.toDate()).format('YYYY/MM/DD HH:mm')
+```
