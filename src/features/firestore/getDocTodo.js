@@ -9,7 +9,7 @@ export const getDocTodo = (uid) => {
         getDocs(collection(db, 'todos'))
         // uid と一致する
         const todosRef = collection(db, 'todos')
-        const q = query(todosRef, where('uid','==', uid))
+        const q = query(todosRef, where('uid','==', uid)) 
         getDocs(q)
         .then((querySnapshot)=>{
             console.log('firestore getDocs ok------------------------')

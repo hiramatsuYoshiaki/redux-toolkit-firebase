@@ -1,9 +1,11 @@
 import { getFirestore, collection, addDoc, doc, setDoc, Timestamp,serverTimestamp} from "firebase/firestore";
 import moment from 'moment';
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid' //idを自動採番
+
 
 export const setDocTodo = (values) => {
     console.log('setDocTodo start--------')
+    
     // const timeStamp = serverTimestamp()
     // console.log('serverTimestamp',serverTimestamp())
     // const ConvertTimestampJavaScript =  serverTimestamp().toDate()
@@ -22,25 +24,25 @@ export const setDocTodo = (values) => {
         const db = getFirestore();
         const timeStamp = serverTimestamp()
         // Add a new document with a generated id.--------------------------------
-        // const newCityRef = doc(collection(db, "todos"));
-        // setDoc(newCityRef,  
-        //     {
-        //         todo: values.todo,
-        //         done: false,
-        //         uid:values.uid
-        //     }, 
-        // )
-
-        // Add a new document with a generated id.-------------------------------
+        const newTodoRef = doc(collection(db, "todos"));
+        console.log('new document with a generated id')
+        console.log(newTodoRef.id)
         const addTodo =  {
-            id:nanoid(),
+            id:newTodoRef.id,//ドキュメントIDをフィールドに追加
             todo: values.todo,
             done: false,
             uid:values.uid,
-            // update_at:timeStamp,
-            // create_at:timeStamp,
         }
-        addDoc(collection(db, "todos"), addTodo )
+        setDoc(newTodoRef, addTodo ) 
+
+        // Add a new document with a generated id.-------------------------------
+        // const addTodo =  {
+        //     id:nanoid(),//idを自動採番
+        //     todo: values.todo,
+        //     done: false,
+        //     uid:values.uid,
+        // }
+        // addDoc(collection(db, "todos"), addTodo )
             
         // const todoRef = doc(db, 'todos', values.uid);
         // setDoc( todoRef, 
@@ -54,6 +56,11 @@ export const setDocTodo = (values) => {
         //    todo: values.todo,
         //     done: false,
         //   })
+
+       
+
+
+
         .then((res)=>{
               console.log('firestore setDoc success good**************')
                 resolve({ 

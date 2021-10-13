@@ -19,7 +19,7 @@ const TopAppBar = () => {
         <div className="TopAppBar-containe"> 
             <div>
                 <Link to="/" >
-                    <button className="TopAppBar-button" >TODO</button>
+                    <button className="TopAppBar-button" >Activities</button>
                 </Link>
             </div>
             <div>

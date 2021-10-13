@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import moment from 'moment';
 import {setDocTodo} from './setDocTodo'
 import {getDocTodo} from './getDocTodo'
+import {updateDocTodo} from './updateDocTodo'
 const initialState = {
     firestore:{
         uid:null,
@@ -13,19 +14,20 @@ const initialState = {
     }
 
 } 
+
 export const fetchFirestore = createAsyncThunk(
     'firestore/fetchFirestore',
     ()=>{
         console.log('fetchFirestore')
     }
 )
-
+//add
 export const addTodo = createAsyncThunk(
     'firestore/addTodo',
     async (values)=>{
         console.log('addTodo <----firestoreSlice')
         const reference = await setDocTodo(values)
-        // console.log('reference--x-x-x-x>',reference.data)
+        console.log('addTodo createAsyncThunk firebaceSlice')
         // console.log('create_at-->',reference.data.create_at)
         //extraReducersにserverTimestamp（オブジェクト）を渡すと
         //Timestampのクラスがそのままでは登録できないためエラーになる
@@ -38,6 +40,7 @@ export const addTodo = createAsyncThunk(
         // console.log(createDate)
         
         const todo = {
+            id:reference.data.id,
             todo: reference.data.todo,
             done: false,
             uid:reference.data.uid,
@@ -49,6 +52,7 @@ export const addTodo = createAsyncThunk(
         return todo
     }
 )
+//read
 export const getTodo = createAsyncThunk(
     'firedtore/getTodo',
      async (uid) =>{
@@ -58,6 +62,20 @@ export const getTodo = createAsyncThunk(
         return todos.data
     }
 )
+//update
+export const updateDoc = createAsyncThunk( 
+    'firebase/updateTodo',
+    async (todo)=>{
+        console.log('updateDoc Todo craeteAsyncThunk')
+        console.log('todo.done',todo.done)
+        const updateTodo =  await updateDocTodo(todo)
+        console.log( 'updateTodo.done', updateTodo.data.done)
+        console.log('updateTodo createAsyncThunk todos: ',updateTodo)
+        return updateTodo.data
+    }
+)
+
+
 const firestoreSlice = createSlice({ 
     name: 'firestore',
     initialState,

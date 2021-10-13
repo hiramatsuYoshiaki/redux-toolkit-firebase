@@ -51,7 +51,7 @@ const Account = () => {
                 <Link to='/signin' >
                     <button>サインイン</button>
                 </Link>
-              </div>
+              </div>　
             : <div style={styles.wraper}> 
                 <div >
                     <AvatarFeature downloadURL={downloadURL} name={profile.username} email={profile.email}/>

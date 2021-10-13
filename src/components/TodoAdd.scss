@@ -1,0 +1,31 @@
+$mobileBreakPoint: 600px; //600
+$tabletBreakPoint: 768px; // 768
+$desktopBreakPoint: 960px; //960
+$widescreenBreakPoint: 1280px; //1280
+$fullhdBreakPoint: 1920px; //1920
+
+.c-todo-add-Container{
+    width:100%;
+    // border: 1px solid grey;
+    margin-bottom:16px;
+    padding:8px;
+}
+.c-todo-add-toggle{
+    text-align: center;
+    margin-bottom:8px;
+}
+.c-todo-add-input-area{
+    text-align: center;
+    margin-bottom:8px;
+    border: 1px solid grey;
+    padding:8px;
+    // display: flex;
+    // flex-direction: column;
+    // margin: 16px 0;
+    // border-bottom: 1px solid grey;
+    // @media (min-width: $desktopBreakPoint) {
+    //     flex-direction: row;
+    //     flex-direction: flex-start;
+    //     padding:.8px;
+    // } 
+}

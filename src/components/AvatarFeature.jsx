@@ -12,7 +12,7 @@ const AvatarFeature = ({downloadURL,name,email}) => {
                 </div>
                 <div className="page-FeatureListContainer_feature">
                     <div>{name}</div>
-                    <div>{email}</div>
+                    <div>{email}</div>　
                 </div>
             </div>
             {/* <img src={downloadURL} alt="avater" className="avatar-images"/> */}
