@@ -21,7 +21,7 @@ import {TodoAdd, TodoUnFinish, TodoFinish} from '../../../components/index'
 //         padding:".8rem", 
 //     },
 //     listContainer:{
-//         alignItems: 'center',
+//         alignItems: 'center', 
 //         display: 'flex',
 //         justifyContent: 'space-between', 
 //         borderBottom: '1px solid grey',
@@ -29,6 +29,7 @@ import {TodoAdd, TodoUnFinish, TodoFinish} from '../../../components/index'
 //         padding: '8px 8px',
 //     },
 // }
+
 
 
 const Todo = () => {

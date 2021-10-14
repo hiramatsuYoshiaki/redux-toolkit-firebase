@@ -1,13 +1,22 @@
 import React from 'react'
+import {Link,useHistory,useParams} from 'react-router-dom'
 import './TodoUnFinish.scss'
-const TodoUnFinish = 
-({todos,dispatch,updateDoc,getTodo,uid}) => {
+const TodoUnFinish = ({todos,dispatch,updateDoc,getTodo,uid}) => {
+    const history = useHistory()
     const handleDoneTodo = (todo) => {
         console.log('handleDoneTodo id: ' ,todo.id);
         dispatch(updateDoc(todo)) 
         dispatch(getTodo(uid))
     }
-
+    const handleClickDetail = (todo) =>{
+        console.log('handleClickDetail');
+        // history.push('/activities/detail' + todo.id)
+        
+        history.push({
+            pathname: '/activities/detail/',
+            state:{todo:todo}
+        })
+    }
     return (
         <div className="c-todo-unfinish-Container">
            
@@ -23,7 +32,7 @@ const TodoUnFinish =
                                     checked={todo.done}
                                     onChange={()=>handleDoneTodo(todo)}
                                 />
-                                <span>{todo.todo}</span>
+                                <span onClick={()=>handleClickDetail(todo)}>{todo.todo}</span>
                             </div>
                             :null
                             }

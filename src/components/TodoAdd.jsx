@@ -2,6 +2,8 @@ import React,{useState} from 'react'
 import {InputForm} from './index'
 // import {InputForm, TodoAdd, TodoUnFinish, TodoFinish} from '../../../components/index'
 import {InputUser} from './InputUser'
+import { MdExpandMore } from "react-icons/md";
+import { MdExpandLess } from "react-icons/md";
 import './TodoAdd.scss'
 const TodoAdd = ({feilds, uid, dispatch, addTodo}) => {
     const [isToggle, setIsToggle] = useState(false)
@@ -27,7 +29,13 @@ const TodoAdd = ({feilds, uid, dispatch, addTodo}) => {
     return (
         <div className="c-todo-add-Container">
            <div className="c-todo-add-toggle" onClick={handleToggle}>
-               <div>アクティビティを追加 <span>{isToggle?'close':'open'}</span></div>
+               <div>アクティビティ 
+               
+                   {isToggle
+                        ?<span>閉じる<MdExpandLess size={40} color={'#ccc'} /></span>
+                        :<span>追加<MdExpandMore size={40} color={'#ccc'} /></span>
+                    }
+                </div>
            </div>
            {isToggle === true &&
             <div className="c-todo-add-input-area">

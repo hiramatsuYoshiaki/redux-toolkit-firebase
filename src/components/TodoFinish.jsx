@@ -1,4 +1,6 @@
 import React,{useState,useEffect} from 'react'
+import { MdExpandMore } from "react-icons/md";
+import { MdExpandLess } from "react-icons/md";
 import './TodoFinish.scss'
 const TodoFinish = ({todos,dispatch,updateDoc,getTodo,uid}) => {
     const [isToggle, setIsToggle] = useState(false)
@@ -22,7 +24,12 @@ const TodoFinish = ({todos,dispatch,updateDoc,getTodo,uid}) => {
     return (
         <div className="c-todo-finish-Container">
            <div className="c-todo-finish-toggle" onClick={handleToggle}>
-               <div>実行済  <span>{count}件</span><span>{isToggle?'close':'open'}</span></div>
+               <div>実行済  <span>{count}件</span>
+                   {isToggle
+                        ?<span>閉じる<MdExpandLess size={40} color={'#ccc'} /></span>
+                        :<span>表示<MdExpandMore size={40} color={'#ccc'} /></span>
+                   }
+            </div>
            </div>
            {isToggle === true &&
             <div className="c-todo-finish-list">

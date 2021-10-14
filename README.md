@@ -63,8 +63,8 @@ npm 7.8.0
 `npm install moment`  
 ### nanoid (id generate)
 `npm install --save nanoid`
-
-
+### React Icons
+`npm install react-icons --save`
 
 
 
@@ -197,8 +197,8 @@ service cloud.firestore {
   }
 }
 ```
-
 `firebase deploy --only firestore:rules`
+
 
 # firebase を使用するためのセットアップ。
 1. .gitignoreに.envを追加する

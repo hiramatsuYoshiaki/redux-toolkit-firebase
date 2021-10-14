@@ -10,7 +10,7 @@ import { Home,
         Welcom, 
         Activities,
          } from './pages/index'
-import { Todo,Feeds } from './pages/activities/index'
+import { Todo,Feeds,Detail } from './pages/activities/index'
 import { TopAppBar } from './components/index'
 // import  Auth  from './features/auth/Auth'
 import './App.scss';
@@ -34,6 +34,8 @@ const AppRouter = () => {
                             <Route exact path="/account" component={Account} />
                             <Route exact path="/activities" component={Activities} />
                             <Route exact path="/activities/todos" component={Todo} />
+                            <Route exact path="/activities/detail" component={Detail} />
+                            {/* <Route exact path="/activities/:id" component={Detail} /> */}
                             <Route exact path="/activities/feeds" component={Feeds} />
                             <Route exact component={NotFound} />
                         </Switch> 
