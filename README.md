@@ -63,10 +63,16 @@ npm 7.8.0
 `npm install moment`  
 ### nanoid (id generate)
 `npm install --save nanoid`
-### React Icons
+### React Icons (アイコン)
 `npm install react-icons --save`
-
-
+### React Hook Form (フォーム入力のチェック（バリデーション）)
+`npm install react-hook-form`
+### Yup (バリデーション用のスキーマ )
+`npm install @hookform/resolvers yup`
+### yup-locale-ja (日本語化)
+`npm install yup yup-locale-ja`
+### react-datepicker
+`npm install react-datepicker --save`
 
 
 # firebase setup---------------------------
