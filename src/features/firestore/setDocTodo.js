@@ -1,12 +1,18 @@
-import { getFirestore, collection, addDoc, doc, setDoc, Timestamp,serverTimestamp} from "firebase/firestore";
-import moment from 'moment';
-import { nanoid } from 'nanoid' //idを自動採番
+import { getFirestore, 
+    collection, 
+    doc, setDoc, 
+    // Timestamp,
+    serverTimestamp
+} from "firebase/firestore";
+// import moment from 'moment';
+// import { nanoid } from 'nanoid' //idを自動採番
 
 
 export const setDocTodo = (values) => {
-    console.log('setDocTodo start--------')
+    console.log('setDocTodo start--------') 
     
-    // const timeStamp = serverTimestamp()
+    const timeStamp = serverTimestamp() 
+    console.log(timeStamp)
     // console.log('serverTimestamp',serverTimestamp())
     // const ConvertTimestampJavaScript =  serverTimestamp().toDate()
     // console.log('ConvertTimestampJavaScript',ConvertTimestampJavaScript)
@@ -22,7 +28,7 @@ export const setDocTodo = (values) => {
     return new Promise((resolve) =>{
         
         const db = getFirestore();
-        const timeStamp = serverTimestamp()
+        // const timeStamp = serverTimestamp()
         // Add a new document with a generated id.--------------------------------
         const newTodoRef = doc(collection(db, "todos"));
         console.log('new document with a generated id')

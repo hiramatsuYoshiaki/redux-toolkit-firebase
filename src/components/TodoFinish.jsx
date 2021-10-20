@@ -15,11 +15,13 @@ const TodoFinish = ({todos,dispatch,updateDoc,getTodo,uid}) => {
     }
     useEffect(()=>{
         setCount(0)
-        todos.map(element => {
-            if(element.done === true) {
-                setCount(prevCount => prevCount + 1)
+        todos.forEach(
+            element => {
+                if(element.done === true) {
+                    setCount(prevCount => prevCount + 1)
+                }
             }
-        })
+        )
     },[todos,setCount])
     return (
         <div className="c-todo-finish-Container">

@@ -61,6 +61,8 @@ npm 7.8.0
 `npm i react-router-dom` 
 ### moment (date format)
 `npm install moment`  
+### date-fns
+`npm install @date-io/date-fns`
 ### nanoid (id generate)
 `npm install --save nanoid`
 ### React Icons (アイコン)
@@ -73,7 +75,10 @@ npm 7.8.0
 `npm install yup yup-locale-ja`
 ### react-datepicker
 `npm install react-datepicker --save`
-
+### MUI(material-ui v5)
+`npm install @mui/material @emotion/react @emotion/styled`
+### npm install @mui/lab
+`npm install @mui/lab`npm
 
 # firebase setup---------------------------
 1. firebase プロジェクトの作成とデプロイ
@@ -240,7 +245,7 @@ service cloud.firestore {
     REACT_APP_GOOGLE_MAPS_API_KEY='...'
   ```
    
-2. config.jsの作成
+3. config.jsの作成
   2-1 プロジェクトのsrcにfirebaseフォルダーを作成してconfig.jsファイルを作成する。
   ```
     export const firebaseConfig = {
@@ -269,11 +274,11 @@ https://firebase.google.com/docs/auth/web/start?hl=ja
 
 1. index.jsの変更
 v8
-  ```
+ ```
     import firebase from "firebase/app"
     import "firebase/auth";
     import "firebase/firestore";
-    ```
+```
 
 v9
 ```
@@ -291,3 +296,174 @@ https://firebase.google.com/docs/web/modular-upgrade
 const timeStamp = serverTimestamp()
 const timestampDate = moment(timeStamp.toDate()).format('YYYY/MM/DD HH:mm')
 ```
+### react-hook-form 
+Material-UIコンポーネントでのReactフックフォームの使用
+https://levelup.gitconnected.com/using-react-hook-form-with-material-ui-components-ba42ace9507a
+
+### Redux Toolkit Quick Start(ReduxToolkitクイックスタート)
+https://redux-toolkit.js.org/tutorials/quick-start
+
+1. ReduxToolkitおよびReact-Reduxパッケージをプロジェクトに追加します。
+`npm install @reduxjs/toolkit react-redux`
+2. Reduxのストアを作成します。
+  2-1 src/app/store.jsという名前のファイルを作成します
+  2-2 ReduxToolkitからconfigureStoreをインポートし、空のReduxストアを作成しエクスポートすることから始めます。
+`app / store.js`
+```
+  import { configureStore } from '@reduxjs/toolkit'
+
+  export const store = configureStore({
+    reducer: {},
+  })
+```
+3. 反応するようにReduxのストアを提供
+`index.js`
+```
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import './index.css'
+  import App from './App'
+
+  import { store } from './app/store'
+  import { Provider } from 'react-redux'
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('root')
+  )
+```
+
+4. Reduxのスライスを作成します。
+  4-1 src/features/counter/counterSlice.jsを作成する
+  4-2 スライスを作成する
+    4-2-1 スライスを識別する文字列名、
+    4-2-2 初期状態値、
+    4-2-3 状態の更新方法を定義する1つ以上のレデューサー関数
+  4-3 生成されたReduxアクションクリエーターとレデューサー関数をスライス全体にエクスポートできます。
+`features / counter / counterSlice.js`
+```
+  import { createSlice } from '@reduxjs/toolkit'
+
+  const initialState = {
+    value: 0,
+  }
+
+  export const counterSlice = createSlice({
+    name: 'counter',
+    initialState,
+    reducers: {
+      increment: (state) => {
+        // Redux Toolkit allows us to write "mutating" logic in reducers. It
+        // doesn't actually mutate the state because it uses the Immer library,
+        // which detects changes to a "draft state" and produces a brand new
+        // immutable state based off those changes
+        state.value += 1
+      },
+      decrement: (state) => {
+        state.value -= 1
+      },
+      incrementByAmount: (state, action) => {
+        state.value += action.payload
+      },
+    },
+  })
+
+  // Action creators are generated for each case reducer function
+  export const { increment, decrement, incrementByAmount } = counterSlice.actions
+
+  export default counterSlice.reducer
+```
+5. スライスレデューサーをショップに追加します
+  5-1 カウンタースライスからレデューサー関数をインポートしてストアに追加する必要があります。reducerパラメータ内にフィールドを定義することにより、このスライスリデューサー関数を使用してその状態へのすべての更新を処理するようにストアに指示します。
+`app / store.js`
+```
+import { configureStore } from '@reduxjs/toolkit'
+import counterReducer from '../features/counter/counterSlice'
+
+export default configureStore({
+  reducer: {
+    counter: counterReducer,
+  },
+})
+```
+6. Reduxの状態とコンポーネントを反応させるアクションの使用
+  6-1 src/features/counter/Counter.jsファイルを作成
+  6-2 これで、React-Reduxフックを使用して、ReactコンポーネントがReduxストアと対話できるようになりました。
+  6-3 useSelectorを使用してストアからデータを読み取り
+  6-4 useDispatchを使用してアクションをディスパッチできます
+`features / counter / Counter.js`
+```
+  import React from 'react'
+  import { useSelector, useDispatch } from 'react-redux'
+  import { decrement, increment } from './counterSlice'
+
+  export function Counter() {
+    const count = useSelector((state) => state.counter.value)
+    const dispatch = useDispatch()
+
+    return (
+      <div>
+        <div>
+          <button
+            aria-label="Increment value"
+            onClick={() => dispatch(increment())}
+          >
+            Increment
+          </button>
+          <span>{count}</span>
+          <button
+            aria-label="Decrement value"
+            onClick={() => dispatch(decrement())}
+          >
+            Decrement
+          </button>
+        </div>
+      </div>
+    )
+  }
+```
+
+
+### Redux-ToolkitにFirebaseのTimestampをいれるときのエラー処理
+https://www.ok-data.com/entry/redux-toolkit%E3%81%ABfirebase%E3%81%AEtimestamp%E3%82%92%E3%81%84%E3%82%8C%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E5%87%A6%E7%90%86/
+
+### Redux-ToolkitにMterial-uiのdatetimepickerをいれるときのエラー処理
+1. エラーメッセージ
+```
+  A non-serializable value was detected in an action, in the path: `payload.data.datePicker`. Value: Sat Oct 23 2021 09:00:07 GMT+0900 (日本標準時) 
+  Take a look at the logic that dispatched this action:  {type: 'puttering/setData', payload: {…}} 
+  (See https://redux.js.org/faq/actions#why-should-type-be-a-string-or-at-least-serializable-why-should-my-action-types-be-constants) 
+  (To allow non-serializable values see: https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data)
+```
+2. datePicker: Sat Oct 23 2021 09:00:07 GMT+0900 (日本標準時)はオブジェト
+3. Reduxの主要な使用原則の1つは、シリアル化できない値を状態またはアクションに入れないことです。シリアライズdevのチェックミドルウェアは自動的にそれはあなたの行動や状態の非直列化可能な値を検出し、いつでも警告が表示されます。誤ってミスをしないように、このミドルウェアをアクティブのままにしておくことをお勧めします。ただし、これらの警告をオフにする必要がある場合は、特定のアクションタイプ、またはアクションと状態のフィールドを無視するようにミドルウェアを構成することで、ミドルウェアをカスタマイズできます。
+`src/app/store.js`
+```
+  configureStore({
+    //...
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          // Ignore these action types
+          ignoredActions: ['puttering/setData'],
+          // Ignore these field paths in all actions
+          ignoredActionPaths: ['puttering/setData', 'payload.data.datePicker'],
+          // Ignore these paths in the state
+          ignoredPaths: ['payload.data.datePicker'],
+        },
+      }),
+  })
+
+```
+4. ignoredActionsで警告をオフ
+  4-1 エラーメッセージに表示されているTypeを確認する。
+  `Take a look at the logic that dispatched this action:  {type: 'puttering/setData', payload: {…}}`
+  4-2 serializableCheckのignoredActionsに指定する
+  ```
+  serializableCheck: {
+          // Ignore these action types
+          ignoredActions: ['puttering/setData'],
+        },
+  ```

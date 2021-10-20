@@ -3,8 +3,8 @@ import {useSelector, useDispatch} from 'react-redux'
 import { selectUser,
         selectIsSignIn,
         } from '../features/auth/authSlice'
-import { selectorAvater,setDounloadURL,getAvatorAsync } from '../features/storage/storageSlice'
-import { Link, Redirect,useHistory} from 'react-router-dom' 
+import { selectorAvater, getAvatorAsync } from '../features/storage/storageSlice'
+import { Link} from 'react-router-dom' 
 import { AvatarFeature } from '../components/index'
 import './page.scss'
 

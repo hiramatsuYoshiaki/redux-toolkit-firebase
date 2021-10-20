@@ -11,6 +11,7 @@ const Activities = () => {
         // {id:'03',name:'Galleries',link:'/activities/galleries'},
         // {id:'04',name:'Chats',link:'/activities/chats'},
         {id:'05',name:'Planning',link:'/activities/planning'},
+        {id:'06',name:'Puttering',link:'/activities/puttering'},
     ]
     return (
         <div className="page-fexed-container">  
