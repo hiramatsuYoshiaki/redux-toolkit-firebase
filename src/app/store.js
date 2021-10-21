@@ -20,7 +20,10 @@ export const store = configureStore({
         //error message: 
         //Take a look at the reducer(s) handling this action type: puttering/setData.
         // Ignore these action types-----------
-        // ignoredActions: ['puttering/setData'],
+        ignoredActions: [
+            'puttering/setData',
+            'firebase/addPuttering/fulfilled'
+        ],
 
         // Ignore these field paths in all actions--------------
         // ignoredActionPaths: ['meta.arg', 'payload.timestamp'],

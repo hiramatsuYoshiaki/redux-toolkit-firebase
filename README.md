@@ -467,3 +467,15 @@ https://www.ok-data.com/entry/redux-toolkit%E3%81%ABfirebase%E3%81%AEtimestamp%E
           ignoredActions: ['puttering/setData'],
         },
   ```
+### Material-ui datetimepicker
+1. date-fnsを使ってフォーマットする。
+  1-1 Installation
+    `npm install date-fns --save`
+  1-2 import
+    `import { format, formatDistance, formatRelative, subDays } from 'date-fns'`
+  1-3. format
+    `{format(datePicker, 'yyyy/MM/dd/ HH:mm')}`
+2. Intl.DateTimeFormatを使ってフォーマットする。
+  2-1 format
+  `{new Intl.DateTimeFormat().format(datePicker)}`
+

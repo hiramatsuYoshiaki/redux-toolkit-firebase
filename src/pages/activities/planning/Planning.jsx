@@ -1,16 +1,16 @@
-import React,{useState} from 'react'
-import {useForm, Controller} from 'react-hook-form'
+import React from 'react'
+// import {useForm, Controller} from 'react-hook-form'
 // import DatePicker from "react-datepicker"
-import　ReactDatePicker from "react-datepicker"
+// import　ReactDatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 // import moment from 'moment';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-import { setLocale } from "yup";
-import * as ja from "yup-locale-ja";
+// import { yupResolver } from '@hookform/resolvers/yup';
+// import * as yup from "yup";
+// import { setLocale } from "yup";
+// import * as ja from "yup-locale-ja";
 // ja.suggestive; // suggestive (提示的)
 // ja.descriptive; // descriptive (記述的)
-setLocale(ja.suggestive);
+// setLocale(ja.suggestive);
 
 // const schema = yup.object({
 //     firstName: yup.string().max(10).required(),
@@ -33,7 +33,7 @@ setLocale(ja.suggestive);
 const Planning = () => {
 
     //reset
-    const { register, handleSubmit, reset, setValue, control } = useForm();
+    // const { register, handleSubmit, reset, setValue, control } = useForm();
 
 
     // const { handleSubmit, register, reset, control, errors } = useForm({
