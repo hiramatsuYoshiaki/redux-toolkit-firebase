@@ -1,8 +1,8 @@
 import { getFirestore, collection, getDocs, query, where} from "firebase/firestore";
 
 export const getDocPuttering = (uid) => {
-    console.log('getDocPuttering firestore-----------')
-    console.log('uid: ',uid)
+    // console.log('getDocPuttering firestore-----------')
+    // console.log('uid: ',uid)
     return new Promise((resolve) => {
         const putterings = []
         const db = getFirestore()
@@ -12,12 +12,12 @@ export const getDocPuttering = (uid) => {
         const q = query(putteringRef, where('uid', '==', uid))
         getDocs(q)
         .then((querySnapshot)=>{
-            console.log('firestore getDocs ok++++++++')
+            // console.log('firestore getDocs ok++++++++')
             querySnapshot.forEach(doc=>{
                 const putteringDoc = doc.data()
                 putterings.push(putteringDoc)
             })
-            console.log('querySnapshot putteringDoc', putterings)
+            // console.log('querySnapshot putteringDoc', putterings)
             resolve({ 
                 data: putterings
             })

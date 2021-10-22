@@ -77,8 +77,10 @@ npm 7.8.0
 `npm install react-datepicker --save`
 ### MUI(material-ui v5)
 `npm install @mui/material @emotion/react @emotion/styled`
+### npm install @mui/icons-material
+`npm install @mui/icons-material`
 ### npm install @mui/lab
-`npm install @mui/lab`npm
+`npm install @mui/lab`
 
 # firebase setup---------------------------
 1. firebase プロジェクトの作成とデプロイ

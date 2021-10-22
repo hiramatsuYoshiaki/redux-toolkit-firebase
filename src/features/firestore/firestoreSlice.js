@@ -13,7 +13,7 @@ const initialState = {
         status: 'idle', 
     }
 
-} 
+}  
 
 export const fetchFirestore = createAsyncThunk(
     'firestore/fetchFirestore',
@@ -71,7 +71,7 @@ export const updateDoc = createAsyncThunk(
         const updateTodo =  await updateDocTodo(todo)
         console.log( 'updateTodo.done', updateTodo.data.done)
         console.log('updateTodo createAsyncThunk todos: ',updateTodo)
-        return updateTodo.data
+        return updateTodo.data 
     }
 )
 
@@ -136,7 +136,7 @@ const firestoreSlice = createSlice({
             state.firestore.status = 'idle'
           })
     }
-});
+}); 
 
 export const { 
     setTodo,

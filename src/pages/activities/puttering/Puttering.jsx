@@ -5,6 +5,8 @@ import { selectorPuttering, addPuttering, getPuttering } from '../../../features
 // import { setData } from '../../../features/puttering/putteringSlice';
 import { useForm, Controller } from "react-hook-form";
 import { TextField, Button } from '@mui/material';
+import { PageHeader} from '../../../components/layout/index'
+import { New, UnFinishList, FinishList} from '../../../components/puttering/index'
 
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -12,15 +14,14 @@ import DateTimePicker from '@mui/lab/DateTimePicker';
 import { format} from 'date-fns'
 
 const Puttering = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch() 
     const user = useSelector(selectUser)
     const putterings = useSelector(selectorPuttering)
     console.log('putterings',putterings)
     const { handleSubmit, control} = useForm()
     const onSubmit = data => {
-        console.log('createPuttering');
-        console.log('input form data',data)
-        
+        // console.log('createPuttering');
+        // console.log('input form data',data)
         const inputValues = {
             uid:user.uid,
             data:data,
@@ -34,13 +35,27 @@ const Puttering = () => {
             dispatch(getPuttering(user.uid))
         }
     },[user.uid,dispatch])
+    const starttime = (dateTime) =>{
+        // console.log('dateTime firestore',dateTime);
+        const jsTimestamp = dateTime.toDate()
+        // console.log('jsTimestamp javascript',jsTimestamp);
+        const fromtDateTime = format(jsTimestamp, 'yyyy/MM/dd/ HH:mm')
+        return  fromtDateTime
+    }
+    
     return (
         <div className="page-fexed-container"> 
+            
+            <PageHeader pageTitle="ポタリング"　user={user}/>
+            <New />
+            <UnFinishList />
+            <FinishList />
+         
             <h3>ポタリング</h3>
             <div>{user.username}</div>
             <div>{user.uid}</div>
+            <div>
             <form onSubmit={handleSubmit(onSubmit)}>
-                
                 <Controller
                     name="title"
                     control={control}
@@ -62,7 +77,7 @@ const Puttering = () => {
                         maxLength : {
                             value: 20,
                             message: 'タイトルは２０文字以内です。' 
-                          }
+                        }
                     }}
                 />
                 <Controller
@@ -83,6 +98,11 @@ const Puttering = () => {
                     }
                     rules={{
                         required:'コースは必須です。',
+                        maxLength : {
+                            value: 40,
+                            message: 'タイトルは４０文字以内です。' 
+                        }
+                        
                     }}
                 />
                 <Controller
@@ -105,8 +125,6 @@ const Puttering = () => {
                         required:'スタート日時は必須です。',
                     }}
                 />
-                
-                
                 <div style={{marginTop:'8px'}}> 
                     <Button 
                         variant="outlined" 
@@ -117,26 +135,21 @@ const Puttering = () => {
                 </div>
                 
             </form>
+            </div>
             <div>
                 <div>store data</div>
                 <div>
                     {putterings.length > 0 && 
                         putterings.map((puttering,index)=>(
                             <div key={index} >
-                                <div>Title: {puttering.puttering.title}</div>
-                                <div>Conrse: {puttering.puttering.course}</div>
-                                <div>Start: {new Intl.DateTimeFormat().format(puttering.puttering.datePicker)}</div>
-                                {/* <div>date-fns:{format(new Date(2014, 1, 11), 'yyyy/MM/dd/')}</div> */}
-                                {/* <div>Start:{format(puttering.puttering.datePicker, 'yyyy/MM/dd/ HH:mm')}</div> */}
+                                <div>サイクリング: {puttering.puttering.title}</div>
+                                <div>コース: {puttering.puttering.course}</div>
+                                <div>スタート時間{starttime(puttering.puttering.datePicker)}</div>
                             </div>
                         ))
                     }
-                    
                 </div>
             </div> 
-
-
-
         </div>
     )
 }

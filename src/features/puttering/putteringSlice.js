@@ -13,9 +13,9 @@ const initialState = {
 export const getPuttering = createAsyncThunk(
     'firebase/getPuttering',
     async (uid)=>{
-        console.log('putteringSlice dispatch getPuttering------------')
+        // console.log('putteringSlice dispatch getPuttering------------')
         const refarence = await getDocPuttering(uid)
-        console.log('getputtering createAsyncThunk data: ',refarence)
+        // console.log('getputtering createAsyncThunk data: ',refarence)
         return refarence.data
     }
     
@@ -24,10 +24,10 @@ export const getPuttering = createAsyncThunk(
 export const addPuttering = createAsyncThunk(
     'firebase/addPuttering',
     async (inputValues)=>{
-        console.log('putteringSlice dispatch addPuttering------------')
-        console.log('inputValues',inputValues)
+        // console.log('putteringSlice dispatch addPuttering------------')
+        // console.log('inputValues',inputValues)
         const reference = await setDocPuttering(inputValues)
-        console.log('rerun firestore data', reference)
+        // console.log('rerun firestore data', reference)
         // const putterings = {
         //     id:reference.data.id,
         //     todo: reference.data.todo,

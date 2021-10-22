@@ -17,13 +17,13 @@ const TodoAdd = ({feilds, uid, dispatch, addTodo}) => {
     const createTodo = (e) => {
         e.preventDefault()
         console.log('createTodo');
-        console.log('todo : ', values.todo); 
+        console.log('todo : ', values.todo); 　
         const inputuValues = {
             uid:uid,
             todo:values.todo,
             done:false
         }
-        dispatch(addTodo(inputuValues))  
+        dispatch(addTodo(inputuValues))   
         
     }
     return (

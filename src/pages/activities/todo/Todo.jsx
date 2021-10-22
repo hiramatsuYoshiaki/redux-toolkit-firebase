@@ -65,7 +65,7 @@ const Todo = () => {
     //     console.log('delTodo')
     // }
     useEffect(()=>{
-        dispatch(getTodo(user.uid))
+        dispatch(getTodo(user.uid)) 
     },[user.uid,dispatch])
     return (
         <div className="page-fexed-container">  
