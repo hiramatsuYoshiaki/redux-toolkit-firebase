@@ -1,6 +1,8 @@
 import { createSlice,　createAsyncThunk } from '@reduxjs/toolkit'
 import { setDocPuttering } from './setDocPuttering'
 import { getDocPuttering } from './getDocPuttering'
+import { updateDocPuttering } from './updateDocPuttering'
+import { removeDocPuttering } from './removeDocPuttering'
 
 const initialState = {
     puttering:{
@@ -10,15 +12,27 @@ const initialState = {
     }
 }
 // get Puttering
-export const getPuttering = createAsyncThunk(
+export const getPuttering = createAsyncThunk( 
     'firebase/getPuttering',
     async (uid)=>{
-        // console.log('putteringSlice dispatch getPuttering------------')
+        console.log('putteringSlice dispatch getPuttering------------')
         const refarence = await getDocPuttering(uid)
-        // console.log('getputtering createAsyncThunk data: ',refarence)
+        console.log('getputtering createAsyncThunk data: ',refarence)
         return refarence.data
     }
     
+)
+//update
+export const updatePuttering = createAsyncThunk( 
+    'firebase/updatePuttering',
+    async (puttering)=>{
+        console.log('updateDoc Puttering craeteAsyncThunk')
+        console.log('Puttering',puttering)
+        const updatePuttering =  await updateDocPuttering(puttering)
+        console.log( 'updateTodo.done', updatePuttering.data.done)
+        console.log('updateTodo createAsyncThunk todos: ',updatePuttering)
+        return updatePuttering.data 
+    }
 )
 //add puttering 
 export const addPuttering = createAsyncThunk(
@@ -42,6 +56,17 @@ export const addPuttering = createAsyncThunk(
             return reference
         }
         return null
+    }
+)
+//dell puttering 
+export const removePuttering = createAsyncThunk(
+    'firestore/dellPuttering',
+    async (selectValues) => {
+        console.log('putteringSlice dispatch dellPuttering------------')
+        console.log('selectValues',selectValues)
+        const refarence = await removeDocPuttering(selectValues)
+        console.log('refarence',refarence)
+        return refarence
     }
 )
 const putteringSlice = createSlice({
@@ -75,7 +100,7 @@ const putteringSlice = createSlice({
         .addCase(addPuttering.rejected, (state, action) => {
             state.puttering.status = 'idle'
         })
-        // firestore getDOc
+        // firestore getDoc
         .addCase(getPuttering.pending, (state) => {
             state.puttering.status = 'loading'
           })

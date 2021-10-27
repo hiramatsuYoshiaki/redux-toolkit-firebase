@@ -13,7 +13,7 @@ const initialState = {
         status: 'idle', 
     }
 
-}  
+}   
 
 export const fetchFirestore = createAsyncThunk(
     'firestore/fetchFirestore',

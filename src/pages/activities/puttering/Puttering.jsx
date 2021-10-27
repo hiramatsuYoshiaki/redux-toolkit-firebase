@@ -1,61 +1,93 @@
-import React,{useEffect} from 'react'
+import React,{useState,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser } from '../../../features/auth/authSlice';
-import { selectorPuttering, addPuttering, getPuttering } from '../../../features/puttering/putteringSlice';
+import { selectorPuttering,  getPuttering } from '../../../features/puttering/putteringSlice';
 // import { setData } from '../../../features/puttering/putteringSlice';
-import { useForm, Controller } from "react-hook-form";
-import { TextField, Button } from '@mui/material';
-import { PageHeader} from '../../../components/layout/index'
-import { New, UnFinishList, FinishList} from '../../../components/puttering/index'
+// import { useForm, Controller } from "react-hook-form";
+// import { TextField, Button } from '@mui/material';
+// import { PageHeader} from '../../../components/layout/index'
+import { New, UnFinishList, FinishList, Header, BottomNav} from '../../../components/puttering/index'
 
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DateTimePicker from '@mui/lab/DateTimePicker';
-import { format} from 'date-fns'
+// import AdapterDateFns from '@mui/lab/AdapterDateFns';
+// import LocalizationProvider from '@mui/lab/LocalizationProvider';
+// import DateTimePicker from '@mui/lab/DateTimePicker';
+// import { format} from 'date-fns'
 
 const Puttering = () => {
+    console.log('putterings')
     const dispatch = useDispatch() 
     const user = useSelector(selectUser)
+
     const putterings = useSelector(selectorPuttering)
-    console.log('putterings',putterings)
-    const { handleSubmit, control} = useForm()
-    const onSubmit = data => {
-        // console.log('createPuttering');
-        // console.log('input form data',data)
-        const inputValues = {
-            uid:user.uid,
-            data:data,
-            done:false,
-        }
-        // dispatch(setData(inputValues))
-        dispatch(addPuttering(inputValues))
-    }
+    console.log('useSelector putterings:',putterings)
+
+    const [isOpenNew, setIsOpenNew] = useState(false)
+    const [isOpenUnFinish, setIsOpenUnFinish] = useState(true)
+    const [isOpenFinish, setIsOpenFinish] = useState(false)
+    
+    // const { handleSubmit, control} = useForm()
+    // const onSubmit = data => {
+    //     // console.log('createPuttering');
+    //     // console.log('input form data',data)
+    //     const inputValues = {
+    //         uid:user.uid,
+    //         data:data,
+    //         done:false,
+    //     }
+    //     // dispatch(setData(inputValues))
+    //     dispatch(addPuttering(inputValues))
+    // }
     useEffect(()=>{
         if(user.uid !== null){
             dispatch(getPuttering(user.uid))
         }
     },[user.uid,dispatch])
-    const starttime = (dateTime) =>{
-        // console.log('dateTime firestore',dateTime);
-        const jsTimestamp = dateTime.toDate()
-        // console.log('jsTimestamp javascript',jsTimestamp);
-        const fromtDateTime = format(jsTimestamp, 'yyyy/MM/dd/ HH:mm')
-        return  fromtDateTime
-    }
+   
+    // const starttime = (dateTime) =>{
+    //     // console.log('dateTime firestore',dateTime);
+    //     const jsTimestamp = dateTime.toDate()
+    //     // console.log('jsTimestamp javascript',jsTimestamp);
+    //     const fromtDateTime = format(jsTimestamp, 'yyyy/MM/dd/ HH:mm')
+    //     return  fromtDateTime
+    // }
     
     return (
         <div className="page-fexed-container"> 
             
-            <PageHeader pageTitle="ポタリング"　user={user}/>
-            <New />
-            <UnFinishList />
-            <FinishList />
+            {/* <PageHeader pageTitle="ポタリング"　 
+                user={user} 
+                isOpenNew={isOpenNew}
+                isOpenUnFinish={isOpenUnFinish}
+                isOpenFinish={isOpenFinish}
+            /> */}
+            <Header pageTitle="ポタリング"　 
+                user={user} 
+                isOpenNew={isOpenNew}
+                isOpenUnFinish={isOpenUnFinish}
+                isOpenFinish={isOpenFinish}
+                setIsOpenNew={setIsOpenNew}
+                setIsOpenUnFinish={setIsOpenUnFinish}
+                setIsOpenFinish={setIsOpenFinish}
+            />
+            <New isOpenNew={isOpenNew} setIsOpenNew={setIsOpenNew} user={user}/>
+            <UnFinishList isOpenUnFinish={isOpenUnFinish} setIsOpenUnFinish={setIsOpenUnFinish} putterings={putterings} user={user}/>
+            <FinishList isOpenFinish={isOpenFinish} setIsOpenFinish={setIsOpenFinish} putterings={putterings} user={user}/>
+            <BottomNav 
+                isOpenNew={isOpenNew}
+                isOpenUnFinish={isOpenUnFinish}
+                isOpenFinish={isOpenFinish}
+                setIsOpenNew={setIsOpenNew}
+                setIsOpenUnFinish={setIsOpenUnFinish}
+                setIsOpenFinish={setIsOpenFinish}
+            />
+            
+
          
-            <h3>ポタリング</h3>
+            {/* <h3>ポタリング</h3>
             <div>{user.username}</div>
-            <div>{user.uid}</div>
-            <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <div>{user.uid}</div> */}
+            {/* <div> */}
+            {/* <form onSubmit={handleSubmit(onSubmit)}>
                 <Controller
                     name="title"
                     control={control}
@@ -134,9 +166,9 @@ const Puttering = () => {
                     </Button>
                 </div>
                 
-            </form>
-            </div>
-            <div>
+            </form> */}
+            {/* </div> */}
+            {/* <div>
                 <div>store data</div>
                 <div>
                     {putterings.length > 0 && 
@@ -149,7 +181,7 @@ const Puttering = () => {
                         ))
                     }
                 </div>
-            </div> 
+            </div>  */}
         </div>
     )
 }

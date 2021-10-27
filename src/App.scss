@@ -30,6 +30,7 @@ a {
   position: fixed;
   top: 0;
   background-color: lightblue;
+  z-index: 99999;
 }
 .App-main{
   min-height: calc(100vh - 3.2rem);

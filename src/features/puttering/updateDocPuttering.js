@@ -1,19 +1,19 @@
 import { getFirestore,doc, updateDoc } from "firebase/firestore";
-export const updateDocTodo = (todo) => {
+export const updateDocPuttering = (puttering) => {
     return new Promise((resolve) =>{
-        console.log('updateDocTodo')
+        console.log('updateDocPuttering')
         const db = getFirestore()
-        const todoRef = doc(db, "todos", todo.id);
-        updateDoc(todoRef, {
-           done: todo.done === true ? false : true
+        const putteringRef = doc(db, "putterings", puttering.id);
+        updateDoc(putteringRef, {
+           done: puttering.done === true ? false : true
           })
         .then((res)=>{
             console.log('firestore updateDoc success good**************')
             const updateTodo =  {
-            id:todo.id,//ドキュメントIDをフィールドに追加
-            todo: todo.todo,
-            done: todo.done === true ? false : true,
-            uid:todo.uid
+            id:puttering.id,//ドキュメントIDをフィールドに追加
+            puttering: puttering.puttering,
+            done: puttering.done === true ? false : true,
+            uid:puttering.uid
             } 
             resolve({ 
                 data: updateTodo
@@ -23,10 +23,10 @@ export const updateDocTodo = (todo) => {
             console.log('firestore updateDoc error ');
             console.log(error);
             const updateTodo =  {
-                id:todo.id,
-                todo: todo.todo,
-                done: todo.done ,
-                uid:todo.uid
+                id:puttering.id,
+                puttering: puttering.puttering,
+                done: puttering.done ,
+                uid:puttering.uid
                 }
             resolve({ 
                 data: updateTodo

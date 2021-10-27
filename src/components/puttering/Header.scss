@@ -1,0 +1,29 @@
+$mobileBreakPoint: 600px; //600
+$tabletBreakPoint: 768px; // 768
+$desktopBreakPoint: 960px; //960
+$widescreenBreakPoint: 1280px; //1280
+$fullhdBreakPoint: 1920px; //1920
+.c-puttring-haeder-container{
+    width:100%;
+    margin:8px 0 8px 0;
+    // padding:0 8px;
+    text-align:center;
+   };
+.c-puttring-haeder-menu{
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    padding:8px;
+    margin-bottom:8px;
+    @media (min-width: $widescreenBreakPoint) {
+        flex-direction: row;
+        justify-content:space-around;
+        align-items: center;
+        margin-bottom:0;
+    } 
+};
+.c-puttring-haeder-menuTitle{
+    margin-right:32px;
+    margin-bottom:16px;
+}

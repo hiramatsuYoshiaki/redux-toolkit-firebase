@@ -10,7 +10,7 @@ import { Home,
         Welcom, 
         Activities,
          } from './pages/index'
-import { Todo,Feeds,Detail,Planning,Puttering } from './pages/activities/index'
+import { Todo,Feeds,Detail,Planning,Puttering, PutteringDetail } from './pages/activities/index'
 import { TopAppBar } from './components/index'
 // import  Auth  from './features/auth/Auth'
 import './App.scss';
@@ -38,6 +38,7 @@ const AppRouter = () => {
                             <Route exact path="/activities/feeds" component={Feeds} />
                             <Route exact path="/activities/planning" component={Planning} />
                             <Route exact path="/activities/puttering" component={Puttering} />
+                            <Route exact path="/activities/putteringDetail" component={PutteringDetail} />
                             <Route exact component={NotFound} />
                         </Switch> 
                     </main>

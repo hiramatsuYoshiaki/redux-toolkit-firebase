@@ -1,0 +1,29 @@
+.c-puttring-new-container{
+    width:100%;
+     padding:16px 8px;
+     margin:0 8px 60px 8px;
+}
+.c-puttring-new-header-title{
+    width:100%;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding:8px;
+    
+}
+.c-puttring-new-header-close{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    cursor:pointer;
+}
+.c-puttring-new-datetime-area{
+    width:"100%";
+    display:flex;
+    flex-direction:flex-start;
+    padding:16px 0;
+}
+.c-puttring-new-submit-button-area{
+    width:"100%";
+}
