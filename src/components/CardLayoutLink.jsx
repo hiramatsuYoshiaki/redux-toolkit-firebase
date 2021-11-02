@@ -6,9 +6,14 @@ const CardLayoutLink = ({items}) => {
         <div className="c-cards">
             {items.map(item=>(
                 <div key={item.id} className="c-cards__item">
-                    <div className="c-card__item-wraper">
-                        <Link to={item.link}>{item.name}</Link>
-                    </div>
+                    <Link to={item.link}>
+                        <div className="c-card__item-wraper">
+                            <div>
+                                <h5>{item.name}</h5>
+                                {/* <h6>{item.guide}</h6> */}
+                            </div>
+                        </div> 
+                    </Link>
                     
                 </div>
             ))}

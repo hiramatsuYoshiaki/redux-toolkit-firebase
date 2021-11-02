@@ -31,4 +31,6 @@ export const listenAuth = () => {
             }
         });
     })
+    // .then(res=>{console.log('ok listenAuth')})
+    // .catch(error=>{console.log(error.message)})
 }

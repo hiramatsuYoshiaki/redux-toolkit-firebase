@@ -3,6 +3,7 @@ import { listenAuth } from './listenAuth'
 import { signin } from './signin'
 import { signout } from './signout'
 import { createAccount } from './createAccount'
+import { setDocAccount } from '../account/setDocAccount'
 
 //staet
 const initialState = {
@@ -24,16 +25,16 @@ export const listenAuthState = createAsyncThunk(
         // console.log(signInUser.data.email)
         return signInUser.data //<--------payloadに渡される
     }
-)
+) 
 //firebase auth signInWithEmailAndPassword
 export const signInAsync = createAsyncThunk(
     'auth/signIn',
     async (inputValue) => { 
-        console.log('inputValue.email',inputValue.email)
-        console.log('inputValue.password',inputValue.password)
-        console.log('signIn ==============')
+        // console.log('inputValue.email',inputValue.email)
+        // console.log('inputValue.password',inputValue.password)
+        // console.log('signIn ==============')
         const signInUser = await signin(inputValue.email, inputValue.password)
-        console.log('signInUser',signInUser)
+        // console.log('signInUser',signInUser)
         return signInUser.data
     }
 )
@@ -41,9 +42,9 @@ export const signInAsync = createAsyncThunk(
 export const signOutAsync = createAsyncThunk(
     'auth/signOut',
     async () => {
-        console.log('signOut =============')
+        // console.log('signOut =============')
         const signInUser = await signout()
-        console.log('signInUser',signInUser)
+        // console.log('signInUser',signInUser)
         return signInUser.data
     }
 )
@@ -51,21 +52,47 @@ export const signOutAsync = createAsyncThunk(
 export const createAccountAsync = createAsyncThunk( 
   'auth/createAccount',
   async (inputValue) => {
-      console.log('createAccount =============')
-      console.log('inputValue.email',inputValue.email)
-        console.log('inputValue.password',inputValue.password)
-        console.log('inputValue.displayName',inputValue.displayName)
-        console.log('inputValue.photoURL',inputValue.photoURL)
+      // console.log('createAccount =============')
+      // console.log('inputValue.email',inputValue.email)
+      //   console.log('inputValue.password',inputValue.password)
+      //   console.log('inputValue.displayName',inputValue.displayName)
+      //   console.log('inputValue.photoURL',inputValue.photoURL)
         const signInUser = await createAccount(inputValue.email, 
                                                 inputValue.password,
                                                 inputValue.displayName,
                                                 inputValue.photoURL,
                                               )
-        console.log('signInUser',signInUser)
-        return signInUser.data
-  }
-)
+        // console.log('signInUser',signInUser)
 
+        //firestoreにアカウント情報を追加
+        // data: {
+        //   isSignIn: true, 
+        //   role:"",
+        //   uid: user.uid,
+        //   username:displayName,
+        //   email:user.email,
+        //   photoURL:photoURL
+        //   } 
+        // email:"",
+        // password:"",
+        // displayName:"",
+        // photoURL:"gs://redux-toolkit-firebase-bdbac.appspot.com/users/undraw_profile_pic_ic5t.png"
+        console.log('firestore add account ')
+        console.log('signInUser.data.username: ',signInUser.data.username)
+        const user = {
+          uid: signInUser.data.uid,
+          username: signInUser.data.username,
+          email: signInUser.data.email,
+          photoURL: signInUser.data.photoURL,
+        }
+        const refarence = await setDocAccount(user)
+        console.log(refarence)
+
+
+        return signInUser.data 
+  }
+) 
+ 
 
 
 //action
@@ -124,7 +151,7 @@ const authSlice = createSlice({
             state.user.email = action.payload.email
             state.user.photoURL = action.payload.photoURL
             state.user.status = 'idle'
-            console.log('auth/signInAsync*********',action) 
+            // console.log('auth/signInAsync*********',action) 
           })
           .addCase(signInAsync.rejected, (state, action) => {
             state.user.isSignIn = false;
@@ -143,7 +170,7 @@ const authSlice = createSlice({
             state.user.email = action.payload.email
             state.user.photoURL = action.payload.photoURL
             state.user.status = 'idle'
-            console.log('auth/signOutAsync*********',action) 
+            // console.log('auth/signOutAsync*********',action) 
           })
           .addCase(signOutAsync.rejected, (state, action) => {
             state.user.isSignIn = false;
@@ -163,7 +190,7 @@ const authSlice = createSlice({
             state.user.email = action.payload.email
             state.user.photoURL = action.payload.photoURL
             state.user.status = 'idle'
-            console.log('auth/createAccountAsync*********',action) 
+            // console.log('auth/createAccountAsync*********',action) 
           })
           .addCase(createAccountAsync.rejected, (state, action) => {
             state.user.isSignIn = false;
@@ -179,4 +206,4 @@ export const { signinAction,singoutAction } = authSlice.actions
 export const selectUser = (state) => state.auth.user
 export const selectIsSignIn = (state) => state.auth.user.isSignIn
 export const selectStatus = (state) => state.auth.user.status
-export default authSlice.reducer
+export default authSlice.reducer 

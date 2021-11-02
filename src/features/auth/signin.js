@@ -35,4 +35,6 @@ export const signin = (email, password) => {
                 })
             });
     })
+    // .then(res=>{console.log('ok signin')})
+    // .catch(error=>{console.log(error.message)})
 }

@@ -39,4 +39,6 @@ export const removeDocPuttering = (puttering) => {
             })
         })
     })
+    // .then(res=>{console.log('ok removeDocPuttering')})
+    // .catch(error=>{console.log(error.message)})
 }

@@ -1,4 +1,4 @@
-import { createSlice,　createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { setDocPuttering } from './setDocPuttering'
 import { getDocPuttering } from './getDocPuttering'
 import { updateDocPuttering } from './updateDocPuttering'
@@ -10,9 +10,9 @@ const initialState = {
         putterings:[],
         status:'idle' 
     }
-}
+} 
 // get Puttering
-export const getPuttering = createAsyncThunk( 
+export const getPuttering = createAsyncThunk(   
     'firebase/getPuttering',
     async (uid)=>{
         console.log('putteringSlice dispatch getPuttering------------')
@@ -20,7 +20,6 @@ export const getPuttering = createAsyncThunk(
         console.log('getputtering createAsyncThunk data: ',refarence)
         return refarence.data
     }
-    
 )
 //update
 export const updatePuttering = createAsyncThunk( 
@@ -41,17 +40,6 @@ export const addPuttering = createAsyncThunk(
         // console.log('putteringSlice dispatch addPuttering------------')
         // console.log('inputValues',inputValues)
         const reference = await setDocPuttering(inputValues)
-        // console.log('rerun firestore data', reference)
-        // const putterings = {
-        //     id:reference.data.id,
-        //     todo: reference.data.todo,
-        //     done: false,
-        //     uid:reference.data.uid,
-        //     // update_at:'2021-10-07',
-        //     // create_at:'2021-10-07',
-        //     // update_at:action.payload.update_at,
-        //     // create_at:action.payload.create_at,
-        // }
         if(reference !== null){
             return reference
         }
@@ -62,10 +50,10 @@ export const addPuttering = createAsyncThunk(
 export const removePuttering = createAsyncThunk(
     'firestore/dellPuttering',
     async (selectValues) => {
-        console.log('putteringSlice dispatch dellPuttering------------')
-        console.log('selectValues',selectValues)
+        // console.log('putteringSlice dispatch dellPuttering------------')
+        // console.log('selectValues',selectValues)
         const refarence = await removeDocPuttering(selectValues)
-        console.log('refarence',refarence)
+        // console.log('refarence',refarence)
         return refarence
     }
 )
@@ -113,8 +101,8 @@ const putteringSlice = createSlice({
             state.puttering.status = 'idle'
         })
 
-    }
-});
+    } 
+}); 
 
 export const {
     setData

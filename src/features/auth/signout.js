@@ -20,4 +20,6 @@ export const signout = () => {
         });
         
     })
+    // .then(res=>{console.log('ok signout')})
+    // .catch(error=>{console.log(error.message)})
 }

@@ -15,19 +15,21 @@ export const getDocPuttering = (uid) => {
             // console.log('firestore getDocs ok++++++++')
             querySnapshot.forEach(doc=>{
                 const putteringDoc = doc.data()
-                putterings.push(putteringDoc)
+                putterings.push(putteringDoc) 
             })
             // console.log('querySnapshot putteringDoc', putterings)
             resolve({ 
-                data: putterings
+                data: putterings  
             })
         })
         .catch((error) => {
-            console.log('firestore setDoc error---------------------- ');
+            console.log('firestore setDoc error---------------------- ')
             console.log(error);
             resolve({ 
                 data: []
             })
         })
     })
+    // .then((res)=>{console.log('ok getDocPuttering')})
+    // .catch(error=>{console.log(error.maeesge)})
 }

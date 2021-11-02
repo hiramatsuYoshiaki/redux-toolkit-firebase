@@ -1,26 +1,33 @@
 import React from 'react'
+import {useDispatch} from 'react-redux'
 import { useLocation } from 'react-router-dom';
-import {Link,Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
+import {addTimeline} from '../../../features/putteringTimeline/timelineSlice'
+
 import { format} from 'date-fns'
+import {PutteringDetailMenuBar} from '../../../components/puttering/index'
+import Button from '@mui/material/Button';
 
-
-const PutteringDetail = () => {
-    const location= useLocation();
-    console.log(location.state);
-    
+const PutteringDetail = (props) => {
+    const location= useLocation(); 
+    const dispatch = useDispatch()
+    // console.log(location.state);
+    const publish = () => {
+        console.log('publich');
+        dispatch(addTimeline(location)) 
+    }
     return (
-        
         <div className="page-fexed-container">
             {(location === null  || location === undefined)
                 ? <Redirect push to="/activities/puttering" />
                 : <div>
-                    <h1>puttering detail</h1>
                     <h1>{location.state.field.puttering.title}</h1>
                     <h3>{location.state.field.puttering.course}</h3>
                     <h3>{format(location.state.field.puttering.datePicker, 'yyyy/MM/dd/ HH:mm')}</h3>
-                    <h3><Link to="/activities/puttering">戻る</Link></h3>
+                    <Button variant="outlined" onClick={publish}>Publish 公開</Button>
                   </div>
             }
+            <PutteringDetailMenuBar />
             {/* <LoadingSpiner isLoading={isLoding}/> */}
         </div>
     )

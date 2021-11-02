@@ -1,12 +1,17 @@
 import React,{useState,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser } from '../../../features/auth/authSlice';
-import { selectorPuttering,  getPuttering } from '../../../features/puttering/putteringSlice';
+import { selectorPuttering,  
+         getPuttering } from '../../../features/puttering/putteringSlice';
 // import { setData } from '../../../features/puttering/putteringSlice';
 // import { useForm, Controller } from "react-hook-form";
 // import { TextField, Button } from '@mui/material';
 // import { PageHeader} from '../../../components/layout/index'
-import { New, UnFinishList, FinishList, Header, BottomNav} from '../../../components/puttering/index'
+import { New, 
+         UnFinishList, 
+         FinishList, 
+         Header, 
+         BottomNav} from '../../../components/puttering/index'
 
 // import AdapterDateFns from '@mui/lab/AdapterDateFns';
 // import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -60,7 +65,7 @@ const Puttering = () => {
                 isOpenUnFinish={isOpenUnFinish}
                 isOpenFinish={isOpenFinish}
             /> */}
-            <Header pageTitle="ポタリング"　 
+            <Header pageTitle="マイポタリング"　 
                 user={user} 
                 isOpenNew={isOpenNew}
                 isOpenUnFinish={isOpenUnFinish}
@@ -79,7 +84,7 @@ const Puttering = () => {
                 setIsOpenNew={setIsOpenNew}
                 setIsOpenUnFinish={setIsOpenUnFinish}
                 setIsOpenFinish={setIsOpenFinish}
-            />
+            /> 
             
 
          

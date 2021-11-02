@@ -3,7 +3,7 @@ import {Redirect} from 'react-router-dom'
 import {InputForm} from '../components/index'
 import {InputUser} from '../components/InputUser'
 import {useDispatch,useSelector} from 'react-redux'
-import {createAccountAsync, selectIsSignIn,} from '../features/auth/authSlice'
+import {createAccountAsync, selectIsSignIn} from '../features/auth/authSlice'
 import './page.scss'
 
 const CreateAccount = () => {
@@ -22,20 +22,20 @@ const CreateAccount = () => {
     })
     const createAccount = (e) => {
         e.preventDefault()
-        alert('submit email: ' + values.email + 
-              ' password: ' + values.password +
-              ' displayName: ' + values.displayName +
-              ' photoURL: ' + values.photoURL 
-              )
-        dispatch(createAccountAsync(values))
+        // alert('submit email: ' + values.email + 
+        //       ' password: ' + values.password +
+        //       ' displayName: ' + values.displayName +
+        //       ' photoURL: ' + values.photoURL 
+        //       )
+        dispatch(createAccountAsync(values))  //firebase auth createAccount
     }
     // useEffect(()=>{
     //     if(isSignIn !== true){
-    //         dispatch(listenAuthState())
+    //         dispatch(listenAuthState()) 
     //     }
     // },[isSignIn,dispatch])
     return (
-        <div className="page-container">
+        <div className="page-container"> 
 
             {isSignIn === true
             ? 

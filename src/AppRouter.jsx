@@ -10,7 +10,17 @@ import { Home,
         Welcom, 
         Activities,
          } from './pages/index'
-import { Todo,Feeds,Detail,Planning,Puttering, PutteringDetail } from './pages/activities/index'
+import { Todo, 
+         Feeds, 
+         Detail, 
+         Planning, 
+         PutteringTop, 
+         Puttering, 
+         PutteringDetail , 
+         PutteringTimeline,
+         PutteringChats,
+         PutteringConfig,
+        } from './pages/activities/index'
 import { TopAppBar } from './components/index'
 // import  Auth  from './features/auth/Auth'
 import './App.scss';
@@ -37,8 +47,12 @@ const AppRouter = () => {
                             <Route exact path="/activities/detail" component={Detail} />
                             <Route exact path="/activities/feeds" component={Feeds} />
                             <Route exact path="/activities/planning" component={Planning} />
+                            <Route exact path="/activities/putteringTop" component={PutteringTop} />
                             <Route exact path="/activities/puttering" component={Puttering} />
                             <Route exact path="/activities/putteringDetail" component={PutteringDetail} />
+                            <Route exact path="/activities/putteringTimeline" component={PutteringTimeline} />
+                            <Route exact path="/activities/putteringChats" component={PutteringChats} />
+                            <Route exact path="/activities/putteringConfig" component={PutteringConfig} />
                             <Route exact component={NotFound} />
                         </Switch> 
                     </main>

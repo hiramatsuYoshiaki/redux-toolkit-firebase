@@ -6,12 +6,16 @@ import { CardLayoutLink } from '../components/index'
 const Activities = () => {
     const isSignIn = useSelector(selectIsSignIn)
     const items = [
-        {id:'01',name:'Todos',link:'/activities/todos'},
-        {id:'02',name:'Feeds',link:'/activities/feeds'},
-        // {id:'03',name:'Galleries',link:'/activities/galleries'},
+        {id:'01',name:'Todos',link:'/activities/todos', 
+            guide:''}, 
+        {id:'02',name:'Feeds',link:'/activities/feeds', 
+            guide:''},
+        // {id:'03',name:'Galleries',link:'/activities/galleries'}, 
         // {id:'04',name:'Chats',link:'/activities/chats'},
-        {id:'05',name:'Planning',link:'/activities/planning'},
-        {id:'06',name:'Puttering',link:'/activities/puttering'},
+        {id:'05',name:'Planning',link:'/activities/planning', 
+            guide:''},
+        {id:'06',name:'ポタリング',link:'/activities/putteringTimeline', 
+            guide:'サイクリングを楽しくするサイト'},
     ]
     return (
         <div className="page-fexed-container">  
@@ -27,7 +31,7 @@ const Activities = () => {
                 <CardLayoutLink items={items} />
             </>
             }
-        </div>
+        </div> 
         
     )
 }

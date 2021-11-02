@@ -45,7 +45,6 @@ const FinishList = ({isOpenFinish, setIsOpenFinish, putterings, user}) => {
         // history.push('/activities/putteringDetail')
         history.push({
             pathname: '/activities/putteringDetail',
-            // state:{field:detailPuttering}
             state:{
                 field:{
                     create_at:detailPuttering.create_at.toDate(),

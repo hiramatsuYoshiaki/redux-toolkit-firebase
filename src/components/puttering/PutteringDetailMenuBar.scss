@@ -1,0 +1,21 @@
+$mobileBreakPoint: 600px; //600
+$tabletBreakPoint: 768px; // 768
+$desktopBreakPoint: 960px; //960
+$widescreenBreakPoint: 1280px; //1280
+$fullhdBreakPoint: 1920px; //1920
+.c-puttring-detail-menu-bar-container{
+    width:100%;
+    position:fixed;
+    bottom:0;
+    left:0;
+    // border:1px solid red;
+    @media (min-width: $widescreenBreakPoint) {
+        flex-direction: row;
+        justify-content:space-between;
+        margin-bottom:0;
+    } 
+   };
+
+
+
+

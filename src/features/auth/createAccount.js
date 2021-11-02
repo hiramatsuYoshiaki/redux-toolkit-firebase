@@ -21,7 +21,7 @@ export const createAccount = (email, password, displayName, photoURL) => {
                 // console.log('photoURL',photoURL);
                 resolve({ 
                     data: {
-                        isSignIn: true,
+                        isSignIn: true, 
                         role:"",
                         uid: user.uid,
                         username:displayName,
@@ -89,4 +89,6 @@ export const createAccount = (email, password, displayName, photoURL) => {
         //         })
         //     });
     })
+    // .then(res=>{console.log('ok createAccount')})
+    // .catch(error=>{console.log(error.message)})
 }

@@ -33,4 +33,6 @@ export const updateDocPuttering = (puttering) => {
             })
         })
     })
+    // .then(res=>{console.log('ok updateDocPuttering')})
+    // .catch(error=>{console.log(error.message)})
 }

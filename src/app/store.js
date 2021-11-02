@@ -4,6 +4,8 @@ import authReducer from '../features/auth/authSlice'
 import storageReducer from '../features/storage/storageSlice'
 import firestoreReducer from '../features/firestore/firestoreSlice'
 import putteringReducer from '../features/puttering/putteringSlice'
+import accountReducer from '../features/account/accountSlice'
+import timelineReducer from '../features/putteringTimeline/timelineSlice'
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +13,9 @@ export const store = configureStore({
     auth:authReducer,
     storage:storageReducer,
     firestore:firestoreReducer, 
-    puttering:putteringReducer
+    puttering:putteringReducer,
+    account:accountReducer,
+    timeline:timelineReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

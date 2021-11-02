@@ -5,7 +5,7 @@ export const setDocPuttering = (values) => {
     // console.log('setDocPuttering inputValues',values)
     return new Promise((resolve)=>{
        const db = getFirestore()
-       const newTodoRef = doc(collection(db, "putterings"));
+       const newTodoRef = doc(collection(db, "putterings"))
         // console.log('new document with a generated id')
         // console.log(newTodoRef.id)
         const addPuttering =  {
@@ -16,20 +16,22 @@ export const setDocPuttering = (values) => {
             create_at:serverTimestamp(),
             update_at:serverTimestamp(),
         }
-        setDoc(newTodoRef, addPuttering ) 
+        setDoc(newTodoRef, addPuttering )  
         .then((res)=>{
             // console.log('firestore setDoc success good**************')
               resolve({ 
-                  data: addPuttering
+                  data: addPuttering 
               })
           }
         )
         .catch((error) => {
-            console.log('firestore setDoc error ');
+            console.log('firestore setDoc error Putterings');
             console.log(error);
             resolve({ 
                 data: null
             })
         })
     })
+    // .then(res=>{console.log('ok setDocPuttering')})
+    // .catch(error=>{console.log(error.message)})
 }
