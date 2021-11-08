@@ -28,7 +28,7 @@ const SignIn = () => {
     const signIn = (e) => {
         e.preventDefault()
         // alert('submit email: ' + values.email + ' password: ' + values.password)
-        dispatch(signInAsync(values))
+        dispatch(signInAsync(values))　
     }
     // useEffect(()=>{
     //     if(isSignIn !== true){

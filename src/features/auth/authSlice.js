@@ -4,8 +4,9 @@ import { signin } from './signin'
 import { signout } from './signout'
 import { createAccount } from './createAccount'
 import { setDocAccount } from '../account/setDocAccount'
+import { updateUsername } from './updateUsername'
 
-//staet
+//state
 const initialState = {
     user:{
         isSignIn: false,
@@ -38,6 +39,36 @@ export const signInAsync = createAsyncThunk(
         return signInUser.data
     }
 )
+//firebase auth updateProfile
+// displayName
+// photoUR
+export const updateProfileAsync = createAsyncThunk(
+    'auth/updateProfile',
+    async (username) => { 
+        console.log('updateProfileAsync -------------------')
+        console.log('username',username)
+        const name = await updateUsername(username)
+        // console.log('updateUsername',updateUsername)
+        return name.data
+    }
+)
+//firebase auth updateEmail
+// displayName
+// photoUR
+export const updateEmailAsync = createAsyncThunk(
+    'auth/updateEmail',
+    async (email) => { 
+        console.log('updateEmailAsync -------------------')
+        console.log('email',email)
+        // console.log('inputValue.password',inputValue.password)
+        // console.log('signIn ==============')
+        // const signInUser = await signin(inputValue.email, inputValue.password)
+        const updateEmail = null
+        // console.log('updateEmail',updateEmail)
+        return updateEmail.data
+    }
+)
+
 //firebase auth signOut
 export const signOutAsync = createAsyncThunk(
     'auth/signOut',

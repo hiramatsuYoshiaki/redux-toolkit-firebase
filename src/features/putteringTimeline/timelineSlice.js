@@ -26,13 +26,13 @@ export const addTimeline = createAsyncThunk(
         console.log('timelineSlice dispatch addTimeline------------')
         // console.log('post',post)
         // console.log('state',post.state)
-        // console.log('field',post.state.field)
+        console.log('field',post.state.field)
         // console.log('uid',post.state.field.uid)
         // console.log('puttering',post.state.field.puttering)
         // console.log('title',post.state.field.puttering.title)
         // console.log('course',post.state.field.puttering.course)
         // console.log('date',post.state.field.puttering.datePicker)
-        const reference = await setDocTimeline(post) 
+        const reference = await setDocTimeline(post)  
         console.log('reference', reference)
         // if(reference !== null){
         //     return reference

@@ -56,7 +56,8 @@ const FinishList = ({isOpenFinish, setIsOpenFinish, putterings, user}) => {
                         title:detailPuttering.puttering.title
                     },
                     uid:detailPuttering.uid,
-                    update_at:detailPuttering.update_at.toDate()
+                    update_at:detailPuttering.update_at.toDate(),
+                    user:user,
                 }
             }
         })

@@ -8,7 +8,7 @@ const initialState = {
     puttering:{
         uid:null,
         putterings:[],
-        status:'idle' 
+        status:'idle'  
     }
 } 
 // get Puttering
@@ -103,7 +103,7 @@ const putteringSlice = createSlice({
 
     } 
 }); 
-
+ 
 export const {
     setData
 } = putteringSlice.actions

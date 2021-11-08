@@ -36,10 +36,10 @@ const New = ({isOpenNew,setIsOpenNew,user}) => {
             },
             done:false,
         }
-        dispatch(addPuttering(inputValues))
+        dispatch(addPuttering(inputValues)) 
     }
     const handleClose = () => {
-        setIsOpenNew(!isOpenNew)
+        setIsOpenNew(!isOpenNew)  
     }
     return (
         <div className="c-puttring-new-container" style={isOpenNew ? styles.open : styles.close}>

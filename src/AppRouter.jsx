@@ -4,6 +4,7 @@ import { Home,
         SignIn, 
         SignOut, 
         CreateAccount, 
+        EditProfile,
         ResetPassword, 
         Account, 
         NotFound, 
@@ -39,6 +40,7 @@ const AppRouter = () => {
                             <Route exact path="/signin" component={SignIn} />
                             <Route exact path="/signout" component={SignOut} />
                             <Route exact path="/createaccount" component={CreateAccount} />
+                            <Route exact path="/editProfile" component={EditProfile} />
                             <Route exact path="/resetpassword" component={ResetPassword} />
                             <Route exact path="/welcom" component={Welcom} />
                             <Route exact path="/account" component={Account} />

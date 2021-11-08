@@ -53,15 +53,15 @@ const ResetPassword = () => {
     // },[isSignIn,dispatch])
     return (
         <div className="page-container"> 
-            {isSignIn === true
+            {isSignIn === false
             ?
             <div>
-                <Redirect push to='/signout' />  
+                <Redirect push to='/signin' />  
             </div>
             :
             <div>
                 <div style={styles.wraper}>
-                <div>サインインしてください。</div>
+                <div>パスワードリッセット</div>
                         <form onSubmit={resetPassword}>
                             <InputForm 
                                 label='メールアドレス'

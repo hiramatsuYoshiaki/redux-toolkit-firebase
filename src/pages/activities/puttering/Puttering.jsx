@@ -73,7 +73,7 @@ const Puttering = () => {
                 setIsOpenNew={setIsOpenNew}
                 setIsOpenUnFinish={setIsOpenUnFinish}
                 setIsOpenFinish={setIsOpenFinish}
-            />
+            /> 
             <New isOpenNew={isOpenNew} setIsOpenNew={setIsOpenNew} user={user}/>
             <UnFinishList isOpenUnFinish={isOpenUnFinish} setIsOpenUnFinish={setIsOpenUnFinish} putterings={putterings} user={user}/>
             <FinishList isOpenFinish={isOpenFinish} setIsOpenFinish={setIsOpenFinish} putterings={putterings} user={user}/>

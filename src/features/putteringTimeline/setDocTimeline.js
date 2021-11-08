@@ -12,6 +12,7 @@ export const setDocTimeline = (post) => {
             title:post.state.field.puttering.title,
             course:post.state.field.puttering.course,
             datePicker:post.state.field.puttering.datePicker,
+            user:post.state.field.user,
             create_at:serverTimestamp(),
             update_at:serverTimestamp(),
         }

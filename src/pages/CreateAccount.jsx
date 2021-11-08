@@ -22,7 +22,7 @@ const CreateAccount = () => {
     })
     const createAccount = (e) => {
         e.preventDefault()
-        // alert('submit email: ' + values.email + 
+        // alert('submit email: ' + values.email +  
         //       ' password: ' + values.password +
         //       ' displayName: ' + values.displayName +
         //       ' photoURL: ' + values.photoURL 
@@ -31,7 +31,7 @@ const CreateAccount = () => {
     }
     // useEffect(()=>{
     //     if(isSignIn !== true){
-    //         dispatch(listenAuthState()) 
+    //         dispatch(listenAuthState()) 　
     //     }
     // },[isSignIn,dispatch])
     return (

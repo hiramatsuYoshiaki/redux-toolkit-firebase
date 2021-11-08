@@ -10,11 +10,12 @@ import Button from '@mui/material/Button';
 
 const PutteringDetail = (props) => {
     const location= useLocation(); 
+    console.log('location',location);
     const dispatch = useDispatch()
     // console.log(location.state);
     const publish = () => {
         console.log('publich');
-        dispatch(addTimeline(location)) 
+        dispatch(addTimeline(location))   
     }
     return (
         <div className="page-fexed-container">

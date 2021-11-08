@@ -481,3 +481,105 @@ https://www.ok-data.com/entry/redux-toolkit%E3%81%ABfirebase%E3%81%AEtimestamp%E
   2-1 format
   `{new Intl.DateTimeFormat().format(datePicker)}`
 
+# react-hook-form
+## UI ライブラリを使用してバリデーションをエラーを適用する
+1. インストール
+`npm install react-hook-form`
+2. インポート
+`import { useForm, Controller } from "react-hook-form";` 
+3. useForm()を使用する
+`const { handleSubmit, control} = useForm()`
+4. フォームのonSubmitからhandleSubmitを実行する
+```
+<form onSubmit={handleSubmit(onSubmit)}>
+    <div>
+        <Button type='submit'>
+            SUBMIT
+        </Button>
+    </div>
+</form>
+```
+5. UI ライブラリを使用するために、Controllerでラップする。
+```
+<Controller
+    name="username"
+    control={control}
+    defaultValue=""
+    render={({ field: { onChange, value }, fieldState: { error } }) =>
+        <TextField
+            id="username" 
+            label="ユーザー名"
+            value={value}
+            onChange={onChange}
+            error={!!error}
+            helperText={error ? error.message : null}
+            fullWidth
+            margin="normal"
+        />
+    }
+/>
+```
+6. バリデーションを設定する
+```
+rules={{
+    required:'ユーザー名は必須です。',
+    maxLength : {
+        value: 20,
+        message: 'ユーザー名は２０文字以内です。' 
+    }
+}}
+```
+
+7. 簡単な使用例（全体のコード）
+```
+import React from 'react'
+import { TextField, Button } from '@mui/material';
+import { useForm, Controller } from "react-hook-form";
+
+const EditProfile = () => {
+    const { handleSubmit, control} = useForm()
+    const onSubmit = data => {
+        console.log('input form data',data)
+    }
+    return (
+        <div className="page-fexed-container">  
+            <div>UI ライブラリを使用してする</div>
+            <div>バリデーションを適用する</div>
+            <div>エラーを適用する</div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div>
+                <Controller
+                        name="username"
+                        control={control}
+                        defaultValue=""
+                        render={({ field: { onChange, value }, fieldState: { error } }) =>
+                            <TextField
+                                id="username" 
+                                label="ユーザー名"
+                                value={value}
+                                onChange={onChange}
+                                error={!!error}
+                                helperText={error ? error.message : null}
+                                fullWidth
+                                margin="normal"
+                            />
+                        }
+                        rules={{
+                            required:'ユーザー名は必須です。',
+                            maxLength : {
+                                value: 20,
+                                message: 'ユーザー名は２０文字以内です。' 
+                            }
+                        }}
+                    />
+                    <Button type='submit'>
+                        SUBMIT
+                    </Button>
+                </div>
+            </form>
+
+        </div>
+    )
+}
+export default EditProfile
+```
