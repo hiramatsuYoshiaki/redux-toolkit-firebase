@@ -5,6 +5,7 @@ import { signout } from './signout'
 import { createAccount } from './createAccount'
 import { setDocAccount } from '../account/setDocAccount'
 import { updateUsername } from './updateUsername'
+import { updateUseremail } from './updateUseremail'
 
 //state
 const initialState = {
@@ -55,17 +56,16 @@ export const updateProfileAsync = createAsyncThunk(
 //firebase auth updateEmail
 // displayName
 // photoUR
+//vor8n5eoA8b6Ak3dmLkG2Z6fQZ22 user2
 export const updateEmailAsync = createAsyncThunk(
     'auth/updateEmail',
-    async (email) => { 
+      async (value) => { 
         console.log('updateEmailAsync -------------------')
-        console.log('email',email)
-        // console.log('inputValue.password',inputValue.password)
-        // console.log('signIn ==============')
-        // const signInUser = await signin(inputValue.email, inputValue.password)
-        const updateEmail = null
-        // console.log('updateEmail',updateEmail)
-        return updateEmail.data
+        console.log('email',value)
+        const respons = await updateUseremail(value)
+        console.log('updateEmail',respons)
+        console.log('updateEmail chenged email:',respons.data.email)
+        return respons.data
     }
 )
 

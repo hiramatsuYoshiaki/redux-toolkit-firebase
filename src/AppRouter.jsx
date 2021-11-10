@@ -6,6 +6,7 @@ import { Home,
         CreateAccount, 
         EditProfile,
         ResetPassword, 
+        UpdateEmail,
         Account, 
         NotFound, 
         Welcom, 
@@ -42,6 +43,7 @@ const AppRouter = () => {
                             <Route exact path="/createaccount" component={CreateAccount} />
                             <Route exact path="/editProfile" component={EditProfile} />
                             <Route exact path="/resetpassword" component={ResetPassword} />
+                            <Route exact path="/updateemail" component={UpdateEmail} />
                             <Route exact path="/welcom" component={Welcom} />
                             <Route exact path="/account" component={Account} />
                             <Route exact path="/activities" component={Activities} />

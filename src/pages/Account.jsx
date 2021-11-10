@@ -20,7 +20,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import { useForm, Controller } from "react-hook-form";
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import { AvaterRemove, AvaterUpdae, Passreset, ProfileUpdae } from '../components/account/index'
+import { AvaterRemove, AvaterUpdae, ProfileUpdae } from '../components/account/index'
+
+import { getAuth, sendSignInLinkToEmail,sendEmailVerification } from "firebase/auth";
+
 import './page.scss'
 
 const styles={
@@ -78,6 +81,26 @@ const Account = () => {
     //     }
     //     dispatch(addPuttering(inputValues)) 
     // }
+    const handleClickEmailUpdate = () => {
+        const auth = getAuth();
+        const actionCodeSettings = {
+            // url: 'https://redux-toolkit-firebase-bdbac.web.app/updateemail',
+            url: 'http://localhost:3000/updateemail',
+            handleCodeInApp: true,
+          };
+          sendSignInLinkToEmail(auth, profile.email, actionCodeSettings)
+        .then(() => {
+            window.localStorage.setItem('emailForSignIn', profile.email);
+            console.log('sendSignInLinkToEmail window.localStorage.setItem email: ',profile.email)
+            alert(profile.email + 'へログインのリクエストを送信しました。メールを開いてリンク（ACTIVITIESにログイン）をクリックしてください。ブラウザに表示されたページからメールアドレスの変更を完了してください。')
+        })
+        .catch((error) => {
+            const errorCode = error.code
+            const errorMessage = error.message
+            console.log(errorCode)
+            console.log(errorMessage)
+        });
+    }
     useEffect(()=>{
         // console.log('useEffect storege getAvater');
         if(photoURL !== ''){
@@ -149,10 +172,11 @@ const Account = () => {
                         >
                             <div>プロフィールを変更する</div>
                         </AccordionSummary>
-                        <AccordionDetails>
+
                         <AccordionDetails>
                             <ProfileUpdae username={profile.username} email={profile.email}/>
                         </AccordionDetails>
+                        
                             {/* <form onSubmit={handleSubmit(onSubmit)}>
                                 <div>
                                     <Controller
@@ -212,27 +236,18 @@ const Account = () => {
                                     </Button>
                                 </div>
                             </form> */}
-                        </AccordionDetails>
                     </Accordion>
-                    <Accordion>
-                        <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                        >
-                            <div>パスワードを変更する</div>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Passreset />
-                        </AccordionDetails>
-                        {/* <AccordionActions>
-                            <Link to="/resetpassword">
-                                <Button variant="outlined" startIcon={<VpnKeyIcon />}>
-                                変更する
-                                </Button>
-                            </Link>
-                        </AccordionActions> */}
-                    </Accordion>
+
+                    <div onClick={handleClickEmailUpdate}>
+                        <div>{profile.email}</div>
+                        <Button>メールアドレスを変更する。</Button>
+                    </div>
+                    <div>
+                        <Button>パスワードを変更する。</Button>
+                    </div>
+                    <div>
+                        <Button>アカウントを削除する。</Button>
+                    </div>
                     <div>
                         {/* <div>{profile.email}</div> */}
                         {/* <div>isSignIn:{profile.isSignIn? 'true' : 'false'}</div>  */}
@@ -245,7 +260,7 @@ const Account = () => {
                     <div>
                 </div>
               </div>
-              </div>
+            </div>
             }
         </div>
     )

@@ -10,9 +10,9 @@ const ProfileUpdate = ({username,email}) => {
     const onSubmit = data => {
         console.log('input form data',data) 
         if(username !== data.username){
-            console.log('chenge username');
-            console.log('username',username);
-            console.log('data.username',data.username);
+            // console.log('chenge username');
+            // console.log('username',username);
+            // console.log('data.username',data.username);
             dispatch(updateProfileAsync(data.username))
         }else{
             console.log('not change username');
@@ -21,13 +21,25 @@ const ProfileUpdate = ({username,email}) => {
             console.log('chenge email');
             console.log('email',email);
             console.log('data.email',data.email);
-            dispatch(updateEmailAsync(data.email))
+            // alert('パスワードを入力してください')
+            // const text = 'パスワードを入力してください'
+            // const value = null
+            // const result = window.prompt( text, value )
+            // console.log(result);
+            const inputValue = {
+                email:data.email,
+                // singinEmail:email,
+                // pass: result
+            }
+
+            dispatch(updateEmailAsync(inputValue))
+            
         }else{
             console.log('not change email ');
         }
         // const inputValues = {
         //     uid:user.uid,
-        //     data:{
+        //     data:{ 
         //         course:data.course,
         //         datePicker:Timestamp.fromDate(data.datePicker),//js date --> firebase timestamp
         //         title:data.title
@@ -64,7 +76,7 @@ const ProfileUpdate = ({username,email}) => {
                                 }
                             }}
                     />
-                    <Controller
+                    {/* <Controller
                             name="email"
                             control={control}
                             defaultValue={email}
@@ -91,9 +103,9 @@ const ProfileUpdate = ({username,email}) => {
                                     message: 'メールアドレスの形式が無効です。',
                                 }
                             }}
-                    />
+                    /> */}
                     <Button type='submit'>
-                        SUBMIT
+                        変更
                     </Button>
                 </div>
             </form>

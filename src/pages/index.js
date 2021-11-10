@@ -4,6 +4,7 @@ export {default as SignOut} from './SignOut'
 export {default as CreateAccount} from './CreateAccount'
 export {default as EditProfile} from './EditProfile'
 export {default as ResetPassword} from './ResetPassword'
+export {default as UpdateEmail} from './UpdateEmail'
 export {default as Account} from './Account'
 export {default as NotFound} from './NotFound'
 
