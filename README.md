@@ -266,17 +266,17 @@ service cloud.firestore {
 
 
 
-# Cloud Firestore を使ってみる 
+# Cloud Firestore を使ってみる  
 version9
 https://firebase.google.com/docs/firestore/quickstart?hl=ja#web-v9_4
-# ウェブサイトで Firebase Authentication を使ってみる 
+# ウェブサイトで Firebase Authentication を使ってみる  
 version9
 https://firebase.google.com/docs/auth/web/start?hl=ja
 
-# バージョン8からモジュラーWebSDKにアップグレードします 
-現在FirebaseWeb SDKバージョン8以前を使用しているアプリは、このガイドの手順を使用してバージョン9への移行を検討する必要があります。
+# バージョン8からモジュラーWebSDKにアップグレードします  
+現在FirebaseWeb SDKバージョン8以前を使用しているアプリは、このガイドの手順を使用してバージョン9への移行を検討する必要があります。 
 
-1. index.jsの変更
+1. index.jsの変更 
 v8
  ```
     import firebase from "firebase/app"
@@ -295,23 +295,23 @@ v9
 https://firebase.google.com/docs/web/modular-upgrade
 
 
-# firestore serverTimestampの表示
+# firestore serverTimestampの表示 
 ```
 const timeStamp = serverTimestamp()
 const timestampDate = moment(timeStamp.toDate()).format('YYYY/MM/DD HH:mm')
 ```
-### react-hook-form 
-Material-UIコンポーネントでのReactフックフォームの使用
+### react-hook-form  
+Material-UIコンポーネントでのReactフックフォームの使用 
 https://levelup.gitconnected.com/using-react-hook-form-with-material-ui-components-ba42ace9507a
 
 ### Redux Toolkit Quick Start(ReduxToolkitクイックスタート)
 https://redux-toolkit.js.org/tutorials/quick-start
 
-1. ReduxToolkitおよびReact-Reduxパッケージをプロジェクトに追加します。
+1. ReduxToolkitおよびReact-Reduxパッケージをプロジェクトに追加します。 
 `npm install @reduxjs/toolkit react-redux`
-2. Reduxのストアを作成します。
-  2-1 src/app/store.jsという名前のファイルを作成します
-  2-2 ReduxToolkitからconfigureStoreをインポートし、空のReduxストアを作成しエクスポートすることから始めます。
+2. Reduxのストアを作成します。 
+  2-1 src/app/store.jsという名前のファイルを作成します 
+  2-2 ReduxToolkitからconfigureStoreをインポートし、空のReduxストアを作成しエクスポートすることから始めます。 
 `app / store.js`
 ```
   import { configureStore } from '@reduxjs/toolkit'
@@ -339,13 +339,13 @@ https://redux-toolkit.js.org/tutorials/quick-start
   )
 ```
 
-4. Reduxのスライスを作成します。
-  4-1 src/features/counter/counterSlice.jsを作成する
+4. Reduxのスライスを作成します。 
+  4-1 src/features/counter/counterSlice.jsを作成する 
   4-2 スライスを作成する
-    4-2-1 スライスを識別する文字列名、
-    4-2-2 初期状態値、
-    4-2-3 状態の更新方法を定義する1つ以上のレデューサー関数
-  4-3 生成されたReduxアクションクリエーターとレデューサー関数をスライス全体にエクスポートできます。
+    4-2-1 スライスを識別する文字列名、 
+    4-2-2 初期状態値、 
+    4-2-3 状態の更新方法を定義する1つ以上のレデューサー関数 
+  4-3 生成されたReduxアクションクリエーターとレデューサー関数をスライス全体にエクスポートできます。 
 `features / counter / counterSlice.js`
 ```
   import { createSlice } from '@reduxjs/toolkit'
@@ -379,8 +379,8 @@ https://redux-toolkit.js.org/tutorials/quick-start
 
   export default counterSlice.reducer
 ```
-5. スライスレデューサーをショップに追加します
-  5-1 カウンタースライスからレデューサー関数をインポートしてストアに追加する必要があります。reducerパラメータ内にフィールドを定義することにより、このスライスリデューサー関数を使用してその状態へのすべての更新を処理するようにストアに指示します。
+5. スライスレデューサーをショップに追加します 
+  5-1 カウンタースライスからレデューサー関数をインポートしてストアに追加する必要があります。reducerパラメータ内にフィールドを定義することにより、このスライスリデューサー関数を使用してその状態へのすべての更新を処理するようにストアに指示します。 
 `app / store.js`
 ```
 import { configureStore } from '@reduxjs/toolkit'
@@ -392,11 +392,11 @@ export default configureStore({
   },
 })
 ```
-6. Reduxの状態とコンポーネントを反応させるアクションの使用
-  6-1 src/features/counter/Counter.jsファイルを作成
-  6-2 これで、React-Reduxフックを使用して、ReactコンポーネントがReduxストアと対話できるようになりました。
-  6-3 useSelectorを使用してストアからデータを読み取り
-  6-4 useDispatchを使用してアクションをディスパッチできます
+6. Reduxの状態とコンポーネントを反応させるアクションの使用 
+  6-1 src/features/counter/Counter.jsファイルを作成 
+  6-2 これで、React-Reduxフックを使用して、ReactコンポーネントがReduxストアと対話できるようになりました。 
+  6-3 useSelectorを使用してストアからデータを読み取り 
+  6-4 useDispatchを使用してアクションをディスパッチできます 
 `features / counter / Counter.js`
 ```
   import React from 'react'
@@ -430,19 +430,19 @@ export default configureStore({
 ```
 
 
-### Redux-ToolkitにFirebaseのTimestampをいれるときのエラー処理
+### Redux-ToolkitにFirebaseのTimestampをいれるときのエラー処理 
 https://www.ok-data.com/entry/redux-toolkit%E3%81%ABfirebase%E3%81%AEtimestamp%E3%82%92%E3%81%84%E3%82%8C%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E5%87%A6%E7%90%86/
 
-### Redux-ToolkitにMterial-uiのdatetimepickerをいれるときのエラー処理
-1. エラーメッセージ
+### Redux-ToolkitにMterial-uiのdatetimepickerをいれるときのエラー処理 
+1. エラーメッセージ 
 ```
   A non-serializable value was detected in an action, in the path: `payload.data.datePicker`. Value: Sat Oct 23 2021 09:00:07 GMT+0900 (日本標準時) 
   Take a look at the logic that dispatched this action:  {type: 'puttering/setData', payload: {…}} 
   (See https://redux.js.org/faq/actions#why-should-type-be-a-string-or-at-least-serializable-why-should-my-action-types-be-constants) 
   (To allow non-serializable values see: https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data)
 ```
-2. datePicker: Sat Oct 23 2021 09:00:07 GMT+0900 (日本標準時)はオブジェト
-3. Reduxの主要な使用原則の1つは、シリアル化できない値を状態またはアクションに入れないことです。シリアライズdevのチェックミドルウェアは自動的にそれはあなたの行動や状態の非直列化可能な値を検出し、いつでも警告が表示されます。誤ってミスをしないように、このミドルウェアをアクティブのままにしておくことをお勧めします。ただし、これらの警告をオフにする必要がある場合は、特定のアクションタイプ、またはアクションと状態のフィールドを無視するようにミドルウェアを構成することで、ミドルウェアをカスタマイズできます。
+2. datePicker: Sat Oct 23 2021 09:00:07 GMT+0900 (日本標準時)はオブジェト 
+3. Reduxの主要な使用原則の1つは、シリアル化できない値を状態またはアクションに入れないことです。シリアライズdevのチェックミドルウェアは自動的にそれはあなたの行動や状態の非直列化可能な値を検出し、いつでも警告が表示されます。誤ってミスをしないように、このミドルウェアをアクティブのままにしておくことをお勧めします。ただし、これらの警告をオフにする必要がある場合は、特定のアクションタイプ、またはアクションと状態のフィールドを無視するようにミドルウェアを構成することで、ミドルウェアをカスタマイズできます。 
 `src/app/store.js`
 ```
   configureStore({
@@ -461,10 +461,10 @@ https://www.ok-data.com/entry/redux-toolkit%E3%81%ABfirebase%E3%81%AEtimestamp%E
   })
 
 ```
-4. ignoredActionsで警告をオフ
-  4-1 エラーメッセージに表示されているTypeを確認する。
+4. ignoredActionsで警告をオフ 
+  4-1 エラーメッセージに表示されているTypeを確認する。 
   `Take a look at the logic that dispatched this action:  {type: 'puttering/setData', payload: {…}}`
-  4-2 serializableCheckのignoredActionsに指定する
+  4-2 serializableCheckのignoredActionsに指定する 
   ```
   serializableCheck: {
           // Ignore these action types
@@ -472,26 +472,26 @@ https://www.ok-data.com/entry/redux-toolkit%E3%81%ABfirebase%E3%81%AEtimestamp%E
         },
   ```
 ### Material-ui datetimepicker
-1. date-fnsを使ってフォーマットする。
+1. date-fnsを使ってフォーマットする。 
   1-1 Installation
     `npm install date-fns --save`
   1-2 import
     `import { format, formatDistance, formatRelative, subDays } from 'date-fns'`
   1-3. format
     `{format(datePicker, 'yyyy/MM/dd/ HH:mm')}`
-2. Intl.DateTimeFormatを使ってフォーマットする。
+2. Intl.DateTimeFormatを使ってフォーマットする。 
   2-1 format
   `{new Intl.DateTimeFormat().format(datePicker)}`
 
 # react-hook-form
-## UI ライブラリを使用してバリデーションをエラーを適用する
+## UI ライブラリを使用してバリデーションをエラーを適用する 
 1. インストール
 `npm install react-hook-form`
-2. インポート
+2. インポート 
 `import { useForm, Controller } from "react-hook-form";` 
-3. useForm()を使用する
+3. useForm()を使用する 
 `const { handleSubmit, control} = useForm()`
-4. フォームのonSubmitからhandleSubmitを実行する
+4. フォームのonSubmitからhandleSubmitを実行する 
 ```
 <form onSubmit={handleSubmit(onSubmit)}>
     <div>
@@ -501,7 +501,7 @@ https://www.ok-data.com/entry/redux-toolkit%E3%81%ABfirebase%E3%81%AEtimestamp%E
     </div>
 </form>
 ```
-5. UI ライブラリを使用するために、Controllerでラップする。
+5. UI ライブラリを使用するために、Controllerでラップする。 
 ```
 <Controller
     name="username"
@@ -521,7 +521,7 @@ https://www.ok-data.com/entry/redux-toolkit%E3%81%ABfirebase%E3%81%AEtimestamp%E
     }
 />
 ```
-6. バリデーションを設定する
+6. バリデーションを設定する 
 ```
 rules={{
     required:'ユーザー名は必須です。',
@@ -532,7 +532,7 @@ rules={{
 }}
 ```
 
-7. 簡単な使用例（全体のコード）
+7. 簡単な使用例（全体のコード） 
 ```
 import React from 'react'
 import { TextField, Button } from '@mui/material';
@@ -585,3 +585,79 @@ const EditProfile = () => {
 }
 export default EditProfile
 ```
+
+# Firebase Authentication
+## メールリンク認証
+https://firebase.google.com/docs/auth/web/email-link-auth?hl=ja
+
+1. Firebase プロジェクトでメールリンク ログインを有効にする 
+  1-1 Firebase コンソールで [Authentication] セクションを開きます。 
+  1-2 [Sign-in method] タブで [メール / パスワード] を有効にします。メールリンク ログインを使用するには、メール / パスワードによるログインを有効にする必要があります。 
+  1-3 同じセクションで、ログイン方法として [メールリンク（パスワードなしでログイン）] を有効にします。
+  1-4 [保存] をクリックします。 
+2. ユーザーのメールアドレスに認証リンクを送信する(ウェブの場合) 
+  1-1 ActionCodeSettings オブジェクトを作成します。 
+    1-1-1 テスト環境の場合
+    ```
+      const actionCodeSettings = {
+        url: 'http://localhost:3000/updateemail',
+        handleCodeInApp: true,
+      };
+    ```
+    1-1-2 firebaseのホスティングの場合 
+    ```
+      const actionCodeSettings = {
+        url: 'https://redux-toolkit-firebase-bdbac.web.app/updateemail',
+        handleCodeInApp: true,
+      };
+    ```
+    2-1 ユーザーのメールアドレスに認証リンクを送信し、ユーザーが同じデバイスでメールによるログインを完了する場合に備えてこのメールアドレスを保存します。 
+    ```
+      import { getAuth, sendSignInLinkToEmail } from "firebase/auth"
+
+      const auth = getAuth();
+      sendSignInLinkToEmail(auth, profile.email, actionCodeSettings)
+        .then(() => {
+            window.localStorage.setItem('emailForSignIn', profile.email);
+            console.log('sendSignInLinkToEmail window.localStorage.setItem email: ',profile.email)
+            alert(profile.email + 'へログインのリクエストを送信しました。メールを開いてリンク（ACTIVITIESにログイン）をクリックしてください。ブラウザに表示されたページからメールアドレスの変更を完了してください。') 
+        })
+        .catch((error) => {
+            const errorCode = error.code
+            const errorMessage = error.message 
+            console.log(errorCode)
+            console.log(errorMessage)
+        });
+    ```
+
+3. ウェブページでログインを完了する
+  3-1 メールリンクで使用するディープリンクの形式は、帯域外メール アクションで使用される形式（メールアドレスの確認、パスワードのリセット、メールアドレスの変更取り消しなどで使用される形式）と同じです。Firebase Auth は isSignInWithEmailLink API を提供することにより、リンクがメールリンクによるログインかどうかを判断する作業を簡易にします。 
+  
+  ```
+  import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth"
+   
+  if (isSignInWithEmailLink(auth, window.location.href)) {
+      let email = window.localStorage.getItem('emailForSignIn')
+      if (!email) {
+          email = window.prompt('確認のためにメールアドレスを入力してください');
+        }
+      signInWithEmailLink(auth, email, window.location.href)
+      .then((result) => {
+        // Clear email from storage.
+        window.localStorage.removeItem('emailForSignIn');
+        console.log(result.user);
+        console.log('サインインが完了しました。');
+        alert('サインインが完了しました。')
+        // サイインイン後の処理.......
+      })
+      .catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(errorCode)
+        console.log(errorMessage)
+      });
+      }
+  ```
+4. 
+
+
