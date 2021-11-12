@@ -7,7 +7,7 @@ import { setDocAccount } from '../account/setDocAccount'
 import { updateUsername } from './updateUsername'
 import { updateUseremail } from './updateUseremail'
 
-//state
+//state 
 const initialState = {
     user:{
         isSignIn: false,
@@ -225,6 +225,26 @@ const authSlice = createSlice({
           })
           .addCase(createAccountAsync.rejected, (state, action) => {
             state.user.isSignIn = false;
+            state.user.status = 'idle'
+          })
+
+
+
+        //firebase auth updateEmail
+        .addCase(updateEmailAsync.pending, (state) => {
+            state.user.status = 'loading'
+          })
+        .addCase(updateEmailAsync.fulfilled, (state, action) => {
+            // state.user.isSignIn = action.payload.isSignIn;
+            // state.user.role = action.payload.role
+            // state.user.uid = action.payload.uid
+            // state.user.username = action.payload.username
+            state.user.email = action.payload.email
+            // state.user.photoURL = action.payload.photoURL
+            state.user.status = 'idle'
+            console.log('auth/updateEmailAsync*********',action) 
+          })
+          .addCase(updateEmailAsync.rejected, (state) => {
             state.user.status = 'idle'
           })
       },

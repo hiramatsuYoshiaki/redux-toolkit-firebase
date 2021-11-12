@@ -8,6 +8,7 @@ export const signin = (email, password) => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 console.log('signInWithEmailAndPassword--signin')
+                console.log(userCredential.user)
                 const user = userCredential.user;
                resolve({ 
                     data: {
@@ -21,6 +22,7 @@ export const signin = (email, password) => {
                 })
             })
             .catch((error) => {
+                console.log('signInWithEmailAndPassword--signin　error')
                 console.log('error code',error.code);
                 console.log('errorMessage',error.message); 
                 resolve({

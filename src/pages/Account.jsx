@@ -6,7 +6,6 @@ import { selectUser,
 import { selectorAvater, getAvatorAsync } from '../features/storage/storageSlice'
 import { Link} from 'react-router-dom' 
 import Button from '@mui/material/Button';
-import SettingsIcon from '@mui/icons-material/Settings';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -15,14 +14,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionActions from '@mui/material/AccordionActions';
+// import AccordionActions from '@mui/material/AccordionActions';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import TextField from '@mui/material/TextField';
-import { useForm, Controller } from "react-hook-form";
-import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import { AvaterRemove, AvaterUpdae, ProfileUpdae } from '../components/account/index'
 
-import { getAuth, sendSignInLinkToEmail,sendEmailVerification } from "firebase/auth";
+import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
 
 import './page.scss'
 
@@ -53,12 +49,11 @@ const Account = () => {
     const profile = useSelector(selectUser)
     const photoURL = profile.photoURL
     const downloadURL = useSelector(selectorAvater)
+    //avater
     const [open, setOpen] = useState(false);
-
     const handleClickOpen = () => {
         setOpen(true);
     };
-
     const handleClose = () => {
         setOpen(false);
     };
@@ -67,36 +62,35 @@ const Account = () => {
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
-    // const { handleSubmit, control} = useForm()
-    // const onSubmit = data => {
-    //     console.log('input form data',data)
-    //     const inputValues = {
-    //         uid:user.uid,
-    //         data:{
-    //             course:data.course,
-    //             datePicker:Timestamp.fromDate(data.datePicker),//js date --> firebase timestamp
-    //             title:data.title
-    //         },
-    //         done:false,
-    //     }
-    //     dispatch(addPuttering(inputValues)) 
-    // }
+
+    //update email
+    const [openEmailMessage, setOpenEmailMessage] = useState(false);
+    const handleClickOpenEmailMessage = () => {
+        setOpenEmailMessage(true);
+    };
+    const handleCloseEmailMessage = () => {
+        setOpenEmailMessage(false);
+    };
+
+
+   
     const handleClickEmailUpdate = () => {
+        setOpenEmailMessage(false);
         const auth = getAuth();
         const actionCodeSettings = {
             // url: 'https://redux-toolkit-firebase-bdbac.web.app/updateemail',
             url: 'http://localhost:3000/updateemail',
             handleCodeInApp: true,
           };
-          sendSignInLinkToEmail(auth, profile.email, actionCodeSettings)
+        sendSignInLinkToEmail(auth, profile.email, actionCodeSettings)
         .then(() => {
             window.localStorage.setItem('emailForSignIn', profile.email);
             console.log('sendSignInLinkToEmail window.localStorage.setItem email: ',profile.email)
-            alert(profile.email + 'へログインのリクエストを送信しました。メールを開いてリンク（ACTIVITIESにログイン）をクリックしてください。ブラウザに表示されたページからメールアドレスの変更を完了してください。')
+            // alert(profile.email + 'へログインのリクエストを送信しました。メールを開いてリンク（ACTIVITIESにログイン）をクリックしてください。ブラウザに表示されたページからメールアドレスの変更を完了してください。')
         })
         .catch((error) => {
             const errorCode = error.code
-            const errorMessage = error.message
+            const errorMessage = error.message 
             console.log(errorCode)
             console.log(errorMessage)
         });
@@ -173,75 +167,40 @@ const Account = () => {
                             <div>プロフィールを変更する</div>
                         </AccordionSummary>
 
-                        <AccordionDetails>
+                        <AccordionDetails> 
                             <ProfileUpdae username={profile.username} email={profile.email}/>
-                        </AccordionDetails>
-                        
-                            {/* <form onSubmit={handleSubmit(onSubmit)}>
-                                <div>
-                                    <Controller
-                                            name="username"
-                                            control={control} 
-                                            defaultValue={profile.username}
-                                            render={({ field: { onChange, value }, fieldState: { error } }) =>
-                                                <TextField
-                                                    id="username" 
-                                                    label="ユーザー名"
-                                                    value={value}
-                                                    onChange={onChange}
-                                                    error={!!error}
-                                                    helperText={error ? error.message : null}
-                                                    fullWidth
-                                                    margin="normal"
-                                                />
-                                            }
-                                            rules={{
-                                                required:'ユーザー名は必須です。',
-                                                maxLength : {
-                                                    value: 20,
-                                                    message: 'ユーザー名は２０文字以内です。' 
-                                                }
-                                            }}
-                                    />
-                                    <Controller
-                                            name="email"
-                                            control={control}
-                                            defaultValue={profile.email}
-                                            render={({ field: { onChange, value }, fieldState: { error } }) =>
-                                                <TextField
-                                                    id="email" 
-                                                    label="メールアドレス"
-                                                    value={value}
-                                                    onChange={onChange}
-                                                    error={!!error}
-                                                    helperText={error ? error.message : null}
-                                                    fullWidth
-                                                    margin="normal"
-                                                />
-                                            }
-                                            rules={{
-                                                required:'メールアドレスは必須です。',
-                                                maxLength : {
-                                                    value: 20,
-                                                    message: 'メールアドレスは２０文字以内です。', 
-                                                },
-                                                pattern : {
-                                                    value: /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}.[A-Za-z0-9]{1,}$/,
-                                                    message: 'メールアドレスの形式が無効です。',
-                                                }
-                                            }}
-                                    />
-                                    <Button type='submit'>
-                                        SUBMIT
-                                    </Button>
-                                </div>
-                            </form> */}
+                        </AccordionDetails> 
                     </Accordion>
 
-                    <div onClick={handleClickEmailUpdate}>
+                    {/* <div onClick={handleClickEmailUpdate}> */}
+                    <div onClick={handleClickOpenEmailMessage}>
                         <div>{profile.email}</div>
                         <Button>メールアドレスを変更する。</Button>
                     </div>
+                    <Dialog
+                        open={openEmailMessage}
+                        onClose={handleCloseEmailMessage}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">
+                        {"メールアドレスを変更しますか？"}
+                        </DialogTitle>
+                        <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                        {/* {profile.email} + 'へログインのリクエストを送信しました。メールを開いてリンク（ACTIVITIESにログイン）をクリックしてください。ブラウザに表示されたページからメールアドレスの変更を完了してください。 */}
+                        {profile.email}へ再ログイン用のメールを送信ます。
+                        メールのリンク［ACTIVITIESにログイン］をクリックして、
+                        ブラウザに表示されたページからメールアドレスを変更してください。
+                        </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={handleCloseEmailMessage}>キャンセル</Button>
+                        <Button onClick={handleClickEmailUpdate} autoFocus>
+                            変更
+                        </Button>
+                        </DialogActions>
+                    </Dialog>
                     <div>
                         <Button>パスワードを変更する。</Button>
                     </div>

@@ -491,7 +491,14 @@ https://www.ok-data.com/entry/redux-toolkit%E3%81%ABfirebase%E3%81%AEtimestamp%E
 `import { useForm, Controller } from "react-hook-form";` 
 3. useForm()を使用する 
 `const { handleSubmit, control} = useForm()`
-4. フォームのonSubmitからhandleSubmitを実行する 
+4. ボタンを押した時の処理
+```
+const onSubmit = data => {
+        console.log('input form data',data) 
+        //{email: '山田太郎'}
+    }
+```
+5. フォームのonSubmitからhandleSubmitを実行する 
 ```
 <form onSubmit={handleSubmit(onSubmit)}>
     <div>
@@ -501,7 +508,7 @@ https://www.ok-data.com/entry/redux-toolkit%E3%81%ABfirebase%E3%81%AEtimestamp%E
     </div>
 </form>
 ```
-5. UI ライブラリを使用するために、Controllerでラップする。 
+6. UI ライブラリを使用するために、Controllerでラップする。 
 ```
 <Controller
     name="username"
@@ -521,7 +528,7 @@ https://www.ok-data.com/entry/redux-toolkit%E3%81%ABfirebase%E3%81%AEtimestamp%E
     }
 />
 ```
-6. バリデーションを設定する 
+7. バリデーションを設定する 
 ```
 rules={{
     required:'ユーザー名は必須です。',
@@ -532,7 +539,7 @@ rules={{
 }}
 ```
 
-7. 簡単な使用例（全体のコード） 
+8. 簡単な使用例（全体のコード） 
 ```
 import React from 'react'
 import { TextField, Button } from '@mui/material';

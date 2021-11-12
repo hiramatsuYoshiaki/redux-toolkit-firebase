@@ -8,15 +8,15 @@ const ProfileUpdate = ({username,email}) => {
     const dispatch = useDispatch()
     const { handleSubmit, control} = useForm()
     const onSubmit = data => {
-        console.log('input form data',data) 
-        if(username !== data.username){
+        console.log('input form data',data)  
+        if(username !== data.username){  
             // console.log('chenge username');
             // console.log('username',username);
             // console.log('data.username',data.username);
             dispatch(updateProfileAsync(data.username))
         }else{
             console.log('not change username');
-        }
+        } 
         if(email !== data.email){
             console.log('chenge email');
             console.log('email',email);
