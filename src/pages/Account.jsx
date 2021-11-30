@@ -1,8 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import { selectUser,
-        selectIsSignIn,
-        } from '../features/auth/authSlice'
+import { selectUser, removeAccountAsync } from '../features/auth/authSlice'
 import { selectorAvater, getAvatorAsync } from '../features/storage/storageSlice'
 import { Link} from 'react-router-dom' 
 import Button from '@mui/material/Button';
@@ -19,6 +17,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AvaterRemove, AvaterUpdae, ProfileUpdae } from '../components/account/index'
 
 import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
+
 
 import './page.scss'
 
@@ -45,23 +44,24 @@ const styles={
 
 const Account = () => {
     const dispatch = useDispatch()
-    const isSignIn = useSelector(selectIsSignIn)
     const profile = useSelector(selectUser)
     const photoURL = profile.photoURL
     const downloadURL = useSelector(selectorAvater)
+    console.log(profile.emailVerified);
     //avater
     const [open, setOpen] = useState(false);
+    //activation
     const handleClickOpen = () => {
         setOpen(true);
-    };
+    }
     const handleClose = () => {
-        setOpen(false);
-    };
-    const [expanded, setExpanded] = useState('panel1');
-
+        setOpen(false)
+    }
+    //acordion 1
+    const [expanded, setExpanded] = useState('panel1')
     const handleChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-    };
+        setExpanded(isExpanded ? panel : false)
+    }
 
     //update email
     const [openEmailMessage, setOpenEmailMessage] = useState(false);
@@ -71,9 +71,8 @@ const Account = () => {
     const handleCloseEmailMessage = () => {
         setOpenEmailMessage(false);
     };
-
-
-   
+    
+   //メールアドレス変更
     const handleClickEmailUpdate = () => {
         setOpenEmailMessage(false);
         const auth = getAuth();
@@ -95,133 +94,175 @@ const Account = () => {
             console.log(errorMessage)
         });
     }
+    //アカウント削除
+    
+    const handleClickRemoveAccount =  () => {
+        dispatch(removeAccountAsync())
+    }
+    
     useEffect(()=>{
-        // console.log('useEffect storege getAvater');
         if(photoURL !== ''){
             dispatch(getAvatorAsync(photoURL))
         }
     },[photoURL,dispatch])
     return (
         <div className="page-fexed-container">  
-            {isSignIn === false 
-            ? <div>
-                <div>サインインしていません</div>
-                <Link to='/signin' >
-                    <button>サインイン</button>
-                </Link>
-              </div>　
-            : <div style={styles.wraper}>  
-                <div >
-                    <div className="page-account-FeatureListContainer">
-                        <div className="page-FeatureListContainer_image">
-                            <div className="page-avaterContainer"> 
-                                <img src={downloadURL} alt="avater" style={styles.avater} />
+            {(profile.isSignIn === true && profile.emailVerified === true)
+            ? <div style={styles.wraper}>  
+                <div>
+                    <div >
+                        <div className="page-account-FeatureListContainer">
+                            <div className="page-FeatureListContainer_image">
+                                <div className="page-avaterContainer"> 
+                                    <img src={downloadURL} alt="avater" style={styles.avater} />
+                                </div>
+                            </div>
+                            <div className="page-FeatureListContainer_feature">
+                                <div>{profile.username}</div>
+                                <Button variant="text" onClick={handleClickOpen}> 
+                                    プロフィール写真を変更する
+                                </Button>
+                                <Dialog
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-description"
+                                >
+                                    <DialogTitle id="alert-dialog-title">
+                                        プロフィール写真を変更
+                                    </DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText id="alert-dialog-description">
+                                        アバターを変更します。
+                                        </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        {/* <Button onClick={handleClose}>
+                                            写真を変更
+                                        </Button> */}
+                                        <AvaterUpdae />
+                                    </DialogActions>
+                                    <DialogActions>
+                                        {/* <Button onClick={handleClose} autoFocus>
+                                            写真を削除
+                                        </Button> */}
+                                        <AvaterRemove />
+
+                                    </DialogActions>
+                                    <DialogActions>
+                                        <Button onClick={handleClose} autoFocus>
+                                            キャンセル
+                                        </Button>
+                                    </DialogActions>
+                                </Dialog>
                             </div>
                         </div>
-                        <div className="page-FeatureListContainer_feature">
-                            <div>{profile.username}</div>
-                           <Button variant="text" onClick={handleClickOpen}> 
-                                プロフィール写真を変更する
-                            </Button>
-                            <Dialog
-                                open={open}
-                                onClose={handleClose}
-                                aria-labelledby="alert-dialog-title"
-                                aria-describedby="alert-dialog-description"
+
+
+
+
+                        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                            <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
                             >
-                                <DialogTitle id="alert-dialog-title">
-                                    プロフィール写真を変更
-                                </DialogTitle>
-                                <DialogContent>
-                                    <DialogContentText id="alert-dialog-description">
-                                    アバターを変更します。
-                                    </DialogContentText>
-                                </DialogContent>
-                                <DialogActions>
-                                    {/* <Button onClick={handleClose}>
-                                        写真を変更
-                                    </Button> */}
-                                     <AvaterUpdae />
-                                </DialogActions>
-                                <DialogActions>
-                                    {/* <Button onClick={handleClose} autoFocus>
-                                        写真を削除
-                                    </Button> */}
-                                     <AvaterRemove />
+                                <div>プロフィールを変更する</div>
+                            </AccordionSummary>
 
-                                </DialogActions>
-                                <DialogActions>
-                                    <Button onClick={handleClose} autoFocus>
-                                        キャンセル
-                                    </Button>
-                                </DialogActions>
-                            </Dialog>
+                            <AccordionDetails> 
+                                <ProfileUpdae username={profile.username} email={profile.email}/>
+                            </AccordionDetails> 
+                        </Accordion> 
+
+
+
+
+
+                        {/* <div onClick={handleClickEmailUpdate}> */}
+                        <div onClick={handleClickOpenEmailMessage}>
+                            <div>{profile.email}</div>
+                            <Button>メールアドレスを変更する。</Button>
                         </div>
-                    </div>
-                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                        <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
+
+                        <Dialog
+                            open={openEmailMessage}
+                            onClose={handleCloseEmailMessage}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
                         >
-                            <div>プロフィールを変更する</div>
-                        </AccordionSummary>
+                            <DialogTitle id="alert-dialog-title">
+                            {"メールアドレスを変更しますか？"}
+                            </DialogTitle>
+                            <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                            {/* {profile.email} + 'へログインのリクエストを送信しました。メールを開いてリンク（ACTIVITIESにログイン）をクリックしてください。ブラウザに表示されたページからメールアドレスの変更を完了してください。 */}
+                            {profile.email}へ再ログイン用のメールを送信ます。
+                            メールのリンク［ACTIVITIESにログイン］をクリックして、
+                            ブラウザに表示されたページからメールアドレスを変更してください。
+                            </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                            <Button onClick={handleCloseEmailMessage}>キャンセル</Button>
+                            <Button onClick={handleClickEmailUpdate} autoFocus>
+                                変更
+                            </Button>
+                            </DialogActions>
+                        </Dialog>
 
-                        <AccordionDetails> 
-                            <ProfileUpdae username={profile.username} email={profile.email}/>
-                        </AccordionDetails> 
-                    </Accordion>
 
-                    {/* <div onClick={handleClickEmailUpdate}> */}
-                    <div onClick={handleClickOpenEmailMessage}>
-                        <div>{profile.email}</div>
-                        <Button>メールアドレスを変更する。</Button>
-                    </div>
-                    <Dialog
-                        open={openEmailMessage}
-                        onClose={handleCloseEmailMessage}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                    >
-                        <DialogTitle id="alert-dialog-title">
-                        {"メールアドレスを変更しますか？"}
-                        </DialogTitle>
-                        <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                        {/* {profile.email} + 'へログインのリクエストを送信しました。メールを開いてリンク（ACTIVITIESにログイン）をクリックしてください。ブラウザに表示されたページからメールアドレスの変更を完了してください。 */}
-                        {profile.email}へ再ログイン用のメールを送信ます。
-                        メールのリンク［ACTIVITIESにログイン］をクリックして、
-                        ブラウザに表示されたページからメールアドレスを変更してください。
-                        </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                        <Button onClick={handleCloseEmailMessage}>キャンセル</Button>
-                        <Button onClick={handleClickEmailUpdate} autoFocus>
-                            変更
-                        </Button>
-                        </DialogActions>
-                    </Dialog>
-                    <div>
-                        <Button>パスワードを変更する。</Button>
-                    </div>
-                    <div>
-                        <Button>アカウントを削除する。</Button>
-                    </div>
-                    <div>
-                        {/* <div>{profile.email}</div> */}
-                        {/* <div>isSignIn:{profile.isSignIn? 'true' : 'false'}</div>  */}
-                        {/* <div>role:{profile.role}</div> */}
-                        {/* <div>uid:{profile.uid}</div> */}
-                        {/* <div>name:{profile.username}</div> */}
-                        {/* <div>E-mail:{profile.email}</div> */}
-                        {/* <div>photoURL:{profile.photoURL}</div>  */}
+
+
+                        <div>
+                            <Button>パスワードを変更する。</Button>
                         </div>
-                    <div>
+
+
+
+
+                        <div onClick={handleClickRemoveAccount}>
+                            <Button>アカウントを削除する。</Button>
+                        </div>
+
+
+
+
+
+                        {/* <div>
+                            <div>{profile.email}</div> 
+                            <div>isSignIn:{profile.isSignIn? 'true' : 'false'}</div> 
+                            <div>role:{profile.role}</div>
+                            <div>uid:{profile.uid}</div>
+                            <div>name:{profile.username}</div>
+                            <div>E-mail:{profile.email}</div>
+                            <div>photoURL:{profile.photoURL}</div> 
+                            <div>emailVerified:{profile.emailVerified ? 'true' : 'false'}</div> 
+                        </div> */}
+                    </div>
+                 
                 </div>
-              </div>
-            </div>
+
+            </div>//<div style={styles.wraper}> 
+            : 
+            (profile.isSignIn === true && profile.emailVerified === false)
+                ?
+                <div>
+                    <div>アクティベーションしてください</div>
+                    <Link to='/emailVerified' >
+                        <button>サインイン</button>
+                    </Link>
+                    {/* <Redirect push to="/emailVerified" /> */}
+                </div>
+                :
+                <div>
+                    <div>サインインしていません</div>
+                    <Link to='/signin' >
+                        <button>サインイン</button>
+                    </Link>
+                    {/* <Redirect push to="/signin" /> */}
+                </div>
             }
-        </div>
+        </div> 
     )
 }
 

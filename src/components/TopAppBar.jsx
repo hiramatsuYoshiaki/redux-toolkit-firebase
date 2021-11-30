@@ -1,20 +1,29 @@
 import React,{useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch,useSelector} from 'react-redux'
-import { listenAuthState,selectIsSignIn,selectStatus } from '../features/auth/authSlice';
+import { listenAuthState,selectStatus,selectUser } from '../features/auth/authSlice';
 import {LoadingSpiner} from '../components/index'
 
 import './TopAppBar.scss';
 
 const TopAppBar = () => {
+    console.log('TopAppBar ------> start1')
     const dispatch = useDispatch()
-    const isSignIn = useSelector(selectIsSignIn)
+    const profile = useSelector(selectUser)
+
     const isLoding = useSelector(selectStatus)
+    console.log('email',profile.email)
+    console.log('isSignIn',profile.isSignIn)
+    console.log('emailVerified',profile.emailVerified) 
     useEffect(()=>{
-        if(isSignIn !== true){
+        console.log('topappbar useEffect  2') 
+        if(profile.isSignIn !== true){
+            console.log('topappbar useEffect listenAuthState() -------> 3')
             dispatch(listenAuthState())
         }
-    },[isSignIn,dispatch])
+        // alert('topAppBar useEffect')
+    },[dispatch,profile.isSignIn])
+ 
     return (
         <div className="TopAppBar-containe"> 
             <div>
@@ -23,7 +32,7 @@ const TopAppBar = () => {
                 </Link>
             </div>
             <div>
-                {isSignIn === true 
+                {profile.isSignIn === true && profile.emailVerified === true
                     ?
                         <div>
                             <Link to="/account" >
@@ -39,7 +48,7 @@ const TopAppBar = () => {
                         </Link>
                 }
             </div>
-            <LoadingSpiner isLoading={isLoding}/>
+            <LoadingSpiner isLoading={isLoding}/> 
         </div>
     )
 }

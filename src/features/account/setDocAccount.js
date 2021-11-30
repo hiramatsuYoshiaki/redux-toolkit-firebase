@@ -3,7 +3,7 @@ import {getFirestore,  doc, setDoc, serverTimestamp} from 'firebase/firestore'
 export const setDocAccount = (user) => {
     console.log('setDocAccount-------->>>>>start')
     console.log(user)
-    return new Promise((resolve)=>{
+    return new Promise((resolve,reject)=>{
         const db = getFirestore()
         const person = {
             uid: user.uid,
@@ -20,14 +20,20 @@ export const setDocAccount = (user) => {
         .then((res)=>{
             console.log('setDoc ok')
             resolve({ 
-                data: 'ok' 
+                data: 'ユーザー情報　setDocAccount　ok' 
             })
         })
         .catch((error) => {
             console.log('firestore setDoc account error ');
-            console.log(error);
-            resolve({ 
-                data: null
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode)
+            console.log(errorMessage) 
+            reject({ 
+                data: {
+                    errorCode: error.code,
+                    errorMessage: error.message,
+                }
             })
         })
 

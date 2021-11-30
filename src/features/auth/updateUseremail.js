@@ -1,4 +1,4 @@
-import { getAuth, updateEmail } from "firebase/auth"
+import { getAuth, updateEmail,sendEmailVerification } from "firebase/auth"
 export const updateUseremail = (value) => {
     return new Promise((resolve) =>{
         const auth = getAuth();
@@ -7,11 +7,22 @@ export const updateUseremail = (value) => {
         updateEmail(auth.currentUser, value)
         .then(() => {
             console.log('update email ok')
-            resolve({ 
-                data: {
-                    email:value,
-                    } 
-                })
+            sendEmailVerification(auth.currentUser)
+            .then(() => {
+                console.log('sendEmailVerification ok')
+                resolve({ 
+                    data: {
+                        email:value,
+                        } 
+                    })
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode)
+                console.log(errorMessage)
+            })
+            
           }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;

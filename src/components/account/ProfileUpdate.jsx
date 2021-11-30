@@ -67,7 +67,7 @@ const ProfileUpdate = ({username,email}) => {
                                     fullWidth
                                     margin="normal"
                                 />
-                            }
+                            } 
                             rules={{
                                 required:'ユーザー名は必須です。',
                                 maxLength : {

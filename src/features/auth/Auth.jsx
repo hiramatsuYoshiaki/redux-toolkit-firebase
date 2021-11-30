@@ -95,8 +95,6 @@ const Auth = () => {
             <h3>redux toolkit</h3>
             <div>status:{userProfile.status}</div>
             <br />
-            {/* <button onClick={()=> dispatch(aaa())}>aaa</button> */}
-            {/* <button onClick={()=> dispatch(listenAuthState())}>listenAuth</button> */}
             {userProfile.isSignIn === true
                 ?   <div>
                         <div>ようこそ</div>

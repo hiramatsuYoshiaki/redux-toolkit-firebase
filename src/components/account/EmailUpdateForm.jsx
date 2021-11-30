@@ -16,7 +16,7 @@ const EmailUpdateForm = () => {
         dispatch(updateEmailAsync(data.email))
         alert('ログイン用のメールアドレスが変更されました。')
         history.push('/account')
-    }
+    }  
     return (
         <div>
             <div>新しいメールアドレス</div>

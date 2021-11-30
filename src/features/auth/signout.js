@@ -4,6 +4,7 @@ export const signout = () => {
     return new Promise((resolve) =>{
         const auth = getAuth()
         signOut(auth).then(() => {
+            console.log('singout #######')
             resolve({
                 data:{
                     isSignIn: false,
@@ -11,7 +12,8 @@ export const signout = () => {
                     uid: "",
                     username:"",
                     email:"",
-                    photoURL:""
+                    photoURL:"",
+                    emailVerified:false
                 }
             })
         }).catch((error) => {

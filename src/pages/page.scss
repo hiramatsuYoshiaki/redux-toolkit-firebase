@@ -38,6 +38,16 @@ $fullhdBreakPoint: 1920px; //1920
         padding:0 20rem;
     } 
 }
+.page-home-container{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding:80px 8px;
+}
+.page-home-section{
+    margin-bottom:32px;
+}
 .page-account-FeatureListContainer{
     display: flex;
     flex-direction: column;

@@ -1,10 +1,11 @@
 import React from 'react'
-import { selectIsSignIn } from '../features/auth/authSlice'
+import { selectUser } from '../features/auth/authSlice'
 import {useSelector} from 'react-redux'
 import { Link} from 'react-router-dom' 
 import { CardLayoutLink } from '../components/index'
+
 const Activities = () => {
-    const isSignIn = useSelector(selectIsSignIn)
+    const profile = useSelector(selectUser)
     const items = [
         {id:'01',name:'Todos',link:'/activities/todos', 
             guide:''}, 
@@ -17,19 +18,28 @@ const Activities = () => {
         {id:'06',name:'ポタリング',link:'/activities/putteringTimeline', 
             guide:'サイクリングを楽しくするサイト'},
     ]
+
     return (
         <div className="page-fexed-container">  
-            {isSignIn === false 
+            {profile.isSignIn === false  
             ? <>
                 <div>サインインしていません</div>
                 <Link to='/signin' >
                     <button>サインイン</button>
                 </Link>
+                {/* <Redirect push to="/signin" /> */}
               </>
-            : 
-            <>
-                <CardLayoutLink items={items} />
-            </>
+            : profile.emailVerified 
+                ?   
+                <>
+                    <CardLayoutLink items={items} /> 
+                </>
+                : <div>
+                    <div>メールアドレスの認証をしてください。</div>
+                     <Link to='/emailVerified' >
+                        <button>アクティベーション</button>
+                    </Link>
+                </div>
             }
         </div> 
         

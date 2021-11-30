@@ -5,6 +5,7 @@ import {signOutAsync,
         selectIsSignIn,
         } from '../features/auth/authSlice'
 import { Redirect} from 'react-router-dom'
+import {Button} from '@mui/material'
 // import {LoadingSpiner} from '../components/index'
 
 import './page.scss'
@@ -44,12 +45,15 @@ const SingOut = () => {
                     </div>
                 <div>
                 <div>サインアウトしますか？</div>
-                <button  onClick={signout}>
+                {/* <button  onClick={signout}>
                         Sing-out
-                </button>
+                </button> */}
+                <Button onClick={signout} variant="outlined">
+                    サインアウト
+                </Button>
                 </div>
 
-            </div>
+            </div> 
             }
             {/* <LoadingSpiner isLoading={isLoding}/> */}
         </div>

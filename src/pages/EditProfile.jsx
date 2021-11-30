@@ -33,7 +33,7 @@ const EditProfile = () => {
                                     id="username" 
                                     label="ユーザー名"
                                     value={value}
-                                    onChange={onChange}
+                                    onChange={onChange} 
                                     error={!!error}
                                     helperText={error ? error.message : null}
                                     fullWidth

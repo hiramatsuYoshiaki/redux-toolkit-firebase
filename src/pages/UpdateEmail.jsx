@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { getAuth, isSignInWithEmailLink, signInWithEmailLink, reauthenticateWithCredential,linkWithCredential, EmailAuthProvider } from "firebase/auth"
+import { getAuth, isSignInWithEmailLink,  reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth"
 import {useHistory,Link} from 'react-router-dom'
 import Button from '@mui/material/Button';
 import {EmailUpdateForm} from '../components/account/index'

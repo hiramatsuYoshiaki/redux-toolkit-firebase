@@ -667,4 +667,23 @@ https://firebase.google.com/docs/auth/web/email-link-auth?hl=ja
   ```
 4. 
 
+# firebase authentication 
+Firebaseのログイン機能の使いかた 
+https://coconala.com/blogs/1638666/35054 
 
+https://zenn.dev/masalib/books/2d6e8470732c8b/viewer/5674c3#%E3%83%A1%E3%83%BC%E3%83%AB%E3%81%AE%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%81%AE%E5%A4%89%E6%9B%B4 
+### メールアドレス＆パスワードで新規登録  
+1. メールアドレス・パスワード入力  
+2. ユーザーアカウント作成 
+  2-1 createUserWithEmailAndPassword 
+3. メールアドレスの有効化するメールを送る 
+  3-1 sendEmailVerification 
+4. メールを開いて、URLにアクセスして、完了画面のボタンをクリック 
+
+
+
+
+
+
+
+ 
