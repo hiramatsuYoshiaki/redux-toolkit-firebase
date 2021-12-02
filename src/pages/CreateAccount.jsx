@@ -75,9 +75,9 @@ const CreateAccount = () => {
         history.push('/')
     }
     return (
-        <div className="page-container"> 
+        <div className="page-fexed-container"> 
 
-            {profile.isSignIn === true 
+            {profile.isSignIn === true  
             ? 
                 profile.isSignIn === true && profile.emailVerified
                 ?

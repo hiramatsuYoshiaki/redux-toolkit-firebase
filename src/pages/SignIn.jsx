@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link, Redirect} from 'react-router-dom'
-import {InputForm} from '../components/index'
-import {InputUser} from '../components/InputUser'
+// import {InputForm} from '../components/index'
+// import {InputUser} from '../components/InputUser'
 import {useDispatch,useSelector} from 'react-redux'
 import {signInAsync,selectUser} from '../features/auth/authSlice'
 
@@ -33,9 +33,9 @@ const SignIn = () => {
         // e.preventDefault()
         dispatch(signInAsync(data))
     }
-    const handleClickAuthMailLink = () => {
-        console.log('email link authenthication');
-    }
+    // const handleClickAuthMailLink = () => {
+    //     console.log('email link authenthication');
+    // }
     return (
         <div className="page-container"> 
 

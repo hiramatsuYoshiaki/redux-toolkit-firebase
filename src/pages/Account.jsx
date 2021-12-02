@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import { selectUser, removeAccountAsync } from '../features/auth/authSlice'
+import { selectUser } from '../features/auth/authSlice'
 import { selectorAvater, getAvatorAsync } from '../features/storage/storageSlice'
 import { Link} from 'react-router-dom' 
 import Button from '@mui/material/Button';
@@ -93,11 +93,6 @@ const Account = () => {
             console.log(errorCode)
             console.log(errorMessage)
         });
-    }
-    //アカウント削除
-    
-    const handleClickRemoveAccount =  () => {
-        dispatch(removeAccountAsync())
     }
     
     useEffect(()=>{
@@ -217,13 +212,11 @@ const Account = () => {
                             <Button>パスワードを変更する。</Button>
                         </div>
 
-
-
-
-                        <div onClick={handleClickRemoveAccount}>
-                            <Button>アカウントを削除する。</Button>
+                        <div >
+                            <Link to='removeaccount'>
+                                <Button>アカウントを削除する</Button>
+                            </Link>
                         </div>
-
 
 
 

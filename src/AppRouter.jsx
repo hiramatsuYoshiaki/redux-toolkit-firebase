@@ -5,6 +5,7 @@ import { Home,
         SignOut, 
         CreateAccount, 
         // EmailVerified,
+        RemoveAccount,
         Account,
         ResetPassword,
         UpdateEmail,
@@ -58,6 +59,7 @@ const AppRouter = () => {
                             <Route exact path="/createaccount" component={CreateAccount} />
                             {/* <Route exact path="/emailVerified" component={EmailVerified} />  */}
 
+                            <Route exact path="/removeaccount" component={RemoveAccount} />
                             <Route exact path="/account" component={Account} />
                             <Route exact path="/resetpassword" component={ResetPassword}/>
                             <Route exact path="/updateemail" component={UpdateEmail} />
