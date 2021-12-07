@@ -1,8 +1,9 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth' 
 export const listenAuth = () => {
-    console.log('listenAuth')
+    console.log('listenAuth-------------------')
     return new Promise((resolve) =>{
         const auth = getAuth()
+        
         onAuthStateChanged(auth, (user) => {
             if(user){
                 console.log('onAuthStateChanged singin>>>>')

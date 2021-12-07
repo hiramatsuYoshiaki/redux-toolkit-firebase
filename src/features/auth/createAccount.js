@@ -48,7 +48,7 @@ export const createAccount = (email, password, displayName, photoURL, emailVerif
                         code:'',
                         msg:'',
                     }
-                })
+                }) 
                 // throw new Error(error.message)
             });
         })

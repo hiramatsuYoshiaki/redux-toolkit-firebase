@@ -3,14 +3,14 @@ import {useHistory} from 'react-router-dom'
 // import {InputForm} from '../components/index'
 // import {InputUser} from '../components/InputUser'
 import {useDispatch,useSelector} from 'react-redux'
-import {createAccountAsync, selectUser,listenAuthState,} from '../features/auth/authSlice'
+import {createAccountAsync, selectUser,listenAuthState,signOutAsync} from '../features/auth/authSlice'
 import { getAuth, sendEmailVerification } from "firebase/auth";
 import Stack from '@mui/material/Stack';
 
 import {TextField,Button} from '@mui/material'
 import {useForm, Controller} from 'react-hook-form'
 
-import './page.scss'
+import './page.scss' 
 
 const CreateAccount = () => {
     const history = useHistory()
@@ -48,8 +48,7 @@ const CreateAccount = () => {
         }
         console.log(inputValue);
         dispatch(createAccountAsync(inputValue))  //firebase auth createAccount
-        dispatch(listenAuthState())
-
+        // dispatch(listenAuthState())
     }
 
     //メールアドレスの有効化
@@ -59,6 +58,8 @@ const CreateAccount = () => {
         .then(() => {
             console.log('sendEmailVerification ok')
             setIsVerification(true)
+            dispatch(signOutAsync())
+            history.push('/signin')
         })
         .catch((error) => {
             console.log('sendEmailVerification error')
@@ -69,13 +70,14 @@ const CreateAccount = () => {
         })
     }
     const handleClickSingin = () => {
+        dispatch(signOutAsync()) 
         history.push('/signin')
     }
     const handleClickHome = () => {
         history.push('/')
     }
     return (
-        <div className="page-fexed-container"> 
+        <div className="page-fexed-container">  
 
             {profile.isSignIn === true  
             ? 
@@ -89,21 +91,21 @@ const CreateAccount = () => {
                 </Stack>　
                 :
                     <Stack direction="column" spacing={1}>
-                        
+                         
                         {isVerification 
                         ? 
                             <div>
-                                <div>メールを開いて、</div> 
+                                <h6>{profile.email}に送信した、</h6> 
+                                <div>メールを開いてください。</div> 
                                 <h5>メールアドレスは確認済みです。</h5> 
                                 <h5>新しいアカウントでログインできるようになりました</h5> 
-                                <div>が表示されましたか？</div> 
+                                <div>が表示されるとアカウントの有効化が完了します。</div> 
                                 <Button variant="outlined" onClick={handleClickSingin}> 
-                                    メールアドレスの確認は完了しました。
+                                    メールを確認しました。
                                 </Button>
                             </div>
                         :   <div>
-                            <div>アカウントを作成しました。</div>
-                            <div>メールアドレスの確認をしてください。</div> 
+                            <div>アカウントを有効化してください。</div>
                             <h6>アカウント作成で登録した</h6> 
                             <h6>{profile.email}は</h6> 
                             <h6>まだ有効化されていません。</h6> 
@@ -122,106 +124,89 @@ const CreateAccount = () => {
             :
             <div>
                 <div>アカウントを作成します。</div>
-                {/* <form onSubmit={createAccount}>
-                {feilds.map(field=>(
-                            <InputForm 
-                                key={field.id} 
-                                label={field.label}
-                                id={field.name}
-                                name={field.name}
-                                type={field.type}
-                                value={values[field.name]}//value={email} 
-                                onChange={handleChange}// onChange={e => setEmail(e.target.value)}
-                            />
-                        ))}
-                    <input type="submit" value="create accout" />
-                </form> */}
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <Controller 
-                            name='email'
-                            control={control}
-                            defaultValue=''
-                            render={({field:{onChange,value},fieldState:{error}})=>
-                                    <TextField 
-                                        id='email'
-                                        label='メールアドレス'
-                                        type='email'
-                                        value={value}
-                                        onChange={onChange}
-                                        error={!!error}
-                                        helperText={error ? error.message : null}
-                                        fullWidth
-                                        margin='normal'
-                                    />
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Controller 
+                        name='email'
+                        control={control}
+                        defaultValue=''
+                        render={({field:{onChange,value},fieldState:{error}})=>
+                                <TextField 
+                                    id='email'
+                                    label='メールアドレス'
+                                    type='email'
+                                    value={value}
+                                    onChange={onChange}
+                                    error={!!error}
+                                    helperText={error ? error.message : null}
+                                    fullWidth
+                                    margin='normal'
+                                />
+                        }
+                        rules={{
+                            required:'メールアドレスは必須です。',
+                            maxLength : {
+                                value: 40,
+                                message: 'ユーザー名は4０文字以内です。' 
                             }
-                            rules={{
-                                required:'メールアドレスは必須です。',
-                                maxLength : {
-                                    value: 40,
-                                    message: 'ユーザー名は4０文字以内です。' 
-                                }
-                            }}
-                        />
-                        <Controller 
-                            name='password'
-                            control={control}
-                            defaultValue=''
-                            render={({field:{onChange,value},fieldState:{error}})=>
-                                    <TextField 
-                                        id='password'
-                                        label='パスワード'
-                                        type='password'
-                                        value={value}
-                                        onChange={onChange}
-                                        error={!!error}
-                                        helperText={error ? error.message : null}
-                                        fullWidth
-                                        margin='normal'
-                                    />
+                        }}
+                    />
+                    <Controller 
+                        name='password'
+                        control={control}
+                        defaultValue=''
+                        render={({field:{onChange,value},fieldState:{error}})=>
+                                <TextField 
+                                    id='password'
+                                    label='パスワード'
+                                    type='password'
+                                    value={value}
+                                    onChange={onChange}
+                                    error={!!error}
+                                    helperText={error ? error.message : null}
+                                    fullWidth
+                                    margin='normal'
+                                />
+                        }
+                        rules={{
+                            required:'パスワードは必須です。',
+                            minLength : {
+                                value: 8,
+                                message: 'ユーザー名は８文字以内です。' 
                             }
-                            rules={{
-                                required:'パスワードは必須です。',
-                                minLength : {
-                                    value: 8,
-                                    message: 'ユーザー名は８文字以内です。' 
-                                }
-                            }}
-                        />
-                        <Controller 
-                            name='name'
-                            control={control}
-                            defaultValue=''
-                            render={({field:{onChange,value},fieldState:{error}})=>
-                                    <TextField 
-                                        id='name'
-                                        label='名前'
-                                        type='text'
-                                        value={value}
-                                        onChange={onChange}
-                                        error={!!error}
-                                        helperText={error ? error.message : null}
-                                        fullWidth
-                                        margin='normal'
-                                    />
+                        }}
+                    />
+                    <Controller 
+                        name='name'
+                        control={control}
+                        defaultValue=''
+                        render={({field:{onChange,value},fieldState:{error}})=>
+                                <TextField 
+                                    id='name'
+                                    label='名前'
+                                    type='text'
+                                    value={value}
+                                    onChange={onChange}
+                                    error={!!error}
+                                    helperText={error ? error.message : null}
+                                    fullWidth
+                                    margin='normal'
+                                />
+                        }
+                        rules={{
+                            required:'名前は必須です。',
+                            maxLength : {
+                                value: 40,
+                                message: 'ユーザー名は４０文字以内です。' 
                             }
-                            rules={{
-                                required:'名前は必須です。',
-                                maxLength : {
-                                    value: 40,
-                                    message: 'ユーザー名は４０文字以内です。' 
-                                }
-                            }}
-                        />
-                        <div>
-                            <Button type='submit' variant="outlined">
-                                アカウント作成
-                            </Button>
-                        </div>
-                    </form>
-                {/* </div> */}
+                        }}
+                    />
+                    <div>
+                        <Button type='submit' variant="outlined">
+                            アカウント作成
+                        </Button>
+                    </div>
+                </form>
             </div>
-            
-           
             }
             <div>
                 {(profile.code === '' ||  profile.code === null) ? null :<div>{profile.msg}</div> }

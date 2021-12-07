@@ -205,21 +205,17 @@ const Account = () => {
                             </DialogActions>
                         </Dialog>
 
-
-
-
                         <div>
-                            <Button>パスワードを変更する。</Button>
+                            <Link to='/resetpassword'>
+                                <Button>パスワードを変更する。</Button>
+                            </Link>
                         </div>
 
                         <div >
                             <Link to='removeaccount'>
                                 <Button>アカウントを削除する</Button>
-                            </Link>
+                            </Link> 
                         </div>
-
-
-
 
                         {/* <div>
                             <div>{profile.email}</div> 

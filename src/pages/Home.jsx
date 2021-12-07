@@ -8,6 +8,7 @@ import './page.scss'
 
 const Home = () => {
     const profile = useSelector(selectUser)
+    console.log(profile);
     const items = [
         {id:'01',name:'Todos',link:'/activities/todos', 
             guide:''}, 
@@ -35,11 +36,11 @@ const Home = () => {
                             </div>
                             :    <div>
                                     <div>アカウントの作成が完了していません。</div>
-                                    <div>メールアドレスの認証をしてください。</div>
-                                    <Link to='/emailVerified' >
+                                    {/* <div>メールアドレスの認証をしてください。</div> */}
+                                    <Link to='/createaccount' >
                                         {/* <button>アクティベイト</button> */}
                                         <Button variant="outlined">
-                                        アクティベイト
+                                        アカウントの有効化
                                         </Button>
                                     </Link>
                                 </div>
@@ -65,10 +66,6 @@ const Home = () => {
                                 </section>
                             </div>
                     }
-
-
-
-                    
                 {/* </div>  */}
            
             {/* <LoadingSpiner isLoading={isLoding}/> */}

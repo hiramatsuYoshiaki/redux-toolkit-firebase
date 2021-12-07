@@ -3,7 +3,7 @@ import {Link, Redirect} from 'react-router-dom'
 // import {InputForm} from '../components/index'
 // import {InputUser} from '../components/InputUser'
 import {useDispatch,useSelector} from 'react-redux'
-import {signInAsync,selectUser} from '../features/auth/authSlice'
+import {signInAsync,selectUser,listenAuthState } from '../features/auth/authSlice'
 
 // react-hook-form 
 import {TextField,Button} from '@mui/material'
@@ -12,8 +12,10 @@ import {useForm, Controller} from 'react-hook-form'
 import './page.scss'  
 
 const SignIn = () => {
+    console.log('Singin -------------------');
     const dispatch = useDispatch()
     const profile = useSelector(selectUser)
+    console.log('profile',profile);
     // const feilds = [
     //     {id:'01',label:"メールアドレス",name:'email',type:'email',},
     //     {id:'02',label:"パスワード",name:'password',type:'password',}
@@ -32,16 +34,42 @@ const SignIn = () => {
         console.log('input form data', data)
         // e.preventDefault()
         dispatch(signInAsync(data))
+        // dispatch(listenAuthState()) 
     }
+    // test code
+    // const handleClickError = () => {
+    //     console.log('handleClickError');
+    //     const data = {email:'not_found_user@gmail.com', password:'user0000'}
+    //     dispatch(signInAsync(data))
+    // }
+
     // const handleClickAuthMailLink = () => {
     //     console.log('email link authenthication');
+    // }
+    // const handleClickSingin = () => {
+    //     dispatch(listenAuthState())
     // }
     return (
         <div className="page-container"> 
 
-           {profile.isSignIn === true && profile.emailVerified
+           {profile.isSignIn === true && profile.emailVerified === true
             ? 
             <Redirect push to="/" /> 
+            :profile.isSignIn === true && profile.emailVerified === false
+            ?
+            <div>
+                <div>アカウントを有効化してください。</div>
+                <Link to='/createaccount'>
+                    <Button variant='outlined'>
+                            アカウントを有効化する。
+                    </Button>
+                </Link>
+                {/* <div onClick={handleClickSingin}>
+                    <Button variant='outlined'>
+                        メールを確認しました。
+                    </Button>
+                </div> */}
+            </div>
             :
             <div>
                 {/* <div>
@@ -70,7 +98,7 @@ const SignIn = () => {
                         <div>
                             <Controller
                                 name="email"
-                                control={control}
+                                control={control}　
                                 defaultValue=""
                                 render={({field:{onChange,value},fieldState:{error}})=>
                                     <TextField 
@@ -80,7 +108,6 @@ const SignIn = () => {
                                         onChange={onChange}
                                         error={!!error}
                                         helperText={error ? error.message : null}
-                                        fullWith 
                                         margin="normal"
                                     />
                                 }
@@ -88,12 +115,12 @@ const SignIn = () => {
                                     required:'メールアドレスは必須です。',
                                     maxLength : {
                                         value: 40,
-                                        message: 'ユーザー名は4０文字以内です。' 
+                                        message: 'メールアドレスは4０文字以内です。' 
                                     }
                                 }}
                                 
                             />
-                        </div>
+                        </div> 
                         <div>
                             <Controller
                                 name="password"
@@ -108,7 +135,6 @@ const SignIn = () => {
                                         onChange={onChange}
                                         error={!!error}
                                         helperText={error ? error.message : null}
-                                        fullWith 
                                         margin="normal"
                                     />
                                 }
@@ -122,11 +148,19 @@ const SignIn = () => {
                                 
                             />
                         </div>
-                        <Button type='submit'>
+                        <Button type='submit' variant='outlined'>
                         サインイン
                         </Button>
                     </form>
                 </div>
+                {/* test code ----------------------------------------------*/}
+                {/* <div>
+                    <button onClick={handleClickError}>
+                        サインイン　エラー　テスト
+                    </button>
+                </div> */}
+
+
                 <div>
                     {(profile.code === '' ||  profile.code === null) ? null :<div>{profile.msg}</div> }
                 </div>

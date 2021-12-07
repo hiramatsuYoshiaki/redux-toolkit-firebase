@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Home, 
         SignIn, 
@@ -40,10 +40,22 @@ import { TopAppBar } from './components/index'
 // import  Auth  from './features/auth/Auth'
 // import Auth from './Auth'
 // import Verified from './Verified'
+// import {useDispatch,useSelector} from 'react-redux'
+// import {selectUser,listenAuthState } from './features/auth/authSlice'
 import './App.scss';
 
 const AppRouter = () => { 
     console.log('react-router-dom ')
+    // const dispatch = useDispatch()
+    // const profile = useSelector(selectUser)
+    // console.log('profile',profile);
+    // useEffect(()=>{
+    //     alert('sigin useEffect')
+    //     console.log('signin useEffect#############################');
+    //     console.log('profile.isSignIn',profile.isSignIn);
+    //     console.log('profile.emailVerified',profile.emailVerified);
+    //     dispatch(listenAuthState()) 
+    // },[dispatch,profile.emailVerified,profile.isSignIn])
     return (
         <Router>
             <div className="App-wraper">

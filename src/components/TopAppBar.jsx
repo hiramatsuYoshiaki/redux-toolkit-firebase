@@ -21,7 +21,6 @@ const TopAppBar = () => {
             console.log('topappbar useEffect listenAuthState() -------> 3')
             dispatch(listenAuthState())
         }
-        // alert('topAppBar useEffect')
     },[dispatch,profile.isSignIn])
  
     return (

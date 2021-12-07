@@ -592,6 +592,252 @@ const EditProfile = () => {
 }
 export default EditProfile
 ```
+#制御されたコンポーネントと制御されていないコンポーネントの混合
+## aterial-UIコンポーネントの使用
+https://react-hook-form.com/advanced-usage
+`sample code`
+```
+import React, { useEffect } from "react";
+import { Input, Select, MenuItem } from "@material-ui/core";
+import { useForm, Controller } from "react-hook-form";
+
+const defaultValues = {
+  select: "",
+  input: ""
+};
+
+function App() {
+  const { handleSubmit, reset, watch, control } = useForm({ defaultValues });
+  const onSubmit = data => console.log(data);
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        render={
+          ({ field }) => <Select {...field}>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+          </Select>
+        }
+        control={control}
+        name="select"
+        defaultValue={10}
+      />
+      
+      <Input {...register("input")} />
+
+      <button type="button" onClick={() => reset({ defaultValues })}>Reset</button>
+      <input type="submit" />
+    </form>
+  );
+}
+
+
+```
+# React-hook-form material-ui (FormControlLabel + Checkbox) using Controller
+https://pretagteam.com/question/reacthookform-materialui-formcontrollabel-checkbox-using-controller 
+
+
+# react-hook-form 
+## rules 
+https://react-hook-form.com/api/useform/register
+1. required 
+```
+rules={{
+    required:'ユーザー名は必須です。',
+}}
+```
+2. maxLength
+```
+rules={{
+    maxLength : {
+        value: 20,
+        message: 'ユーザー名は２０文字以内です。' 
+    }
+}}
+```
+3. minLength
+```
+rules={{
+    minaxLength : {
+        value: 8,
+        message: 'パスワードは８文字以上です。' 
+    }
+}}
+```
+4. pattern 入力の正規表現パターン。
+```
+rules={{
+    pattern: {
+        value: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+        message: 'メールアドレスの形式が不正です',
+    },
+}}
+```
+# Material-UIコンポーネントでのReactフックフォームの使用
+https://levelup.gitconnected.com/using-react-hook-form-with-material-ui-components-ba42ace9507a
+
+
+# Redux Toolkit extraReducersのエラー処理の方法
+## Redux Toolkit で Async Thunk が曲者なので詳しく解説する　
+https://times.hrbrain.co.jp/entry/2020/12/08/redux-toolkit-async-thunk 
+
+## サインインしたときユーザーが見つからない場合のエラー処理
+1. サインインページからdispatchする
+`signin.jsx`
+```
+import React from 'react'
+import {useDispatch,useSelector} from 'react-redux'
+import {signInAsync,selectUser,listenAuthState} from '../features/auth/authSlice'
+ const SignIn = () => {
+    const dispatch = useDispatch()
+    const profile = useSelector(selectUser)
+    const handleClickError = () => {
+      const data = {emai:'not_found_user@gmail.com',password:'user0000'}
+
+      dispatch(signInAsync(data))
+
+    }return(
+      <button onSubmit='handleClickError'>
+        サインイン　エラー　テスト
+      </button>
+      <div>
+            {(profile.code === '' ||  profile.code === null) ? null :<div>{profile.msg}</div> }
+        </div>
+    )
+}
+export default SignIn
+```
+2. authSliceのcreateAsyncThunk内でrejectWithValue(errorPayload)を使ってextraReducersのrejectedアクションへおくります。
+`suthSlice.jsx`
+```
+import { createSlice, createAsyncThunk  } from '@reduxjs/toolkit'
+import { signin } from './signin'
+const initialState = {
+    user:{
+        isSignIn: false,
+        role:"",
+        uid: null,
+        username:"",
+        email:"",
+        photoURL:"",
+        emailVerified:false,
+        code:'',
+        msg:'',
+        status: 'idle',  
+    }
+} 
+export const signInAsync = createAsyncThunk(
+    'auth/signIn',
+    async (inputValue,{ rejectWithValue }) => { 
+      try{
+        const signInUser = await signin(inputValue.email, inputValue.password)
+        return signInUser.data
+      }
+      catch(signInUser){
+        return rejectWithValue(signInUser.data)
+      }
+    }
+
+```
+3. signInWithEmailAndPasswordでエラーをPromiseのrejectで投げます
+`signin.js`
+```
+import { getAuth, 
+         signInWithEmailAndPassword,
+         setPersistence,
+         browserLocalPersistence,
+        } from 'firebase/auth'
+export const signin = (email, password) => {
+    return new Promise((resolve,reject) =>{
+        const auth = getAuth()
+        setPersistence(auth, browserLocalPersistence)
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                resolve({  
+                      data: {
+                          isSignIn: true,
+                          role:"",
+                          uid: user.uid,
+                          username: user.displayName,
+                          email: user.email,
+                          photoURL: user.photoURL, 
+                          emailVerified: user.emailVerified, 
+                          code:'',
+                          msg:'',
+                      } 
+                  })
+            })
+            .catch((error) => {
+                let msg = ''
+                if (error.code === 'auth/invalid-email') {
+                    msg ='メールアドレスの形式が正しくありません'
+                } else if(error.code === 'auth/user-disabled') {
+                    msg ='ユーザーが無効化されています'
+                } else if(error.code === 'auth/user-not-found') {
+                    msg ='ユーザーが見つかりません'
+                } else if(error.code === 'auth/wrong-password') {
+                    msg ='パスワードが間違っています'
+                } else if (error.code === 'auth/network-request-failed') {
+                    msg ='通信エラーまたはタイムアウトしました'
+                } else {
+                    msg ='サインインできませんでした'
+                } 
+                reject({
+                    data:{
+                        isSignIn: false,
+                        role:"",
+                        uid: "",
+                        username:"",
+                        email:"", 
+                        photoURL:"",
+                        emailVerified: false,
+                        code:error.code,
+                        msg:msg,
+                    }
+                })
+            });
+    })
+```
+4. authSliceのextraReducersのrejectedアクションでエラーを受け取る
+`suthSlice.jsx `
+```
+extraReducers: (builder) => {
+        builder
+        .addCase(signInAsync.pending, (state) => {
+            state.user.isSignIn = false;
+            state.user.status = 'loading'
+          })
+        .addCase(signInAsync.fulfilled, (state, action) => {
+            state.user.isSignIn = action.payload.isSignIn;
+            state.user.role = action.payload.role
+            state.user.uid = action.payload.uid
+            state.user.username = action.payload.username
+            state.user.email = action.payload.email
+            state.user.photoURL = action.payload.photoURL
+            state.user.emailVerified = action.payload.emailVerified
+            state.user.code = action.payload.code
+            state.user.msg = action.payload.msg
+            state.user.status = 'idle'
+            // console.log('auth/signInAsync*********',action) 
+          })
+          .addCase(signInAsync.rejected, (state, action) => {
+            console.log('action reject',action)
+            state.user.isSignIn = false;
+            state.user.role = action.payload.role
+            state.user.uid = action.payload.uid
+            state.user.username = action.payload.username
+            state.user.email = action.payload.email
+            state.user.photoURL = action.payload.photoURL
+            state.user.emailVerified = action.payload.emailVerified
+            state.user.code = action.payload.code
+            state.user.msg = action.payload.msg
+            state.user.status = 'idle'
+            // console.log('auth/createAccountAsync rejected*********',action)
+          })
+}
+```
 
 # Firebase Authentication
 ## メールリンク認証

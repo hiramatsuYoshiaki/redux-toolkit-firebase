@@ -23,36 +23,36 @@ const initialState = {
         status: 'idle',  
     }
 } 
-// firebase auth remove account
-export const removeAccountAsync = createAsyncThunk(
-  'auth/remove',
-  async() => {
-    console.log('remove account async thunk')
-    const deleteUser = await removeUser()
-    return deleteUser.data
-  }
-)
+
 //firebase auth onAuthStateChanged
 export const listenAuthState = createAsyncThunk(
     'auth/listenAuthState', 
-    async () => {
-      console.log('listenAuthState')
+    async () => { 
+      console.log('listenAuthState++++++++')
         const signInUser = await listenAuth()
-        console.log('payload data',signInUser.data.email)
+        // console.log('payload data',signInUser.data.email)
         return signInUser.data //<--------payloadに渡される
     }  
 ) 
 //firebase auth signInWithEmailAndPassword 
 export const signInAsync = createAsyncThunk(
     'auth/signIn',
-    async (inputValue) => { 
+    async (inputValue,{ rejectWithValue }) => { 
+      try{
+        // console.log('try clock  signIn')
+        // console.log('signIn ==============')
         // console.log('inputValue.email',inputValue.email)
         // console.log('inputValue.password',inputValue.password)
-        // console.log('signIn ==============')
         const signInUser = await signin(inputValue.email, inputValue.password)
         // console.log('signInUser',signInUser)
         return signInUser.data
+      }
+      catch(signInUser){
+        // console.log('catch block signIn signInUser:', signInUser)
+        return rejectWithValue(signInUser.data)
+      }
     }
+    
 )
 //firebase auth updateProfile
 // displayName
@@ -97,8 +97,6 @@ export const signOutAsync = createAsyncThunk(
 export const createAccountAsync = createAsyncThunk( 
   'auth/createAccount',
   async (inputValue,{ rejectWithValue }) => {
-      // try{
-        
         try{
           console.log('try createAccount')
             const signInUser = await createAccount(inputValue.email, 
@@ -113,93 +111,17 @@ export const createAccountAsync = createAsyncThunk(
             console.log('createAccountAsync catch block signInUser:', signInUser)
             return rejectWithValue(signInUser.data)
         }
-
-        // try{
-        //   console.log('firestore add account ')
-        //   console.log('signInUser.data.username: ',signInUser.data.username)
-        //   const user = {
-        //     uid: signInUser.data.uid,
-        //     username: signInUser.data.username,
-        //     email: signInUser.data.email,
-        //     photoURL: signInUser.data.photoURL,
-        //     emailVerified: signInUser.data.emailVerified,
-        //   }
-        //   const refarence = await setDocAccount(user)
-        //   console.log(refarence)
-          
-        // } catch (error) {
-        //   console.log(error.data.errorCode)
-        //   console.log(error.data.errorMessage) 
-        //   signInUser.data.errorCode = error.data.errorCode
-        //   signInUser.data.errorMessage = error.data.errorMessage
-        //   return rejectWithValue(signInUser.data)
-        // }
-
-
-
-
-        // await createAccount(inputValue.email, 
-        //                     inputValue.password,
-        //                     inputValue.displayName,
-        //                     inputValue.photoURL,
-        //                     inputValue.emailVerified )
-        // .unwrap()
-        // .then((signInUser)=>{
-        //   console.log('createAccountAsync then block signInUser', signInUser)
-        //   return signInUser.data 
-        // })
-        // .catch((signInUser)=>{
-        //   console.log('createAccountAsync catch block signInUser', signInUser)
-        //   return rejectWithValue(signInUser.data )
-        // })
-        // console.log('firestore add account ')
-        // console.log('signInUser.data.username: ',signInUser.data.username)
-        // const user = {
-        //   uid: signInUser.data.uid,
-        //   username: signInUser.data.username,
-        //   email: signInUser.data.email,
-        //   photoURL: signInUser.data.photoURL,
-        //   emailVerified: signInUser.data.emailVerified,
-        // }
-        // const refarence = await setDocAccount(user)
-        // console.log(refarence)
-
-        // return signInUser.data 
-
-      // } catch (err) {
-      //   console.log('catch err createAccount')
-      //   rejectWithValue(err.message)
-      // }
-      // console.log('createAccount =============')
-      
-      // console.log('inputValue.email',inputValue.email)
-      //   console.log('inputValue.password',inputValue.password)
-      //   console.log('inputValue.displayName',inputValue.displayName)
-      //   console.log('inputValue.photoURL',inputValue.photoURL)
-        // const signInUser = await createAccount(inputValue.email, 
-        //                                         inputValue.password,
-        //                                         inputValue.displayName,
-        //                                         inputValue.photoURL,
-        //                                         inputValue.emailVerified
-        //                                       )
-        // console.log('signInUser',signInUser)
-
-        
-        // console.log('firestore add account ')
-        // console.log('signInUser.data.username: ',signInUser.data.username)
-        // const user = {
-        //   uid: signInUser.data.uid,
-        //   username: signInUser.data.username,
-        //   email: signInUser.data.email,
-        //   photoURL: signInUser.data.photoURL,
-        //   emailVerified: signInUser.data.emailVerified,
-        // }
-        // const refarence = await setDocAccount(user)
-        // console.log(refarence)
-        // return signInUser.data 
   }
 ) 
- 
+// firebase auth remove account
+export const removeAccountAsync = createAsyncThunk(
+  'auth/remove',
+  async() => {
+    console.log('remove account async thunk')
+    const deleteUser = await removeUser()
+    return deleteUser.data
+  }
+)
 
 
 //action
@@ -241,7 +163,7 @@ const authSlice = createSlice({
             state.user.photoURL = action.payload.photoURL
             state.user.emailVerified = action.payload.emailVerified
             state.user.status = 'idle'
-            // console.log('auth/listenAuthState*********',action) //payload: signInUser.data listenAuthState
+            console.log('auth/listenAuthState*********',action) //payload: signInUser.data listenAuthState
           })
           .addCase(listenAuthState.rejected, (state, action) => {
             state.user.isSignIn = false;
@@ -263,14 +185,24 @@ const authSlice = createSlice({
             state.user.emailVerified = action.payload.emailVerified
             state.user.code = action.payload.code
             state.user.msg = action.payload.msg
-
             state.user.status = 'idle'
             // console.log('auth/signInAsync*********',action) 
           })
           .addCase(signInAsync.rejected, (state, action) => {
+            console.log('action reject',action)
             state.user.isSignIn = false;
+            state.user.role = action.payload.role
+            state.user.uid = action.payload.uid
+            state.user.username = action.payload.username
+            state.user.email = action.payload.email
+            state.user.photoURL = action.payload.photoURL
+            state.user.emailVerified = action.payload.emailVerified
+            state.user.code = action.payload.code
+            state.user.msg = action.payload.msg
             state.user.status = 'idle'
+            // console.log('auth/createAccountAsync rejected*********',action)
           })
+         
         //firebase auth signout
         .addCase(signOutAsync.pending, (state) => {
             state.user.isSignIn = false;
@@ -361,6 +293,7 @@ const authSlice = createSlice({
             state.user.status = 'idle'
           })
       },
+
 });
 
 export const { signinAction,singoutAction } = authSlice.actions
