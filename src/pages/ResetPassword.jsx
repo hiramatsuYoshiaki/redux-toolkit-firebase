@@ -9,6 +9,7 @@ import './page.scss'
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import {Button, TextField} from '@mui/material'
 import {useForm, Controller} from 'react-hook-form'
+import { rejects } from 'assert'
 
 // const styles={
 //     wraper:{
@@ -18,7 +19,7 @@ import {useForm, Controller} from 'react-hook-form'
 // }
 
 const ResetPassword = () => {
-    console.log('reset password start----------------');
+    console.log('reset password start----------------++++++');
     const dispatch = useDispatch()
     const profile = useSelector(selectUser)
     const history = useHistory()
@@ -26,31 +27,59 @@ const ResetPassword = () => {
     const [inputEmail,setInputEmail] = useState('')
     //react-hook from
     const {handleSubmit, control} = useForm()
-    const resetPasswordSendEmail = (email) => {
-        console.log('resetPasswordSendEmail');
-        const auth = getAuth();
-        sendPasswordResetEmail(auth, email)
-        .then(() => {
-            console.log('Password reset email sent!');
-            // alert('パスワードリセット用のメールを' + 
-            //     email + 
-            //     'に送信しました。メールから新しいパスワードを設定してください。' )
-            setIsSended(true)
-            dispatch(signOutAsync())
-            history.push('/signin')
+    // const resetPasswordSendEmail = (email) => {
+    //     console.log('resetPasswordSendEmail')
+    //     const auth = getAuth();
+    //     sendPasswordResetEmail(auth, email)
+    //     .then(() => {
+    //         console.log('Password reset email sent!')
+    //         setIsSended(true)
+    //         dispatch(signOutAsync())
+    //         history.push('/signin')
+    //     })
+    //     .catch((error) => {
+    //         console.log('error code',error.code);
+    //         console.log('errorMessage',error.message)
+    //     });
+    // }
+    // const onSubmit = data => {
+    //     console.log('input-form-data',data)
+    //     setInputEmail(data.email)
+    //     resetPasswordSendEmail(data.email)
+    // }
+    const resetPasswordSendEmail = (email) =>{
+        return new Promise((resolve,reject)=>{
+            console.log('resetPasswordSendEmail++++++++++++++++++++++++++++')
+            const auth = getAuth();
+            sendPasswordResetEmail(auth, email)
+            .then(() => {
+                console.log('Password reset email sent!++++++++++++++++++++++++')
+                setIsSended(true)
+                dispatch(signOutAsync())
+                resolve ()
+            })
+            .catch((error) => {
+                console.log('error code',error.code);
+                console.log('errorMessage',error.message)
+                reject()
+            });
         })
-        .catch((error) => {
-            console.log('error code',error.code);
-            console.log('errorMessage',error.message);
-        });
     }
-    const onSubmit = data => {
+    const onSubmit = async(data) => {
         console.log('input-form-data',data)
-        setInputEmail(data.email)
-        //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        //dispach に変更非同期でパスワードリセットとサインアウトしてhistory.pushする
-        resetPasswordSendEmail(data.email)
+        try{
+            console.log('try++++++++++++++++++++++++++++++++++++')
+            await resetPasswordSendEmail(data.email)
+            setInputEmail(data.email)
+            console.log('push /singin+++++++++++++++++++++++++++')
+            // history.push('/signin')
+        }catch(error){
+            console.log('catch',error);
+        }
     }
+    
+
+
 
 
     // const [values, handleChange] = InputUser({
@@ -83,7 +112,11 @@ const ResetPassword = () => {
             {profile.isSignIn === false
             ?
             <div>
-                <Redirect push to='/signin' />  
+                <Link to='/signin'>
+                    <Button  variant="outlined">
+                        サインイン
+                    </Button>
+                </Link>
             </div>
             :
             <div>
@@ -102,7 +135,11 @@ const ResetPassword = () => {
                         </div>
                     </form>
                 </div> */}
-                <div>パスワードリッセット</div>
+                <h3>パスワードリセット</h3>
+                <h5>パスワードリセット用のメールが送信されます。</h5>
+                <h5>送信されたメールのリンクをクリックして、</h5>
+                <h5>パスワードを再設定してください。</h5>
+                <h5>新しいパスワードでサインインできます。</h5>
                 <div>メールアドレスを入力してください</div>
                 <div>
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -138,16 +175,13 @@ const ResetPassword = () => {
                             />
                             <div>
                                 <Button type='submit' variant="outlined">
-                                    SUBMIT
+                                    リセットメール送信
                                 </Button>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div>パスワードリセット用のメールが送信されます。</div>
-                <div>送信されたメールのリンクをクリックして、</div>
-                <div>パスワードを再設定してください。</div>
-                <div>新しいパスワードでサインインできます。</div>
+                
             </div>
             }           
         </div>

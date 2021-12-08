@@ -5,6 +5,7 @@ import { selectorAvater, getAvatorAsync } from '../features/storage/storageSlice
 import { Link} from 'react-router-dom' 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
+import Divider from '@mui/material/Divider'
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
@@ -16,7 +17,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AvaterRemove, AvaterUpdae, ProfileUpdae } from '../components/account/index'
 
-import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
+// import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
 
 
 import './page.scss'
@@ -58,42 +59,42 @@ const Account = () => {
         setOpen(false)
     }
     //acordion 1
-    const [expanded, setExpanded] = useState('panel1')
+    const [expanded, setExpanded] = useState('')
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false)
     }
 
     //update email
-    const [openEmailMessage, setOpenEmailMessage] = useState(false);
-    const handleClickOpenEmailMessage = () => {
-        setOpenEmailMessage(true);
-    };
-    const handleCloseEmailMessage = () => {
-        setOpenEmailMessage(false);
-    };
+    // const [openEmailMessage, setOpenEmailMessage] = useState(false);
+    // const handleClickOpenEmailMessage = () => {
+    //     setOpenEmailMessage(true);
+    // };
+    // const handleCloseEmailMessage = () => {
+    //     setOpenEmailMessage(false);
+    // };
     
    //メールアドレス変更
-    const handleClickEmailUpdate = () => {
-        setOpenEmailMessage(false);
-        const auth = getAuth();
-        const actionCodeSettings = {
-            // url: 'https://redux-toolkit-firebase-bdbac.web.app/updateemail',
-            url: 'http://localhost:3000/updateemail',
-            handleCodeInApp: true,
-          };
-        sendSignInLinkToEmail(auth, profile.email, actionCodeSettings)
-        .then(() => {
-            window.localStorage.setItem('emailForSignIn', profile.email);
-            console.log('sendSignInLinkToEmail window.localStorage.setItem email: ',profile.email)
-            // alert(profile.email + 'へログインのリクエストを送信しました。メールを開いてリンク（ACTIVITIESにログイン）をクリックしてください。ブラウザに表示されたページからメールアドレスの変更を完了してください。')
-        })
-        .catch((error) => {
-            const errorCode = error.code
-            const errorMessage = error.message 
-            console.log(errorCode)
-            console.log(errorMessage)
-        });
-    }
+    // const handleClickEmailUpdate = () => {
+    //     setOpenEmailMessage(false);
+    //     const auth = getAuth();
+    //     const actionCodeSettings = {
+    //         // url: 'https://redux-toolkit-firebase-bdbac.web.app/updateemail',
+    //         url: 'http://localhost:3000/updateemail',
+    //         handleCodeInApp: true,
+    //       };
+    //     sendSignInLinkToEmail(auth, profile.email, actionCodeSettings)
+    //     .then(() => {
+    //         window.localStorage.setItem('emailForSignIn', profile.email);
+    //         console.log('sendSignInLinkToEmail window.localStorage.setItem email: ',profile.email)
+    //         // alert(profile.email + 'へログインのリクエストを送信しました。メールを開いてリンク（ACTIVITIESにログイン）をクリックしてください。ブラウザに表示されたページからメールアドレスの変更を完了してください。')
+    //     })
+    //     .catch((error) => {
+    //         const errorCode = error.code
+    //         const errorMessage = error.message 
+    //         console.log(errorCode)
+    //         console.log(errorMessage)
+    //     });
+    // }
     
     useEffect(()=>{
         if(photoURL !== ''){
@@ -114,73 +115,17 @@ const Account = () => {
                             </div>
                             <div className="page-FeatureListContainer_feature">
                                 <div>{profile.username}</div>
-                                <Button variant="text" onClick={handleClickOpen}> 
-                                    プロフィール写真を変更する
-                                </Button>
-                                <Dialog
-                                    open={open}
-                                    onClose={handleClose}
-                                    aria-labelledby="alert-dialog-title"
-                                    aria-describedby="alert-dialog-description"
-                                >
-                                    <DialogTitle id="alert-dialog-title">
-                                        プロフィール写真を変更
-                                    </DialogTitle>
-                                    <DialogContent>
-                                        <DialogContentText id="alert-dialog-description">
-                                        アバターを変更します。
-                                        </DialogContentText>
-                                    </DialogContent>
-                                    <DialogActions>
-                                        {/* <Button onClick={handleClose}>
-                                            写真を変更
-                                        </Button> */}
-                                        <AvaterUpdae />
-                                    </DialogActions>
-                                    <DialogActions>
-                                        {/* <Button onClick={handleClose} autoFocus>
-                                            写真を削除
-                                        </Button> */}
-                                        <AvaterRemove />
-
-                                    </DialogActions>
-                                    <DialogActions>
-                                        <Button onClick={handleClose} autoFocus>
-                                            キャンセル
-                                        </Button>
-                                    </DialogActions>
-                                </Dialog>
+                                <div>{profile.email}</div>
                             </div>
-                        </div>
-
-
-
-
-                        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                            <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                            >
-                                <div>プロフィールを変更する</div>
-                            </AccordionSummary>
-
-                            <AccordionDetails> 
-                                <ProfileUpdae username={profile.username} email={profile.email}/>
-                            </AccordionDetails> 
-                        </Accordion> 
-
-
-
-
-
+                        </div> 
+                       
                         {/* <div onClick={handleClickEmailUpdate}> */}
-                        <div onClick={handleClickOpenEmailMessage}>
+                        {/* <div onClick={handleClickOpenEmailMessage}>
                             <div>{profile.email}</div>
                             <Button>メールアドレスを変更する。</Button>
-                        </div>
+                        </div> */}
 
-                        <Dialog
+                        {/* <Dialog
                             open={openEmailMessage}
                             onClose={handleCloseEmailMessage}
                             aria-labelledby="alert-dialog-title"
@@ -191,7 +136,6 @@ const Account = () => {
                             </DialogTitle>
                             <DialogContent>
                             <DialogContentText id="alert-dialog-description">
-                            {/* {profile.email} + 'へログインのリクエストを送信しました。メールを開いてリンク（ACTIVITIESにログイン）をクリックしてください。ブラウザに表示されたページからメールアドレスの変更を完了してください。 */}
                             {profile.email}へ再ログイン用のメールを送信ます。
                             メールのリンク［ACTIVITIESにログイン］をクリックして、
                             ブラウザに表示されたページからメールアドレスを変更してください。
@@ -203,19 +147,55 @@ const Account = () => {
                                 変更
                             </Button>
                             </DialogActions>
-                        </Dialog>
+                        </Dialog> */}
 
+                        <Divider variant="middle" /> 
+                        <div>
+                        <Link to='/updateaccountphoto'>
+                            <Button variant="text" > 
+                                プロフィール写真を変更する
+                            </Button>
+                        </Link>
+                        </div>
+                        <Divider variant="middle" />
+                        <div>
+                            <Link to='/updateaccountname'>
+                                <Button>アカウント名を変更する。</Button>
+                            </Link>
+                        </div>
+                        {/* <p>{profile.username}</p> */}
+                        <Divider variant="middle" />
+                        <div>
+                            <Link to='/updateemail'>
+                                <Button>メールアドレスを変更する。</Button>
+                            </Link>
+                        </div>
+                        {/* <p>{profile.email}</p> */}
+                        <Divider variant="middle" />
                         <div>
                             <Link to='/resetpassword'>
                                 <Button>パスワードを変更する。</Button>
                             </Link>
                         </div>
-
+                        <Divider variant="middle" />
                         <div >
                             <Link to='removeaccount'>
                                 <Button>アカウントを削除する</Button>
                             </Link> 
                         </div>
+                        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                            <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                            >
+                                <div>ユーザー情報を変更する</div>
+                            </AccordionSummary>
+
+                            <AccordionDetails> 
+                                <ProfileUpdae username={profile.username} email={profile.email}/>
+                            </AccordionDetails> 
+                        </Accordion> 
 
                         {/* <div>
                             <div>{profile.email}</div> 

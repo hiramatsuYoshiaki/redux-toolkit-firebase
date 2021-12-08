@@ -182,7 +182,7 @@ const CreateAccount = () => {
                         render={({field:{onChange,value},fieldState:{error}})=>
                                 <TextField 
                                     id='name'
-                                    label='名前'
+                                    label='アカウント名'
                                     type='text'
                                     value={value}
                                     onChange={onChange}

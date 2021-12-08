@@ -84,15 +84,15 @@ const ProfileUpdate = ({username,email}) => {
                     />
                     <Controller 
                                 name='age'
-                                defaultValue={'Age'}
+                                defaultValue={10}
                                 control={control}
                                 render={
                                     ({ field }) => 
                                     <FormControl fullWidth>
                                         <InputLabel >Age</InputLabel>
                                         <Select {...field} label="Age">
-                                        <MenuItem value={10}>Ten</MenuItem>
-                                        <MenuItem value={20}>Twenty</MenuItem>
+                                        <MenuItem value={10}>10</MenuItem>
+                                        <MenuItem value={20}>20</MenuItem>
                                         </Select>
                                     </FormControl>
                                   }

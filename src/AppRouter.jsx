@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Home, 
         SignIn, 
@@ -9,6 +9,8 @@ import { Home,
         Account,
         ResetPassword,
         UpdateEmail,
+        UpdateAccountName,
+        UpdateAccountPhoto,
         NotFound, 
          } from './pages/index'
 // import { Home,  
@@ -75,6 +77,8 @@ const AppRouter = () => {
                             <Route exact path="/account" component={Account} />
                             <Route exact path="/resetpassword" component={ResetPassword}/>
                             <Route exact path="/updateemail" component={UpdateEmail} />
+                            <Route exact path="/updateaccountname" component={UpdateAccountName} />
+                            <Route exact path="/updateaccountphoto" component={UpdateAccountPhoto} />
                             {/* <Verified>
                                 <VerifiedRoute  />
                             </Verified> */}

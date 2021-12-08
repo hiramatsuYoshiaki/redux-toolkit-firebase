@@ -2,7 +2,7 @@ import React from 'react'
 import {useForm, Controller} from  'react-hook-form' 
 import { Button,TextField } from '@mui/material'
 import { useDispatch} from 'react-redux'
-import { updateEmailAsync } from '../../features/auth/authSlice'
+import { updateEmailAsync,signOutAsync } from '../../features/auth/authSlice'
 import {useHistory} from 'react-router-dom'
 
 
@@ -11,10 +11,8 @@ const EmailUpdateForm = () => {
     const history = useHistory()
     const { handleSubmit, control} = useForm()
     const onSubmit = data => {
-        // console.log('input form data',data) 
-        // alert(data.email)
+        console.log('input form data',data) 
         dispatch(updateEmailAsync(data.email))
-        alert('ログイン用のメールアドレスが変更されました。')
         history.push('/account')
     }  
     return (
@@ -51,7 +49,7 @@ const EmailUpdateForm = () => {
                     }}
                 />
                 <div>
-                    <Button type='submit'>
+                    <Button type='submit' variant='outlined'>
                         変更
                     </Button>
                 </div>

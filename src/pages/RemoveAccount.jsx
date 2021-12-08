@@ -53,17 +53,17 @@ const RemoveAccount = () => {
         })
     }
     const handleRemoveAccount = () => {
-        dispatch(removeAccountAsync())
+        dispatch(removeAccountAsync()) 
     }
     return (
         <div className="page-fexed-container" >
-            {profile.isSignIn === true && profile.emailVerified
+            {profile.isSignIn === true && profile.emailVerified === true
             ? 
             <div>
                 {resultConfirm
                 ?
                 <div onClick={handleRemoveAccount}>
-                    <Button type='submit' variant='outlined'>
+                    <Button  variant='outlined'>
                         アカウントの削除
                     </Button>
                 </div>
@@ -103,7 +103,7 @@ const RemoveAccount = () => {
                             </Button>
                         </div>
                     </form>
-                </div>
+                </div> 
                 }
                 
                 <Alerts open={open} 

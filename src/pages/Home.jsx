@@ -7,6 +7,7 @@ import { Button } from '@mui/material'
 import './page.scss'
 
 const Home = () => {
+    console.log('home -------------------');
     const profile = useSelector(selectUser)
     console.log(profile);
     const items = [

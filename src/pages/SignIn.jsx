@@ -12,7 +12,7 @@ import {useForm, Controller} from 'react-hook-form'
 import './page.scss'  
 
 const SignIn = () => {
-    console.log('Singin -------------------');
+    console.log('Singin -------------------')
     const dispatch = useDispatch()
     const profile = useSelector(selectUser)
     console.log('profile',profile);

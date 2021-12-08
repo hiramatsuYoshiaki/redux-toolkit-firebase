@@ -7,7 +7,7 @@ import {LoadingSpiner} from '../components/index'
 import './TopAppBar.scss';
 
 const TopAppBar = () => {
-    console.log('TopAppBar ------> start1')
+    console.log('TopAppBar ---------------')
     const dispatch = useDispatch()
     const profile = useSelector(selectUser)
 
@@ -16,9 +16,8 @@ const TopAppBar = () => {
     console.log('isSignIn',profile.isSignIn)
     console.log('emailVerified',profile.emailVerified) 
     useEffect(()=>{
-        console.log('topappbar useEffect  2') 
         if(profile.isSignIn !== true){
-            console.log('topappbar useEffect listenAuthState() -------> 3')
+            console.log('topappbar useEffect listenAuthState() -------> ')
             dispatch(listenAuthState())
         }
     },[dispatch,profile.isSignIn])
