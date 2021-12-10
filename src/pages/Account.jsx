@@ -166,7 +166,7 @@ const Account = () => {
                         {/* <p>{profile.username}</p> */}
                         <Divider variant="middle" />
                         <div>
-                            <Link to='/updateemail'>
+                            <Link to='/updatemail'>
                                 <Button>メールアドレスを変更する。</Button>
                             </Link>
                         </div>
@@ -211,14 +211,14 @@ const Account = () => {
                  
                 </div>
 
-            </div>//<div style={styles.wraper}> 
+            </div>//<div style={styles.wraper}> 　
             : 
             (profile.isSignIn === true && profile.emailVerified === false)
                 ?
                 <div>
-                    <div>アクティベーションしてください</div>
-                    <Link to='/emailVerified' >
-                        <button>サインイン</button>
+                    <div>アカウントを有効化してください。</div>
+                    <Link to='/createaccount' >
+                        <Button variant='outlined'>有効化</Button>
                     </Link>
                     {/* <Redirect push to="/emailVerified" /> */}
                 </div>
@@ -226,7 +226,7 @@ const Account = () => {
                 <div>
                     <div>サインインしていません</div>
                     <Link to='/signin' >
-                        <button>サインイン</button>
+                        <Button variant='outlined'>サインイン</Button>
                     </Link>
                     {/* <Redirect push to="/signin" /> */}
                 </div>

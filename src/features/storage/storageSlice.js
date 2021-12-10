@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk  } from '@reduxjs/toolkit'
 import {getStorageAvator} from './getStorageAvator'
+import { uploadStrageAvater } from './uploadStrageAvater'
 const initialState = {
     avator:{
         downloadURL:"",
-        status:"idle"
+        status:"idle"　
     }
 }
 export const getAvatorAsync = createAsyncThunk(
@@ -12,8 +13,21 @@ export const getAvatorAsync = createAsyncThunk(
         // console.log('getAvatorAsync')
         // console.log('url: ',url)
         const reference = await getStorageAvator(url)
-        // console.log('reference-->',reference.data)
+        console.log('getAvatorAsync reference-->dounlodURL',reference.data)
         return reference.data
+    }
+)
+export const uploadAvaterAsync = createAsyncThunk(
+    'storage/uploadAvater',
+    async(file,{rejectWithValue}) => {
+        try{
+            // console.log('uploadAvaterAsync try block -----')
+            const res = await uploadStrageAvater(file)
+            return res.data
+        } catch (rejectValue){
+            // console.log('uploadAvaterAsync catch block -----')
+            return rejectWithValue(rejectValue.data)
+        }
     }
 )
 const storageSlice = createSlice({
@@ -39,6 +53,21 @@ const storageSlice = createSlice({
             // console.log('auth/getAvatorAsync*********',action) //payload: signInUser.data getAvatorAsync
           })
           .addCase(getAvatorAsync.rejected, (state, action) => {
+            state.avator.downloadURL = "";
+            state.avator.status = 'idle'
+          })
+        //firebase auth onAuthStateChanged
+        .addCase(uploadAvaterAsync.pending, (state) => {
+            state.avator.downloadURL = "";
+            state.avator.status = 'loading'
+          })
+        .addCase(uploadAvaterAsync.fulfilled, (state, action) => {
+            console.log(action)
+            state.avator.downloadURL = action.payload.downloadURL;
+            state.avator.status = 'idle'
+            console.log('auth/uploadAvaterAsync*********',action) //payload: signInUser.data uploadAvaterAsync
+          })
+          .addCase(uploadAvaterAsync.rejected, (state, action) => {
             state.avator.downloadURL = "";
             state.avator.status = 'idle'
           })

@@ -1,6 +1,7 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import { selectUser } from '../features/auth/authSlice'
+import { selectUser,updateUsernameAsync } from '../features/auth/authSlice'
 import {Button, TextField} from '@mui/material'
 import {useForm, Controller} from 'react-hook-form'
 
@@ -12,16 +13,20 @@ const UpdateAccountName = () => {
     const {handleSubmit, control} = useForm()
     const onSubmit = data => {
         console.log('input-form-data',data)
+        dispatch(updateUsernameAsync(data.username))
     }
     return (
         <div className="page-fexed-container"> 
-            {profile.username}
+
+        {(profile.isSignIn === true && profile.emailVerified === true) 
+            ? 
+            <div>
             <div>アカウント名を変更します。</div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Controller
                     name='username'
                     control={control}
-                    defaultValue={profile.usename}
+                    defaultValue={profile.username}
                     render={({ field: { onChange, value }, fieldState: { error } }) =>
                                 <TextField
                                     id="username" 
@@ -34,13 +39,13 @@ const UpdateAccountName = () => {
                                     margin="normal"
                                 />
                             } 
-                            rules={{
-                                required:'ユーザー名は必須です。',
-                                maxLength : {
-                                    value: 50,
-                                    message: 'ユーザー名は５０文字以内です。' 
-                                }
-                            }}
+                    rules={{
+                        required:'ユーザー名は必須です。',
+                        maxLength : {
+                            value: 50,
+                            message: 'ユーザー名は５０文字以内です。' 
+                        }
+                    }}
                 />
                 <div>
                    <Button type='submit'>
@@ -48,6 +53,18 @@ const UpdateAccountName = () => {
                    </Button>
                 </div>
             </form>
+            </div>
+            :
+            <div>
+                <div>サインインしてください。</div>
+                <div>
+                    <Link to='/signin'>
+                        <Button variant='outlined'>サインイン</Button>
+                    </Link>
+                </div>
+                
+            </div>
+        }
 
         </div>
     )

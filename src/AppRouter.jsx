@@ -76,14 +76,14 @@ const AppRouter = () => {
                             <Route exact path="/removeaccount" component={RemoveAccount} />
                             <Route exact path="/account" component={Account} />
                             <Route exact path="/resetpassword" component={ResetPassword}/>
-                            <Route exact path="/updateemail" component={UpdateEmail} />
+                            <Route exact path="/updatemail" component={UpdateEmail} />
                             <Route exact path="/updateaccountname" component={UpdateAccountName} />
                             <Route exact path="/updateaccountphoto" component={UpdateAccountPhoto} />
                             {/* <Verified>
                                 <VerifiedRoute  />
                             </Verified> */}
                             {/* <Auth>
-                                <PrivateRoute  /> 
+                                <PrivateRoute  /> 　
                             </Auth> */}
                             <Route   component={NotFound} />   
                            

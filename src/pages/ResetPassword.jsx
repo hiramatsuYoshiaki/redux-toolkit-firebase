@@ -112,6 +112,7 @@ const ResetPassword = () => {
             {profile.isSignIn === false
             ?
             <div>
+                <div>サインインしてください</div>
                 <Link to='/signin'>
                     <Button  variant="outlined">
                         サインイン

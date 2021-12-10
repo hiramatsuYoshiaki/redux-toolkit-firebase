@@ -162,7 +162,13 @@ const UpdateEmail = () => {
             </div>
             :
             <div>
-                ログインしていません
+                <div>サインインしてください。</div>
+                <div>
+                    <Link to='/signin'>
+                        <Button variant='outlined'>サインイン</Button>
+                    </Link>
+                </div>
+                
             </div>
             }
             

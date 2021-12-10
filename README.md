@@ -947,7 +947,8 @@ const onReaAuth = () => {
     }
  }
 ```
-
+# firebase strage v9 docs
+https://firebase.google.cn/docs/storage/web/upload-files?hl=en&%3Bskip_cache=true&skip_cache=true 
 
 
 

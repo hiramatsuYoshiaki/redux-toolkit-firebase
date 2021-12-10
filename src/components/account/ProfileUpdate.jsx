@@ -12,8 +12,8 @@ const ProfileUpdate = ({username,email}) => {
     const onSubmit = data => {
         console.log('input form data', data);
     }
-
-    // const onSubmit = data => {
+　
+    // const onSubmit = data => { 
     //     console.log('input form data',data)  
     //     if(username !== data.username){  
     //         // console.log('chenge username');

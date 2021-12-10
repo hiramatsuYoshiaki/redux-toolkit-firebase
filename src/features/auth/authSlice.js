@@ -7,7 +7,8 @@ import { createAccount } from './createAccount'
 import { updateUsername } from './updateUsername'
 import { updateUseremail } from './updateUseremail' 
 import { removeUser } from './removeUser' 
-
+import { updatePhotoURL } from './updatePhotoURL' 
+ 
 //state 
 const initialState = {
     user:{
@@ -54,23 +55,28 @@ export const signInAsync = createAsyncThunk(
     }
     
 )
-//firebase auth updateProfile
-// displayName
-// photoUR
-export const updateProfileAsync = createAsyncThunk(
-    'auth/updateProfile',
-    async (username) => { 
-        console.log('updateProfileAsync -------------------')
-        console.log('username',username)
-        const name = await updateUsername(username)
-        // console.log('updateUsername',updateUsername)
-        return name.data
+// update photoURL
+export const updatePhotoURLAsync = createAsyncThunk(
+    'auth/updatePhoto',
+    async(URL)=>{
+      console.log('updatePhotoAsync-------------')
+      console.log('URL: ',URL)
+      const respons = updatePhotoURL(URL)
+      return respons.data
     }
 )
-//firebase auth updateEmail
-// displayName
-// photoUR
-//vor8n5eoA8b6Ak3dmLkG2Z6fQZ22 user2
+//update username
+export const updateUsernameAsync = createAsyncThunk(
+    'auth/updateProfile',
+    async (username) => { 
+        console.log('updateUsernameAsync -------------------')
+        console.log('username',username)
+        const respons = await updateUsername(username)
+        // console.log('updateUsername',updateUsername)
+        return respons.data
+    }
+) 
+//update email
 export const updateEmailAsync = createAsyncThunk(
     'auth/updateEmail',
       async (value) => { 
@@ -80,7 +86,7 @@ export const updateEmailAsync = createAsyncThunk(
         console.log('updateEmail',respons)
         console.log('updateEmail chenged email:',respons.data.email)
         return respons.data
-    }
+    } 
 )
 
 //firebase auth signOut
@@ -255,6 +261,24 @@ const authSlice = createSlice({
           })
 
 
+
+        //firebase auth updateUsername
+        .addCase(updateUsernameAsync.pending, (state) => {
+            state.user.status = 'loading'
+          })
+        .addCase(updateUsernameAsync.fulfilled, (state, action) => {
+            // state.user.isSignIn = action.payload.isSignIn;
+            // state.user.role = action.payload.role
+            // state.user.uid = action.payload.uid
+            // state.user.username = action.payload.username
+            state.user.username = action.payload.username
+            // state.user.photoURL = action.payload.photoURL
+            state.user.status = 'idle'
+            console.log('auth/updateUsernameAsync*********',action) 
+          })
+          .addCase(updateUsernameAsync.rejected, (state) => {
+            state.user.status = 'idle'
+          })
 
         //firebase auth updateEmail
         .addCase(updateEmailAsync.pending, (state) => {
