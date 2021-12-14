@@ -6,12 +6,10 @@ const initialState = {
         downloadURL:"",
         status:"idle"　
     }
-}
+} 
 export const getAvatorAsync = createAsyncThunk(
     'storege/getAvator',
     async(url) => {
-        // console.log('getAvatorAsync')
-        // console.log('url: ',url)
         const reference = await getStorageAvator(url)
         console.log('getAvatorAsync reference-->dounlodURL',reference.data)
         return reference.data
@@ -21,14 +19,12 @@ export const uploadAvaterAsync = createAsyncThunk(
     'storage/uploadAvater',
     async(file,{rejectWithValue}) => {
         try{
-            // console.log('uploadAvaterAsync try block -----')
             const res = await uploadStrageAvater(file)
             return res.data
         } catch (rejectValue){
-            // console.log('uploadAvaterAsync catch block -----')
             return rejectWithValue(rejectValue.data)
         }
-    }
+    } 
 )
 const storageSlice = createSlice({
     name: 'storage',

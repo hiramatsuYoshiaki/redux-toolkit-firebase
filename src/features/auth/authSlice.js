@@ -8,6 +8,10 @@ import { updateUsername } from './updateUsername'
 import { updateUseremail } from './updateUseremail' 
 import { removeUser } from './removeUser' 
 import { updatePhotoURL } from './updatePhotoURL' 
+// import { getAvatorURL } from './getAvatorURL' 
+
+import { uploadStrageAvater } from '../storage/uploadStrageAvater'
+import { getStorageAvator } from '../storage/getStorageAvator'
  
 //state 
 const initialState = {
@@ -55,16 +59,29 @@ export const signInAsync = createAsyncThunk(
     }
     
 )
+ 
 // update photoURL
 export const updatePhotoURLAsync = createAsyncThunk(
     'auth/updatePhoto',
-    async(URL)=>{
+    async(file,{rejectWithValue})=>{
       console.log('updatePhotoAsync-------------')
-      console.log('URL: ',URL)
-      const respons = updatePhotoURL(URL)
-      return respons.data
-    }
+      console.log('URL: ',file)
+      try{
+        const url = await uploadStrageAvater(file)
+        console.log(url.data.downloadURL)
+        try{
+          const auth = await updatePhotoURL(url.data.downloadURL)
+          console.log(auth.data)
+          return url.data 
+        } catch(rejectValueAuth){
+          return rejectWithValue(rejectValueAuth.data) 
+        }
+      } catch(rejectValueUpload) {
+        return rejectWithValue(rejectValueUpload.data)
+      }
+    } 
 )
+
 //update username
 export const updateUsernameAsync = createAsyncThunk(
     'auth/updateProfile',
@@ -87,6 +104,25 @@ export const updateEmailAsync = createAsyncThunk(
         console.log('updateEmail chenged email:',respons.data.email)
         return respons.data
     } 
+)
+
+//firebase strage get download URL
+export const getDounloadURLAsync = createAsyncThunk(
+  'strage/getDounloadURL',
+  async(photoURL,{ rejectWithValue }) => {
+    
+    try{
+      // console.log('getDounloadURLAsync')
+      // const res = await getAvatorURL(photoURL)
+      const res = await getStorageAvator(photoURL)
+      // console.log('dounloadURL',res.data.downloadURL)
+     return res.data
+    }
+    catch(error){
+      // console.log('catch block signIn signInUser:', signInUser)
+      return rejectWithValue(error.data)
+    }
+  }
 )
 
 //firebase auth signOut
@@ -262,6 +298,23 @@ const authSlice = createSlice({
 
 
 
+        //firebase auth updatePhotoURL
+        .addCase(updatePhotoURLAsync.pending, (state) => {
+            state.user.status = 'loading'
+          })
+        .addCase(updatePhotoURLAsync.fulfilled, (state, action) => {
+          console.log('auth/updatePhotoURLAsync*********',action) 
+            // state.user.isSignIn = action.payload.isSignIn;
+            // state.user.role = action.payload.role
+            // state.user.uid = action.payload.uid
+            // state.user.username = action.payload.username
+            // state.user.username = action.payload.username
+            state.user.photoURL = action.payload.downloadURL
+            state.user.status = 'idle'
+          })
+          .addCase(updatePhotoURLAsync.rejected, (state) => {
+            state.user.status = 'idle'
+          })
         //firebase auth updateUsername
         .addCase(updateUsernameAsync.pending, (state) => {
             state.user.status = 'loading'
@@ -314,6 +367,18 @@ const authSlice = createSlice({
             console.log('auth/removeAccountAsync*********',action) 
           })
           .addCase(removeAccountAsync.rejected, (state) => {
+            state.user.status = 'idle'
+          })
+        //firebase storage getDownloadURL
+        .addCase(getDounloadURLAsync.pending, (state) => {
+            state.user.status = 'loading'
+          })
+        .addCase(getDounloadURLAsync.fulfilled, (state, action) => {
+            console.log('storage/getDounloadURLAsync*********',action) 
+            // state.user.downloadURL = action.payload.downloadURL;
+            state.user.status = 'idle'
+          })
+          .addCase(getDounloadURLAsync.rejected, (state) => {
             state.user.status = 'idle'
           })
       },
