@@ -6,6 +6,7 @@ import {useDispatch,useSelector} from 'react-redux'
 import {createAccountAsync, selectUser,listenAuthState,signOutAsync} from '../features/auth/authSlice'
 import { getAuth, sendEmailVerification } from "firebase/auth";
 import Stack from '@mui/material/Stack';
+import {LoadingSpiner} from '../components/index'
 
 import {TextField,Button} from '@mui/material'
 import {useForm, Controller} from 'react-hook-form'
@@ -211,6 +212,8 @@ const CreateAccount = () => {
             <div>
                 {(profile.code === '' ||  profile.code === null) ? null :<div>{profile.msg}</div> }
             </div>
+            
+            <LoadingSpiner isLoading={profile.status}/> 
         </div>
     )
 }

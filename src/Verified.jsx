@@ -15,7 +15,7 @@ const Verified = ({children}) => {
             dispatch(listenAuthState())
         }
     },[profile,dispatch])
-    if (profile.isSignIn && !profile.emailVerified) {
+    if (profile.isSignIn && !profile.emailVerified) { 
         return children
     } else{
         return <></>

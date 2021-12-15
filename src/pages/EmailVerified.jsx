@@ -5,7 +5,9 @@ import { selectUser} from '../features/auth/authSlice'
 import { getAuth, sendEmailVerification } from "firebase/auth";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import {LoadingSpiner} from '../components/index'
 
+//メールにんしょう
 const EmailVerified = () => {
     const history = useHistory()
     const profile = useSelector(selectUser)
@@ -26,11 +28,9 @@ const EmailVerified = () => {
             console.log(errorCode)
             console.log(errorMessage) 
         })
-        history.push('/signin')
+        history.push('/signin')　
     }
-    // useEffect(()=>{
-    //     dispatch(listenAuthState)
-    // },[profile,dispatch])
+   
     return (
         <div className="page-fexed-container">
            {(profile.isSignIn === true && profile.emailVerified === true)
@@ -51,6 +51,7 @@ const EmailVerified = () => {
                 </Stack>
                 : <Redirect push to="/signin" />
             }
+            <LoadingSpiner isLoading={profile.status}/>
         </div>
     )
 }

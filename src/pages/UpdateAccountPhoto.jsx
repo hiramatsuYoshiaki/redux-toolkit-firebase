@@ -5,6 +5,7 @@ import {selectUser, updatePhotoURLAsync //アバター画像を変更
 import { Link } from 'react-router-dom'
 import { Button,IconButton } from '@mui/material'
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import {LoadingSpiner} from '../components/index'
 
 const styles={
     wraper:{
@@ -119,7 +120,7 @@ const UpdateAccountPhoto = () => {
                 </div>
             </div>
         }
-            
+        <LoadingSpiner isLoading={profile.status}/>     
         </div>
     )
 }

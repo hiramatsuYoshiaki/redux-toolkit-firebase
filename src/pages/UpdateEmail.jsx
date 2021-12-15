@@ -8,6 +8,7 @@ import {Button, TextField} from '@mui/material';
 import {useForm, Controller} from 'react-hook-form'
 import {EmailUpdateForm} from '../components/account/index'
 import {Alerts, Confirm} from '../components/dialog/index'
+import {LoadingSpiner} from '../components/index'
 
 
 
@@ -195,8 +196,9 @@ const UpdateEmail = () => {
                     
                 </div>      
             } */}
+        <LoadingSpiner isLoading={profile.status}/>
         </div>
-    )
+    )   
 }
 
 export default UpdateEmail

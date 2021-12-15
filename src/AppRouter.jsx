@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { TopAppBar } from './components/index'
 import { Home, 
         SignIn, 
         SignOut, 
@@ -13,51 +14,30 @@ import { Home,
         UpdateAccountPhoto,
         NotFound, 
          } from './pages/index'
-// import { Home,  
-//         SignIn, 
-//         SignOut, 
-//         CreateAccount, 
-//         EditProfile,
-//         ResetPassword, 
-//         UpdateEmail,
-//         EmailVerified,
-//         Account, 
-//         NotFound, 
-//         Activities,
-//          } from './pages/index'
-// import { Todo, 
-//          Feeds, 
-//          Detail, 
-//          Planning, 
-//          PutteringTop, 
-//          Puttering, 
-//          PutteringDetail , 
-//          PutteringTimeline,
-//          PutteringChats,
-//          PutteringConfig,
-//         } from './pages/activities/index'
-// import PrivateRoute from './PrivateRoute'
-// import VerifiedRoute from './VerifiedRoute'
-import { TopAppBar } from './components/index' 
-// import  Auth  from './features/auth/Auth'
-// import Auth from './Auth'
+
+import { Todo, 
+         Feeds, 
+         Detail, 
+         Planning, 
+         PutteringTop, 
+         Puttering, 
+         PutteringDetail , 
+         PutteringTimeline,
+         PutteringChats,
+         PutteringConfig,
+        } from './pages/activities/index'
+
+
+ 
+import Auth from './Auth'
+import PrivateRoute from './PrivateRoute'
 // import Verified from './Verified'
-// import {useDispatch,useSelector} from 'react-redux'
-// import {selectUser,listenAuthState } from './features/auth/authSlice'
+// import VerifiedRoute from './VerifiedRoute'
+
 import './App.scss';
 
 const AppRouter = () => { 
     console.log('react-router-dom ')
-    // const dispatch = useDispatch()
-    // const profile = useSelector(selectUser)
-    // console.log('profile',profile);
-    // useEffect(()=>{
-    //     alert('sigin useEffect')
-    //     console.log('signin useEffect#############################');
-    //     console.log('profile.isSignIn',profile.isSignIn);
-    //     console.log('profile.emailVerified',profile.emailVerified);
-    //     dispatch(listenAuthState()) 
-    // },[dispatch,profile.emailVerified,profile.isSignIn])
     return (
         <Router>
             <div className="App-wraper">
@@ -71,21 +51,12 @@ const AppRouter = () => {
                             <Route exact path="/signin" component={SignIn} />
                             <Route exact path="/signout" component={SignOut} />
                             <Route exact path="/createaccount" component={CreateAccount} />
-                            {/* <Route exact path="/emailVerified" component={EmailVerified} />  */}
-
                             <Route exact path="/removeaccount" component={RemoveAccount} />
                             <Route exact path="/account" component={Account} />
                             <Route exact path="/resetpassword" component={ResetPassword}/>
                             <Route exact path="/updatemail" component={UpdateEmail} />
                             <Route exact path="/updateaccountname" component={UpdateAccountName} />
                             <Route exact path="/updateaccountphoto" component={UpdateAccountPhoto} />
-                            {/* <Verified>
-                                <VerifiedRoute  />
-                            </Verified> */}
-                            {/* <Auth>
-                                <PrivateRoute  /> 　
-                            </Auth> */}
-                            <Route   component={NotFound} />   
                            
                             {/* <Route exact path="/emailVerified" component={EmailVerified} />
                              */}
@@ -98,20 +69,27 @@ const AppRouter = () => {
                                     <Route exact path="/account" component={Account} />
                                     <Route exact path="/activities" component={Activities} /> */}
                                    
-                                    {/* <Route exact path="/activities/todos" component={Todo} />
+                                    <Route exact path="/activities/todos" component={Todo} />
                                     <Route exact path="/activities/detail" component={Detail} />
                                     <Route exact path="/activities/feeds" component={Feeds} />
                                     <Route exact path="/activities/planning" component={Planning} />
+
                                     <Route exact path="/activities/putteringTop" component={PutteringTop} />
                                     <Route exact path="/activities/puttering" component={Puttering} />
                                     <Route exact path="/activities/putteringDetail" component={PutteringDetail} />
                                     <Route exact path="/activities/putteringTimeline" component={PutteringTimeline} />
                                     <Route exact path="/activities/putteringChats" component={PutteringChats} />
-                                    <Route exact path="/activities/putteringConfig" component={PutteringConfig} /> */}
+                                    <Route exact path="/activities/putteringConfig" component={PutteringConfig} />
                                     {/* <Route   component={NotFound} />  */}
                                 {/* </Switch> */}
                             {/* </Auth> */}
-                            
+                            <Auth>
+                                <PrivateRoute  /> 　
+                            </Auth>
+                             {/* <Verified>
+                                <VerifiedRoute  /> 
+                            </Verified> */}
+                            <Route   component={NotFound} />  
                         </Switch> 
                     </main>
                 </div>

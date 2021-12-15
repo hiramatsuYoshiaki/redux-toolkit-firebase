@@ -9,7 +9,7 @@ import './page.scss'
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import {Button, TextField} from '@mui/material'
 import {useForm, Controller} from 'react-hook-form'
-import { rejects } from 'assert'
+import {LoadingSpiner} from '../components/index'
 
 // const styles={
 //     wraper:{
@@ -184,7 +184,8 @@ const ResetPassword = () => {
                 </div>
                 
             </div>
-            }           
+            }       
+            <LoadingSpiner isLoading={profile.status}/>      
         </div>
     )
 }

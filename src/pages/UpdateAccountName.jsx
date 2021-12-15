@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { selectUser,updateUsernameAsync } from '../features/auth/authSlice'
 import {Button, TextField} from '@mui/material'
 import {useForm, Controller} from 'react-hook-form'
+import {LoadingSpiner} from '../components/index'
 
 
 const UpdateAccountName = () => {
@@ -65,7 +66,7 @@ const UpdateAccountName = () => {
                 
             </div>
         }
-
+        <LoadingSpiner isLoading={profile.status}/>
         </div>
     )
 }

@@ -11,7 +11,7 @@ const ProfileUpdate = ({username,email}) => {
     const onSubmit = data => {
         console.log('input form data', data);
     }
-　
+　 
     return (
         <div >  
             <form onSubmit={handleSubmit(onSubmit)}>

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import { selectUser } from '../features/auth/authSlice'
 import { selectorAvater, getAvatorAsync } from '../features/storage/storageSlice'
@@ -78,9 +78,9 @@ const Account = () => {
                         {/* <Divider variant="middle" /> */}
                         <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                             <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
                             >
                                 <div>ユーザー情報</div>
                             </AccordionSummary>
@@ -136,9 +136,6 @@ const Account = () => {
                                 <Button>アカウントを削除する</Button>
                             </Link> 
                         </div>
-                        
-
-                        
 
                         {/* <div>
                             <div>{profile.email}</div> 
@@ -163,7 +160,7 @@ const Account = () => {
                     <Link to='/createaccount' >
                         <Button variant='outlined'>有効化</Button>
                     </Link>
-                    {/* <Redirect push to="/emailVerified" /> */}
+                    {/* <Redirect push to="/emailVerified" /> */} 
                 </div>
                 :
                 <div>

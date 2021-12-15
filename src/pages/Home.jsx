@@ -2,26 +2,30 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import {selectUser} from '../features/auth/authSlice'
-import { CardLayoutLink } from '../components/index'
 import { Button } from '@mui/material'
+import {LoadingSpiner} from '../components/index'
 import './page.scss'
 
-const Home = () => {
-    console.log('home -------------------');
+const Home = () => { 
+    // console.log('home -------------------');
     const profile = useSelector(selectUser)
-    console.log(profile);
-    const items = [
-        {id:'01',name:'Todos',link:'/activities/todos', 
-            guide:''}, 
-        {id:'02',name:'Feeds',link:'/activities/feeds', 
-            guide:''},
-        // {id:'03',name:'Galleries',link:'/activities/galleries'}, 
-        // {id:'04',name:'Chats',link:'/activities/chats'},
-        {id:'05',name:'Planning',link:'/activities/planning', 
-            guide:''},
-        {id:'06',name:'ポタリング',link:'/activities/putteringTimeline', 
-            guide:'サイクリングを楽しくするサイト'},
-    ]
+    // console.log(profile);
+    // const items = [
+    //     {id:'01',name:'ダッシュボード',link:'/activities/dashbord', 
+    //         guide:''}, 
+    //     {id:'02',name:'フィード',link:'/activities/feeds', 
+    //         guide:''},
+    //     {id:'03',name:'ギャラリー',link:'/activities/galleries'}, 
+    //     {id:'04',name:'タイムライン',link:'/activities/timeline'},
+    //     {id:'05',name:'プランニング',link:'/activities/planning', 
+    //         guide:''},
+    //     {id:'06',name:'アクティビティ',link:'/activities/putteringTimeline', 
+    //         guide:'アクティビティ'},
+    //     {id:'07',name:'グループ',link:'/activities/putteringTimeline', 
+    //         guide:'グループ'},
+    //     {id:'08',name:'Chats',link:'/activities/chats'},
+        
+    // ]
     return (
         <div className='page-fexed-container'>
             {/* <div className='page-home-container'> */}
@@ -29,15 +33,22 @@ const Home = () => {
                         ? profile.emailVerified  
                             ?    
                             <div>
-                                <div>ようこそ!</div>
-                                <div>{profile.username}さん</div>
-                                <div>
+                                {/* <div>ようこそ!</div>
+                                <div>{profile.username}さん</div> */}
+                                <div>アクティビティタイプ</div>
+                                    <Link to='/sports/top' >
+                                        <Button variant='outlined'>Sports</Button>
+                                    </Link>
+                                    {/* <Link to='/camera' >
+                                        <Button variant='outlined'>Camera</Button>
+                                    </Link> */}
+                                {/* <div>
                                     <CardLayoutLink items={items} />  
-                                </div>
+                                </div> */}
                             </div>
                             :    <div>
                                     <div>アカウントの作成が完了していません。</div>
-                                    {/* <div>メールアドレスの認証をしてください。</div> */}
+                                    {/* <div>メールアドレスの認証をしてください。</div> */} 
                                     <Link to='/createaccount' >
                                         {/* <button>アクティベイト</button> */}
                                         <Button variant="outlined">
@@ -69,7 +80,7 @@ const Home = () => {
                     }
                 {/* </div>  */}
            
-            {/* <LoadingSpiner isLoading={isLoding}/> */}
+                <LoadingSpiner isLoading={profile.status}/>
         </div>
     )
 }

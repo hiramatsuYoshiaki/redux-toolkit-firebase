@@ -6,6 +6,7 @@ import {getAuth, reauthenticateWithCredential, EmailAuthProvider} from 'firebase
 import {useDispatch, useSelector} from 'react-redux'
 import {selectUser, removeAccountAsync} from '../features/auth/authSlice'
 import {Alerts, Confirm} from '../components/dialog/index'
+import {LoadingSpiner} from '../components/index'
 
 const RemoveAccount = () => {
     const dispatch = useDispatch()
@@ -122,6 +123,7 @@ const RemoveAccount = () => {
             :
             <Redirect push to="/account" /> 
             }
+            <LoadingSpiner isLoading={profile.status}/>
         </div>
     )
 }

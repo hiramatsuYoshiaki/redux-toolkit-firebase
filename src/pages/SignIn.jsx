@@ -3,7 +3,11 @@ import {Link, Redirect} from 'react-router-dom'
 // import {InputForm} from '../components/index'
 // import {InputUser} from '../components/InputUser'
 import {useDispatch,useSelector} from 'react-redux'
-import {signInAsync,selectUser,listenAuthState } from '../features/auth/authSlice'
+import {signInAsync, 
+        selectUser, 
+        // listenAuthState 
+    } from '../features/auth/authSlice'
+import {LoadingSpiner} from '../components/index'
 
 // react-hook-form 
 import {TextField,Button} from '@mui/material'
@@ -12,10 +16,10 @@ import {useForm, Controller} from 'react-hook-form'
 import './page.scss'  
 
 const SignIn = () => {
-    console.log('Singin -------------------')
+    // console.log('Singin -------------------')
     const dispatch = useDispatch()
     const profile = useSelector(selectUser)
-    console.log('profile',profile);
+    // console.log('profile',profile);
     // const feilds = [
     //     {id:'01',label:"メールアドレス",name:'email',type:'email',},
     //     {id:'02',label:"パスワード",name:'password',type:'password',}
@@ -31,7 +35,7 @@ const SignIn = () => {
     // react-hook-form 
     const {handleSubmit, control} = useForm()
     const onSubmit = data => {
-        console.log('input form data', data)
+        // console.log('input form data', data)
         // e.preventDefault()
         dispatch(signInAsync(data))
         // dispatch(listenAuthState()) 
@@ -182,6 +186,7 @@ const SignIn = () => {
                 </div>
             </div>
            }
+           <LoadingSpiner isLoading={profile.status}/>  
         </div>
     )
 }
