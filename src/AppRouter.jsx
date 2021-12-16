@@ -28,9 +28,10 @@ import { Todo,
         } from './pages/activities/index'
 
 
- 
-import Auth from './Auth'
-import PrivateRoute from './PrivateRoute'
+import AuthenticatedGuardSports from './pages/sports/AuthenticatedGuardSports'
+import SportsRouter from './pages/sports/SportsRouter'
+// import Auth from './Auth'
+// import PrivateRoute from './PrivateRoute'
 // import Verified from './Verified'
 // import VerifiedRoute from './VerifiedRoute'
 
@@ -80,16 +81,21 @@ const AppRouter = () => {
                                     <Route exact path="/activities/putteringTimeline" component={PutteringTimeline} />
                                     <Route exact path="/activities/putteringChats" component={PutteringChats} />
                                     <Route exact path="/activities/putteringConfig" component={PutteringConfig} />
+                                    <Route path="/sports" >
+                                        <AuthenticatedGuardSports>
+                                            <SportsRouter /> 
+                                        </AuthenticatedGuardSports>
+                                    </Route>
+                                    <Route   component={NotFound} />
                                     {/* <Route   component={NotFound} />  */}
                                 {/* </Switch> */}
                             {/* </Auth> */}
-                            <Auth>
+                            {/* <Auth>
                                 <PrivateRoute  /> 　
-                            </Auth>
+                            </Auth> */}
                              {/* <Verified>
                                 <VerifiedRoute  /> 
                             </Verified> */}
-                            <Route   component={NotFound} />  
                         </Switch> 
                     </main>
                 </div>

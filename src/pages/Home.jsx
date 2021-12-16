@@ -30,21 +30,21 @@ const Home = () => {
         <div className='page-fexed-container'>
             {/* <div className='page-home-container'> */}
                     {profile.isSignIn 
-                        ? profile.emailVerified  
+                        ? profile.emailVerified   
                             ?    
                             <div>
                                 {/* <div>ようこそ!</div>
                                 <div>{profile.username}さん</div> */}
                                 <div>アクティビティタイプ</div>
-                                    <Link to='/sports/top' >
+                                    <Link to='/sports' >
                                         <Button variant='outlined'>Sports</Button>
                                     </Link>
-                                    {/* <Link to='/camera' >
-                                        <Button variant='outlined'>Camera</Button>
-                                    </Link> */}
+                                    {/* <Link to='/camera' > */}
+                                        <Button variant='outlined' disabled={true}>Camera</Button>
+                                    {/* </Link> */}
                                 {/* <div>
-                                    <CardLayoutLink items={items} />  
-                                </div> */}
+                                    <CardLayoutLink items={items} />   
+                                </div> */} 
                             </div>
                             :    <div>
                                     <div>アカウントの作成が完了していません。</div>
