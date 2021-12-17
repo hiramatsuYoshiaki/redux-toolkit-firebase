@@ -1,3 +1,6 @@
 export {default as Sports} from './Sports'
 export {default as Feeds} from './Feeds'
 export {default as Activities} from './Activities'
+export {default as New} from './New'
+export {default as Persons} from './Persons'
+export {default as Config} from './Config'

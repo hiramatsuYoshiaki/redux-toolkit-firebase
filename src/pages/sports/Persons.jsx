@@ -1,13 +1,12 @@
 import React from 'react'
 import {BottomMenuBar} from '../../components/sports/index'
-
-const Activities = () => {
+const Persons = () => {
     return (
         <div>
-            Activities
+            Psersons
             <BottomMenuBar />
         </div>
     )
 }
 
-export default Activities
+export default Persons

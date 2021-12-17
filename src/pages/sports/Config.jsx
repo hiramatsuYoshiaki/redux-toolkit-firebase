@@ -1,13 +1,13 @@
 import React from 'react'
 import {BottomMenuBar} from '../../components/sports/index'
 
-const Activities = () => {
+const Config = () => {
     return (
         <div>
-            Activities
+            Config
             <BottomMenuBar />
         </div>
     )
 }
 
-export default Activities
+export default Config

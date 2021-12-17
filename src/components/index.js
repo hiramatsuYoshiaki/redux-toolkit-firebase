@@ -1,5 +1,4 @@
 export {default as TopAppBar} from './TopAppBar'
-export {default as BottomMenuBar} from './BottomMenuBar'
 export {default as InputForm} from './InputForm'
 export {default as LoadingSpiner} from './LoadingSpiner'
 export {default as AvatarFeature} from './AvatarFeature'

@@ -59,43 +59,26 @@ const AppRouter = () => {
                             <Route exact path="/updateaccountname" component={UpdateAccountName} />
                             <Route exact path="/updateaccountphoto" component={UpdateAccountPhoto} />
                            
-                            {/* <Route exact path="/emailVerified" component={EmailVerified} />
-                             */}
-                            {/* <Auth> */}
-                                {/* <Switch> */}
-                                    {/* <Route exact path="/editProfile" component={EditProfile} />
-                                    <Route exact path="/updateemail" component={UpdateEmail} />
-                                    <Route exact path="/resetpassword" component={ResetPassword} /> 
-                                     /> 
-                                    <Route exact path="/account" component={Account} />
-                                    <Route exact path="/activities" component={Activities} /> */}
+                           
                                    
-                                    <Route exact path="/activities/todos" component={Todo} />
-                                    <Route exact path="/activities/detail" component={Detail} />
-                                    <Route exact path="/activities/feeds" component={Feeds} />
-                                    <Route exact path="/activities/planning" component={Planning} />
+                            <Route exact path="/activities/todos" component={Todo} />
+                            <Route exact path="/activities/detail" component={Detail} />
+                            <Route exact path="/activities/feeds" component={Feeds} />
+                            <Route exact path="/activities/planning" component={Planning} />
 
-                                    <Route exact path="/activities/putteringTop" component={PutteringTop} />
-                                    <Route exact path="/activities/puttering" component={Puttering} />
-                                    <Route exact path="/activities/putteringDetail" component={PutteringDetail} />
-                                    <Route exact path="/activities/putteringTimeline" component={PutteringTimeline} />
-                                    <Route exact path="/activities/putteringChats" component={PutteringChats} />
-                                    <Route exact path="/activities/putteringConfig" component={PutteringConfig} />
-                                    <Route path="/sports" >
-                                        <AuthenticatedGuardSports>
-                                            <SportsRouter /> 
-                                        </AuthenticatedGuardSports>
-                                    </Route>
-                                    <Route   component={NotFound} />
-                                    {/* <Route   component={NotFound} />  */}
-                                {/* </Switch> */}
-                            {/* </Auth> */}
-                            {/* <Auth>
-                                <PrivateRoute  /> 　
-                            </Auth> */}
-                             {/* <Verified>
-                                <VerifiedRoute  /> 
-                            </Verified> */}
+                            <Route exact path="/activities/putteringTop" component={PutteringTop} />
+                            <Route exact path="/activities/puttering" component={Puttering} />
+                            <Route exact path="/activities/putteringDetail" component={PutteringDetail} />
+                            <Route exact path="/activities/putteringTimeline" component={PutteringTimeline} />
+                            <Route exact path="/activities/putteringChats" component={PutteringChats} />
+                            <Route exact path="/activities/putteringConfig" component={PutteringConfig} />
+                            
+                            <Route path="/sports" >
+                                <AuthenticatedGuardSports>
+                                    <SportsRouter /> 
+                                </AuthenticatedGuardSports>
+                            </Route>
+                            <Route   component={NotFound} />
                         </Switch> 
                     </main>
                 </div>

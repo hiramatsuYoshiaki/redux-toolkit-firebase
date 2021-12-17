@@ -1,13 +1,14 @@
 import React from 'react'
 import {BottomMenuBar} from '../../components/sports/index'
+<BottomMenuBar />
 
-const Activities = () => {
+const New = () => {
     return (
         <div>
-            Activities
+            New
             <BottomMenuBar />
         </div>
     )
 }
 
-export default Activities
+export default New 

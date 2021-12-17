@@ -1,32 +1,65 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {Button} from '@mui/material'
-import {BottomMenuBar} from '../../components/index'
+import {BottomMenuBar} from '../../components/sports/index'
+const styles = {
 
-import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
-import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import AddBoxIcon from '@mui/icons-material/AddBox';
+}
 
 const Sports = () => {
-    const sx = {height:'auto',backgroundColor:'#e1f5fe'}
-    const items = [
-        // {id:1,label:'TimeLine',icon:'<DirectionsBikeIcon />',link:'/activities/putteringTimeline'},
-        // {id:2,label:'Puttering',icon:'<AddBoxIcon /',link:'/activities/puttering'}
-        {id:1,label:'TimeLine',icon:DirectionsBikeIcon,link:'/activities/putteringTimeline'},
-        {id:2,label:'Puttering',icon:SettingsApplicationsIcon,link:'/activities/puttering'}
-    ]
     return (
         <div className='page-fexed-container'>
+            <div>1.自分の情報</div>
+            <div>2.アクティビティーの計画</div>
+            <div>3.自分のアクティビティー</div>
+            <div>5.フィード</div>
+            <div>6.設定</div>
+            <div>
+                <Link to='/sports/persons' >
+                <div>
+                    1.自分の情報
+                    <Button variant='outlined'>Personal</Button>
+                </div>
+                </Link>
+            </div>
         
-            <Link to='/sports/feeds' >
-               <Button variant='outlined'>Feeds</Button>
-            </Link>
-            <Link to='/sports/activities' >
-               <Button variant='outlined'>Activities</Button>
-            </Link>
-            <BottomMenuBar items={items} sx={sx} /> 
-        </div>
+            <div>
+                <Link to='/sports/new' >
+                    <div>
+                        2.アクティビティーの計画
+                    <Button variant='outlined'>New</Button>
+                    </div>
+                </Link>
+            </div>
+
+            <div>
+                <Link to='/sports/activities' >
+                    <div>
+                        3.自分のアクティビティー
+                    <Button variant='outlined'>Activities</Button>
+                    </div>
+                </Link>
+            </div>
+            
+            <div>
+                <Link to='/sports/feeds' >
+                <div>
+                    4.フィード
+                    <Button variant='outlined'>Feeds</Button>
+                </div>
+                </Link>
+            </div>
+            <div>
+                <Link to='/sports/config' >
+                <div>
+                    5.設定
+                    <Button variant='outlined'>Config</Button>
+                </div>
+                </Link>
+            </div>
+            
+            <BottomMenuBar /> 
+        </div> 
     )
 }
 

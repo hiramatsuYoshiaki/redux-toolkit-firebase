@@ -14,7 +14,7 @@ const AuthenticatedGuardSports = ({children}) => {
         return children
     } else{
         console.log('redirect to ')
-        return <Redirect to='/' />
+        return <Redirect to='/' /> 
     }
     
 }
