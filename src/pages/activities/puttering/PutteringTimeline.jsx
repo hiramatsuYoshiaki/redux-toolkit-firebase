@@ -18,7 +18,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 // import ShareIcon from '@mui/icons-material/Share';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const PutteringTimeline = () => {
+const PutteringTimeline = () => {  
     const dispatch = useDispatch()
     const user = useSelector(selectUser)
     const feeds = useSelector(selectorFeeds)
@@ -96,7 +96,7 @@ const PutteringTimeline = () => {
                     ))
                 }
             </div>
-            <PutteringMenuBar /> 
+            <PutteringMenuBar />  
         </div>
     )
 }

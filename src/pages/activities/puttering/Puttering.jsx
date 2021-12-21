@@ -18,7 +18,7 @@ import { New,
 // import DateTimePicker from '@mui/lab/DateTimePicker';
 // import { format} from 'date-fns'
 
-const Puttering = () => {
+const Puttering = () => { 
     console.log('putterings')
     const dispatch = useDispatch() 
     const user = useSelector(selectUser)
@@ -84,9 +84,9 @@ const Puttering = () => {
                 setIsOpenNew={setIsOpenNew}
                 setIsOpenUnFinish={setIsOpenUnFinish}
                 setIsOpenFinish={setIsOpenFinish}
-            /> 
+            />  
             
-
+ 
          
             {/* <h3>ポタリング</h3>
             <div>{user.username}</div>

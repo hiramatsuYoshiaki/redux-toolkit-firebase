@@ -1,16 +1,67 @@
+// $mobileBreakPoint: 600px; //600
+// $tabletBreakPoint: 768px; // 768
+// $desktopBreakPoint: 960px; //960
+// $widescreenBreakPoint: 1280px; //1280
+// $fullhdBreakPoint: 1920px; //1920
 $mobileBreakPoint: 600px; //600
-$tabletBreakPoint: 768px; // 768
-$desktopBreakPoint: 960px; //960
-$widescreenBreakPoint: 1280px; //1280
-$fullhdBreakPoint: 1920px; //1920
+$desktopBreakPoint: 900px; //900
+$widescreenBreakPoint: 1200px; //1200
+$fullhdBreakPoint: 1536px; //1536
+// xs, extra-small: 0px
+// sm, small: 600px
+// md, medium: 900px
+// lg, large: 1200px
+// xl, extra-large: 1536px
+
 .l-sports-container{
+    min-height: calc(100vh - 3.2rem);
     width:100%;
-    position:fixed;
-    bottom:0;
-    left:0;
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center; 
+    // justify-content: center; 
+    margin:0 0 3.2rem 0;
+    padding:0 8px;
+    // @media (min-width: $desktopBreakPoint) {
+    //     margin:0;
+    //     padding:0 10rem;
+    // }  
+    // @media (min-width: $widescreenBreakPoint) {
+    //     margin:0;
+    //     padding:0 10rem;
+    // } 
+    // @media (min-width: $fullhdBreakPoint) {
+    //     margin:0;
+    //     padding:0 20rem;
+    // } 
+}
+.l-sports-card-container{
+    min-height: calc(100vh - 3.2rem);
+    width:100%;
+    padding:16px 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -8px;
+    margin-right: -8px;
+}
+.l-sports-card-item{
+    width:100%;
+    min-width:345px;
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center; 
+    padding-left: 8px;
+    padding-right: 8px;
+    @media (min-width: $desktopBreakPoint) {
+        flex-basis: 50%;
+    }  
     @media (min-width: $widescreenBreakPoint) {
-        flex-direction: row;
-        justify-content:space-between;
-        margin-bottom:0;
+        flex-basis: 33.3333%;
     } 
-   };
+    @media (min-width: $fullhdBreakPoint) {
+        flex-basis: 25%;
+    } 
+}
+   
+
+

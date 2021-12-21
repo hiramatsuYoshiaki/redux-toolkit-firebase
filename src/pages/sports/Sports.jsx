@@ -2,9 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {Button} from '@mui/material'
 import {BottomMenuBar} from '../../components/sports/index'
-const styles = {
 
-}
 
 const Sports = () => {
     return (

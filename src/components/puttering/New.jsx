@@ -16,7 +16,7 @@ const styles = {
         display:'block',
     },
     close:{
-        display:'none',
+        display:'none', 
     }
  }
 
@@ -39,7 +39,7 @@ const New = ({isOpenNew,setIsOpenNew,user}) => {
         dispatch(addPuttering(inputValues)) 
     }
     const handleClose = () => {
-        setIsOpenNew(!isOpenNew)  
+        setIsOpenNew(!isOpenNew)   
     }
     return (
         <div className="c-puttring-new-container" style={isOpenNew ? styles.open : styles.close}>

@@ -9,7 +9,7 @@ const initialState = {
         uid:null,
         putterings:[],
         status:'idle'  
-    }
+    } 
 } 
 // get Puttering
 export const getPuttering = createAsyncThunk(   
