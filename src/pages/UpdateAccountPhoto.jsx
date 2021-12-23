@@ -7,7 +7,7 @@ import { Button,IconButton } from '@mui/material'
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import {LoadingSpiner} from '../components/index'
 
-const styles={
+const styles={ 
     wraper:{
         width:"100%",
         padding:".8rem", 
@@ -51,7 +51,7 @@ const UpdateAccountPhoto = () => {
         reader.onload = (e) => {
         setSelectPhoto(e.target.result)
         }
-        reader.readAsDataURL(previewFile)
+        reader.readAsDataURL(previewFile) 
     }
 
     const uploadImage = (event) => {
@@ -108,7 +108,7 @@ const UpdateAccountPhoto = () => {
                 </div> */}
                 
             </div>
-            :
+            : 
             <div>
                 <div>サインインしてください</div>
                 <div>

@@ -15,9 +15,9 @@ export const setDocPuttering = (values) => {
             uid:values.uid,
             create_at:serverTimestamp(),
             update_at:serverTimestamp(),
-        }
-        setDoc(newTodoRef, addPuttering )  
-        .then((res)=>{
+        } 
+        setDoc(newTodoRef, addPuttering )   
+        .then((res)=>{ 
             // console.log('firestore setDoc success good**************')
               resolve({ 
                   data: addPuttering 

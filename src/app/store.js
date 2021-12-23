@@ -6,6 +6,7 @@ import firestoreReducer from '../features/firestore/firestoreSlice'
 import putteringReducer from '../features/puttering/putteringSlice'
 import accountReducer from '../features/account/accountSlice'
 import timelineReducer from '../features/putteringTimeline/timelineSlice'
+import sportsReducer from '../features/sports/sportsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -15,7 +16,8 @@ export const store = configureStore({
     firestore:firestoreReducer, 
     puttering:putteringReducer,
     account:accountReducer,
-    timeline:timelineReducer
+    timeline:timelineReducer,
+    sports_bike:sportsReducer 
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -26,7 +28,12 @@ export const store = configureStore({
         // Ignore these action types-----------
         ignoredActions: [
             'puttering/setData',
-            'firebase/addPuttering/fulfilled'
+            'firebase/addPuttering/fulfilled',
+            'sports_bike/createAction',
+            'sports/createActivity/fulfilled',
+            'sports/createActivity/rejected',
+            'sports/getActivities/fulfilled',
+            'sports/getActivities/reject',
         ],
 
         // Ignore these field paths in all actions--------------

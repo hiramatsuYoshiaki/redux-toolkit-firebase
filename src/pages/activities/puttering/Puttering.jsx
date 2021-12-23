@@ -11,7 +11,7 @@ import { New,
          UnFinishList, 
          FinishList, 
          Header, 
-         BottomNav} from '../../../components/puttering/index'
+         BottomNav} from '../../../components/puttering/index' 
 
 // import AdapterDateFns from '@mui/lab/AdapterDateFns';
 // import LocalizationProvider from '@mui/lab/LocalizationProvider';

@@ -35,8 +35,8 @@ export const getAccount = createAsyncThunk(
         //     create_at:serverTimestamp(),
         //     update_at:serverTimestamp(),
         // }
-        return refarence.data
-    }
+        return refarence.data 
+    } 
 )
 
 const accountSlice = createSlice({
@@ -46,7 +46,6 @@ const accountSlice = createSlice({
         createAction:(state,action)=> {
             state.perosn = action.payload
         },
-    
     },
     extraReducers: (builder) => {
         builder

@@ -25,11 +25,11 @@ const initialState = {
         emailVerified:false,
         code:'',
         msg:'',
-        status: 'idle',  
+        status: 'idle',   
     }
 } 
 
-//firebase auth onAuthStateChanged
+//firebase auth onAuthStateChanged 
 export const listenAuthState = createAsyncThunk(
     'auth/listenAuthState', 
     async () => { 
@@ -68,7 +68,7 @@ export const updatePhotoURLAsync = createAsyncThunk(
       console.log('URL: ',file)
       try{
         const url = await uploadStrageAvater(file)
-        console.log(url.data.downloadURL)
+        console.log(url.data.downloadURL) 
         try{
           const auth = await updatePhotoURL(url.data.downloadURL)
           console.log(auth.data)
@@ -114,7 +114,7 @@ export const getDounloadURLAsync = createAsyncThunk(
     try{
       // console.log('getDounloadURLAsync')
       // const res = await getAvatorURL(photoURL)
-      const res = await getStorageAvator(photoURL)
+      const res = await getStorageAvator(photoURL) 
       // console.log('dounloadURL',res.data.downloadURL)
      return res.data
     }

@@ -7,7 +7,7 @@ import { removeDocPuttering } from './removeDocPuttering'
 const initialState = {
     puttering:{
         uid:null,
-        putterings:[],
+        putterings:[], 
         status:'idle'  
     } 
 } 
@@ -20,7 +20,7 @@ export const getPuttering = createAsyncThunk(
         console.log('getputtering createAsyncThunk data: ',refarence)
         return refarence.data
     }
-)
+) 
 //update
 export const updatePuttering = createAsyncThunk( 
     'firebase/updatePuttering',
@@ -59,7 +59,7 @@ export const removePuttering = createAsyncThunk(
 )
 const putteringSlice = createSlice({
     name: 'puttering',
-    initialState,
+    initialState, 
     reducers: { 
         setData:(state,action)=>{
             if(state.puttering.uid === null) {

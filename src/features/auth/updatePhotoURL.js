@@ -22,7 +22,7 @@ export const updatePhotoURL = (url) =>{
                     photoURL:null,
                     code:error.code,
                     msg:error.message
-                    } 
+                    }  
                 })
           })
     })

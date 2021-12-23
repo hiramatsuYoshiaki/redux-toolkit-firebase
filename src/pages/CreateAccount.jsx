@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom'
 // import {InputForm} from '../components/index'
 // import {InputUser} from '../components/InputUser'
 import {useDispatch,useSelector} from 'react-redux'
-import {createAccountAsync, selectUser,listenAuthState,signOutAsync} from '../features/auth/authSlice'
+import {createAccountAsync, selectUser,signOutAsync} from '../features/auth/authSlice'
 import { getAuth, sendEmailVerification } from "firebase/auth";
 import Stack from '@mui/material/Stack';
 import {LoadingSpiner} from '../components/index'
