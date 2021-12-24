@@ -4,7 +4,7 @@ export const getDocActivities = (profile) => {
     return new Promise((resolve, reject) => {
         console.log('getDocActivities ===> firestore getdoc')
         const activities = []
-        const db = getFirestore()
+        const db = getFirestore() 
 
         getDocs(collection(db,'activities_bike'))
         const activitiesRef = collection(db,'activities_bike')
@@ -25,7 +25,7 @@ export const getDocActivities = (profile) => {
             console.log(error.message);
             reject({ 
                 data: []
-            })
+            }) 
         })
     })
 }

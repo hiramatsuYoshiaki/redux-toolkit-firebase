@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {selectUser} from  '../../features/auth/authSlice'
-import { createActivity, getActivities, selectAll, selectNew, selectActivities,} from  '../../features/sports/sportsSlice'
+import { createActivity, getActivities, selectAll, selectNew, selectActivities,selectActivitiesStatus} from  '../../features/sports/sportsSlice'
 import {useForm, Controller} from 'react-hook-form'
-import {BottomMenuBar} from '../../components/sports/index'
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
@@ -19,6 +18,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import MenuItem from '@mui/material/MenuItem';
 import {LoadingSpiner} from '../../components/index'
 import { format} from 'date-fns'
 import { Timestamp } from "firebase/firestore"; 
@@ -55,14 +55,16 @@ const New = () => {
     console.log('start---->New.jsx');
     const dispatch = useDispatch()
     const profile = useSelector(selectUser)
-    console.log('profile',profile);
+    // console.log('profile',profile);
 
     //新規アクティビティー
-    const activities = useSelector(selectNew)
-    console.log('new',activities);
+    // const activities = useSelector(selectNew)
+    // console.log('new',activities);
     //すべてのアクティビティー
     const all = useSelector(selectAll)
-    console.log('all',all);
+    // console.log('all',all);
+
+    const activitiesStatus = useSelector(selectActivitiesStatus)
 
     const [selectPhoto,setSelectPhoto] = useState('')
     const [file,setFile] = useState(null)
@@ -80,11 +82,13 @@ const New = () => {
             start:data.start,
             gole:data.gole,
             distance:data.distance,
+            elevation:data.elevation,
             couse_map:'',
             couse_link:data.link,
+            segment:data.segment,
             coment:data.coment,
-            public:'public',
-            participation:'',
+            public:'private',
+            participation:[],
             done:false,
             garmin:'',
             relive:'',
@@ -125,13 +129,21 @@ const New = () => {
         }
     const starttime = (dateTime) =>{
         const jsTimestamp = dateTime.toDate()
-        const fromtDateTime = format(jsTimestamp, 'yyyy-MM-dd HH:mm')
+        const fromtDateTime = format(jsTimestamp, 'yyyy年MM月dd日 HH:mm')
         return  fromtDateTime
     }
+    const segments = [
+        { value: 'ポタリング',label: '50km以下の距離をゆっくり走る',},
+        { value: 'ショートライド',label: '100km以下の距離を走る',},
+        { value: 'ロングライド',label: '100km～160km程度の距離を走る',},
+        { value: 'センチュリーライド',label: '160km以上のコースを走る',},
+        { value: 'グランフォンド',label: '100km以上の山岳コースを走る',},
+        { value: 'ブルベ',label: '距離は200～600kmのコースを走る',},
+    ]
     useEffect(()=>{
         console.log('useEffect call dispatch getActivities');
         dispatch(getActivities(profile))
-        console.log(all);
+        // console.log(all);
     },[dispatch,profile])
     
 
@@ -211,7 +223,7 @@ const New = () => {
                                         helperText={error ? error.message : null}
                                         fullWidth
                                         margin="normal"
-                                        placeholder="スタート地点～中間地点～ゴール地点"
+                                        placeholder="スタート地点～経由地点～ゴール地点"
                                     />
                                 }
                                 rules={{
@@ -300,6 +312,34 @@ const New = () => {
                                     }
                                 }}
                             />
+                            <Controller
+                                name='elevation'
+                                control={control}
+                                defaultValue={100}
+                                render={({field:{onChange,value},fieldState:{error}}) =>
+                                    <TextField 
+                                        id='elevation'
+                                        label='獲得標高(m)'
+                                        type="number"
+                                        value={value}
+                                        onChange={onChange}
+                                        error={!!error}
+                                        helperText={error? error.message :null}
+                                        fullWidth
+                                        margin='normal'
+                                        sx={{
+                                            maxWidth:200,
+                                        }}
+                                    />
+                                }
+                                rules={{
+                                    required:'獲得標高は必須です。',
+                                    minLength : {
+                                        value: 0,
+                                        message: '距離は０Km以上です。' 
+                                    }
+                                }}
+                            />
                            <div>
                                 コースマップ画像を選択してください
                                 <IconButton style={styles.icon}>
@@ -350,6 +390,38 @@ const New = () => {
                                 }}
                             />
                             <Controller
+                                name='segment'
+                                control={control}
+                                defaultValue=''
+                                render={({field:{onChange,value},fieldState:{error}}) =>
+                                    <TextField 
+                                        id='segment'
+                                        label='セグメントタイプ'
+                                        value={value}
+                                        select
+                                        onChange={onChange}
+                                        error={!!error}
+                                        helperText={error? error.message :null}
+                                        fullWidth
+                                        margin='normal'
+                                    >
+                                        {segments.map((option) => (
+                                            <MenuItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </MenuItem>
+                                        ))}
+                                      </TextField>
+                                }
+                                // rules={{
+                                    // required:'コースリンクURLは必須です',
+                                    // pattern: {
+                                    //     value: /^(ftp|http|https):\/\/[^ "]+$/,
+                                    //     message: 'URLの形式が不正です',
+                                    // },
+                                // }}
+                            />
+                            
+                            <Controller
                                 name='coment'
                                 control={control}
                                 defaultValue=''
@@ -397,36 +469,54 @@ const New = () => {
                         {all.map(activity=>(
                             <div className='l-sports-card-item' key={activity.id}>
                                <Card sx={{ width: '100%'}}>
-                                    <CardMedia
-                                        component="img"
-                                        sx={{width: '100%', height:300}}
-                                        image={no_image}
-                                        alt="image map"
-                                    />
-                                    <CardContent> 
                                         <div>{activity.title}</div>
                                         <div>{starttime(activity.date)}</div>
+                                        <a href={activity.couse_link} target="_blank" rel="noopener noreferrer">
+                                            <CardMedia
+                                                component="img"
+                                                sx={{width: '100%', height:300}}
+                                                image={activity.couse_map}
+                                                alt="image map"
+                                            />
+                                         </a>
+                                        <CardContent> 
+                                        <a href={activity.couse_link} target="_blank" rel="noopener noreferrer">
+                                            <div>コース詳細を見る</div>
+                                        </a>
+                                        <div>{activity.segment}</div>
+                                        
+                                        <div>
+                                            <span>{activity.distance}Km</span>
+                                            <span>{activity.elevation}m</span>
+                                        </div>
                                         <div>{activity.couse}</div>
-                                        <div>Start:{activity.start}-Gole:{activity.gole}</div>
-                                        <div>distance:{activity.distance}</div>
-                                        <div>couse_map:{activity.couse_map}</div>
-                                        <div>couse_link:{activity.couse_link}</div>
-                                        <div>coment:{activity.coment}</div>
-                                        <div>public:{activity.public}</div>
-                                        <div>participation:{activity.participation}</div>
-                                        <div>done:{activity.done?'完了':'予定'}</div>
-                                        <div>garmin:{activity.garmin}</div>
+                                        
+                                        {/* <div>couse_map:{activity.couse_map}</div> */}
+                                        
+                                        
+                                        <div>集合場所：{activity.start}</div>
+                                        {/* <div>解散場所{activity.gole}</div> */}
+                                        <div>コメント</div>
+                                        <div>{activity.coment}</div>
+                                        {/* <div>public:{activity.public}</div> */}
+                                        <div>参加者:{activity.participation}</div>
+                                        <div>{activity.participation}</div>
+                                        {/* <div>done:{activity.done?'完了':'予定イベント'}</div> */}
+                                        {/* <div>garmin:{activity.garmin}</div>
                                         <div>relive:{activity.relive}</div>
-                                        <div>strava:{activity.strava}</div>
+                                        <div>strava:{activity.strava}</div> */}
                                         {/* <div>create_at:{starttime(activities.create_at)}</div>
                                         <div>update_at:{starttime(activities.update_at)}</div> */}
                                         {/* <div>status:{activities.status}</div> */}
+                                        <Button size="small" variant='outlined'>共有（フィードに表示する）</Button>
+                                        <Button size="small" variant='outlined'>プライベート（フィードに表示しない）</Button>
                                         
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="small">Share</Button>
-                                        <Button size="small">Edit</Button>
-                                        <Button size="small">delete</Button>
+                                        <Button size="small" variant='outlined'>実走データ入力</Button>
+                                        {/* <Button size="small">完了</Button> */}
+                                        <Button size="small"  variant='outlined'>変更</Button>
+                                        <Button size="small"  variant='outlined'>削除</Button>
                                     </CardActions>
                                 </Card>
                             </div>
@@ -434,174 +524,9 @@ const New = () => {
                      </div> 
                 :   null }
             </div>
-            <div className='l-sports-card-container'>
-                {all.map(activity=>(
-                    <div className='l-sports-card-item' key={activity.id}>
-                        
-                        <Card sx={{ width: '100%'}}>
-                            <CardMedia
-                                component="img"
-                                sx={{width: '100%', height:300}}
-                                image={no_image}
-                                alt="image map"
-                            />
-                            <CardContent> 
-                            {/* <div>uid:{activity.owner.uid}</div>
-                            <div>name:{activity.owner.username}</div> 
-                            <div className="page-FeatureListContainer_image">
-                                <div className="page-avaterContainer"> 
-                                    <img src={activity.owner.photoURL} alt="avater" style={styles.icon} />
-                                </div>
-                            </div> */}
-                            {/* <div>id:{activity.id}</div>
-                            <div>Title:{activity.title}</div>
-                            {activity.date=== null ?<div>Date:----</div>:<div>Date:{starttime(activity.date)}</div>}
-                            <div>Couse:{activity.couse}</div>
-                            <div>Start:{activity.start}-Gole:{activity.gole}</div>
-                            <div>distance:{activity.distance}</div>
-                            <div>couse_map:{activity.couse_map}</div>
-                            <div>couse_link:{activity.couse_link}</div>
-                            <div>coment:{activity.coment}</div>
-                            <div>public:{activity.public}</div>
-                            <div>participation:{activity.participation}</div>
-                            <div>done:{activity.done?'完了':'予定'}</div>
-                            <div>garmin:{activity.garmin}</div>
-                            <div>relive:{activity.relive}</div>
-                            <div>strava:{activity.strava}</div>
-                            <div>create_at:{activity.create_at}</div>
-                            <div>update_at:{activity.update_at}</div>
-                            <div>status:{activity.status}</div> */}
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small">Share</Button>
-                                <Button size="small">Edit</Button>
-                                <Button size="small">delete</Button>
-                            </CardActions>
-                        </Card>
-                    </div>
-                ))}
-               <div className='l-sports-card-item'>
-                {/* <Card sx={{ width: '100%'}}>
-                        <CardMedia
-                            component="img"
-                            sx={{width: '100%', height:300}}
-                            image={no_image}
-                            alt="image map"
-                        />
-                        <CardContent> 
-                        <div>uid:{activities.owner.uid}</div>
-                        <div>name:{activities.owner.username}</div> 
-                        <div className="page-FeatureListContainer_image">
-                            <div className="page-avaterContainer"> 
-                                <img src={activities.owner.photoURL} alt="avater" style={styles.icon} />
-                            </div>
-                        </div>
-                        <div>id:{activities.id}</div>
-                        <div>Title:{activities.title}</div>
-                        {activities.date=== null ?<div>Date:----</div>:<div>Date:{starttime(activities.date)}</div>}
-                        <div>Couse:{activities.couse}</div>
-                        <div>Start:{activities.start}-Gole:{activities.gole}</div>
-                        <div>distance:{activities.distance}</div>
-                        <div>couse_map:{activities.couse_map}</div>
-                        <div>couse_link:{activities.couse_link}</div>
-                        <div>coment:{activities.coment}</div>
-                        <div>public:{activities.public}</div>
-                        <div>participation:{activities.participation}</div>
-                        <div>done:{activities.done?'完了':'予定'}</div>
-                        <div>garmin:{activities.garmin}</div>
-                        <div>relive:{activities.relive}</div>
-                        <div>strava:{activities.strava}</div>
-                        <div>create_at:{activities.create_at}</div>
-                        <div>update_at:{activities.update_at}</div>
-                        <div>status:{activities.status}</div>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small">Share</Button>
-                            <Button size="small">Edit</Button>
-                            <Button size="small">delete</Button>
-                        </CardActions>
-                    </Card> */}
-                </div>
-
-
-
-
-
-               {/* <div className='l-sports-card-item'>
-                <Card sx={{ width: '100%'}}>
-                        <CardMedia
-                            component="img"
-                            sx={{width: '100%', height:300}}
-                            image={no_image}
-                            alt="image map"
-                        />
-                        <CardContent>
-                        <div>Title</div>
-                        <div>Couse</div>
-                        <div>Start-Gole</div>
-                        <div>Date</div>
-                        <div>distance</div>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small">Share</Button>
-                            <Button size="small">Edit</Button>
-                            <Button size="small">delete</Button>
-                        </CardActions>
-                    </Card>
-               </div> */}
-               {/* <div className='l-sports-card-item'>
-                <Card sx={{ width: '100%' }}>
-                        <CardMedia
-                            component="img"
-                            sx={{width: '100%', height:300}}
-                            image={map}
-                            alt="image map" 
-                        />
-                        <CardContent>
-                        <div>Title</div>
-                        <div>Couse</div>
-                        <div>Start-Gole</div>
-                        <div>Date</div>
-                        <div>distance</div>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small">Share</Button>
-                            <Button size="small">Edit</Button>
-                            <Button size="small">delete</Button>
-                        </CardActions>
-                    </Card>
-               </div>
-               <div className='l-sports-card-item'>
-                <Card sx={{ width: '100%'}}>
-                        <CardMedia
-                            component="img"
-                            sx={{width: '100%', height:300}}
-                            image={syoudoshima}
-                            alt="image map"
-                        />
-                        <CardContent>
-                        <div>Title</div>
-                        <a href='https://connect.garmin.com/modern/course/86000025'>
-                            <div>小豆島、寒霞渓紅葉ライド 一周</div>
-                        </a>
-                        
-                        <div>Start-Gole</div>
-                        <div>Date</div>
-                        <div>distance</div>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small">Share</Button>
-                            <Button size="small">Edit</Button>
-                            <Button size="small">delete</Button>
-                        </CardActions>
-                    </Card>
-               </div> */}
-                
-                
-                
-           </div>
-            <BottomMenuBar />
+            
             <LoadingSpiner isLoading={profile.status}/>
+            <LoadingSpiner isLoading={activitiesStatus}/>
         </div>
     )
 }

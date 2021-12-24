@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk  } from '@reduxjs/toolkit'
+import { uploadStrageImages } from '../storage/uploadStrageImages'
 import { getDocActivities } from './getDocActivities'
 import { setDocActivity} from './setDocActivity'
 
@@ -21,6 +22,7 @@ const initialState = {
     //     couse_map:'',
     //     couse_link:'',
     //     coment:'',
+    //     segment:'',
     //     public:'',
     //     participation:'',
     //     done:false,
@@ -50,7 +52,7 @@ export const getActivities = createAsyncThunk(
             return rejectWithValue(error)
         }
     }
-
+ 
 )
 export const createActivity = createAsyncThunk(
     'sports/createActivity',
@@ -58,9 +60,15 @@ export const createActivity = createAsyncThunk(
         try{
             console.log('createActivity===> try')
             console.log('activityData:',activityData)
+            //strageにアップロードしurlを取得
+            const url = await uploadStrageImages(activityData.file,'map','image/jpeg')
+            console.log('url=========>',url)
+            activityData.couse_map = url.data.downloadURL
+            console.log('activityData.file=========>',activityData.file)
+            //firestoreのactivities_bikeコレクションに追加
             const res = await setDocActivity(activityData)
             console.log(res)
-            return res
+            return res 
         }catch(error){
             console.log('createActivity===> catch error')
             console.log(error)
@@ -113,4 +121,5 @@ export const {
 export const selectActivities = (state) => state.sports_bike.activities
 export const selectNew = (state) => state.sports_bike.activities.new
 export const selectAll = (state) => state.sports_bike.activities.all
+export const selectActivitiesStatus = (state) => state.sports_bike.activities.status
 export default sportsSlice.reducer 

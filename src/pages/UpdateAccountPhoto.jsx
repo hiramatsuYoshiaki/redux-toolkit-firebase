@@ -7,7 +7,7 @@ import { Button,IconButton } from '@mui/material'
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import {LoadingSpiner} from '../components/index'
 
-const styles={ 
+const styles={  
     wraper:{
         width:"100%",
         padding:".8rem", 

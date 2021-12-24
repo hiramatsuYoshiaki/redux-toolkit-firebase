@@ -1,7 +1,8 @@
 import { getStorage, ref, getDownloadURL,uploadBytes} from "firebase/storage";
-export const uploadStrageAvater = (file) => {
-    return new Promise((resolve,reject) =>{
-        console.log('uplaodStrageAvater-------')
+
+export const uploadStrageImages = (file,folder,type) => {
+    return new Promise((resolve,reject) => {
+        console.log('uploadStrageImges-----------')
         let type = 'image/jpeg'
         let extension = 'jpeg'
         if(file[0].type=== 'image/png'){
@@ -19,7 +20,7 @@ export const uploadStrageAvater = (file) => {
         const fileName = Array.from(crypto.getRandomValues(new Uint32Array(N))).map((n)=>S[n%S.length]).join('')
         // firebase strage v9
         const storage = getStorage()
-        const storageRef = ref(storage,`users/${fileName}.${extension}`)
+        const storageRef = ref(storage,`${folder}/${fileName}.${extension}`)
         uploadBytes(storageRef,blob,type).then(snapshot=>{
             getDownloadURL(snapshot.ref).then((downloadURL) => {
                 console.log('File available at----->', downloadURL);

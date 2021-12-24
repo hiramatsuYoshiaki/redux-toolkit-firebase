@@ -5,7 +5,7 @@ export const getDocPuttering = (uid) => {
     // console.log('uid: ',uid)
     return new Promise((resolve) => {
         const putterings = []
-        const db = getFirestore()
+        const db = getFirestore() 
 
         getDocs(collection(db, 'putterings'))
         const putteringRef = collection(db, 'putterings')

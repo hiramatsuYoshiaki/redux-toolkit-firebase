@@ -10,11 +10,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import './Finish.scss'
 const styles = {
-    open:{
+    open:{ 
      display:'block',
     },
     close:{
-        display:'none',  
+        display:'none',   
     }
  }
 const FinishList = ({isOpenFinish, setIsOpenFinish, putterings, user}) => {

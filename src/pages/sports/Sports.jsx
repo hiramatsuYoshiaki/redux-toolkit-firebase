@@ -1,7 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {Button} from '@mui/material'
-import {BottomMenuBar} from '../../components/sports/index'
 
 
 const Sports = () => {
@@ -56,7 +55,6 @@ const Sports = () => {
                 </Link>
             </div>
             
-            <BottomMenuBar /> 
         </div> 
     )
 }

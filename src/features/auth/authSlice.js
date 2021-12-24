@@ -67,7 +67,7 @@ export const updatePhotoURLAsync = createAsyncThunk(
       console.log('updatePhotoAsync-------------')
       console.log('URL: ',file)
       try{
-        const url = await uploadStrageAvater(file)
+        const url = await uploadStrageAvater(file)  
         console.log(url.data.downloadURL) 
         try{
           const auth = await updatePhotoURL(url.data.downloadURL)
