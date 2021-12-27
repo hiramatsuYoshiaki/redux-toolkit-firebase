@@ -2,7 +2,7 @@ import {getFirestore, collection, doc, setDoc, serverTimestamp} from 'firebase/f
 
 export const setDocActivity = (activityData) => {
     return new Promise((resolve,reject) => {
-        console.log('setDocActivity')
+        // console.log('setDocActivity')
         const db = getFirestore()
         const activities_bikeRef = doc(collection(db, 'activities_bike'))
         const activities_bike = {
@@ -11,7 +11,7 @@ export const setDocActivity = (activityData) => {
             title:activityData.title,
             date:activityData.date,
             couse:activityData.couse,
-            start:activityData.start,
+            start:activityData.start, 
             gole:activityData.gole,
             distance:activityData.distance,
             elevation:activityData.elevation,
@@ -34,7 +34,7 @@ export const setDocActivity = (activityData) => {
         } 
         setDoc(activities_bikeRef,activities_bike)
         .then(res=>{
-            console.log('setDocActivity firestore setDoc ok')
+            // console.log('setDocActivity firestore setDoc ok')
             resolve({data:activities_bike})
         })
         .catch((error=>{

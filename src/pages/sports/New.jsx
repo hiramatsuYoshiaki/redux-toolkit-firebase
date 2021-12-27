@@ -1,7 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {selectUser} from  '../../features/auth/authSlice'
-import { createActivity, getActivities, selectAll, selectNew, selectActivities,selectActivitiesStatus} from  '../../features/sports/sportsSlice'
+import { createActivity, 
+         getActivities, 
+         updateActivityPublish,
+         selectAll, 
+         selectNew, 
+         selectActivities,
+         selectActivitiesStatus,
+        } from  '../../features/sports/sportsSlice'
 import {useForm, Controller} from 'react-hook-form'
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -30,6 +37,7 @@ import './sports.scss'
 // lg, large: 1200px
 // xl, extra-large: 1536px
 import no_image from '../../assets/img/no_image.jpg'
+import { avatarClasses } from '@mui/material'
 // import map from '../../assets/img/map.PNG'
 // import syoudoshima from '../../assets/img/syoudoshima.PNG'
 const styles={
@@ -140,10 +148,18 @@ const New = () => {
         { value: 'グランフォンド',label: '100km以上の山岳コースを走る',},
         { value: 'ブルベ',label: '距離は200～600kmのコースを走る',},
     ]
+    //パブリック　プライベート変更
+    const handleClickPublish = (activity) => {
+        console.log('handleClickPublic ');
+        // console.log('activity: ' , activity)
+        dispatch(updateActivityPublish(activity)) 
+    }
+
     useEffect(()=>{
-        console.log('useEffect call dispatch getActivities');
-        dispatch(getActivities(profile))
-        // console.log(all);
+        // console.log('useEffect call dispatch getActivities');
+        if(profile){
+            dispatch(getActivities(profile))
+        }
     },[dispatch,profile])
     
 
@@ -508,8 +524,20 @@ const New = () => {
                                         {/* <div>create_at:{starttime(activities.create_at)}</div>
                                         <div>update_at:{starttime(activities.update_at)}</div> */}
                                         {/* <div>status:{activities.status}</div> */}
-                                        <Button size="small" variant='outlined'>共有（フィードに表示する）</Button>
-                                        <Button size="small" variant='outlined'>プライベート（フィードに表示しない）</Button>
+                                        {activity.public === 'public' 
+                                            ?
+                                            <Button size="small" variant='outlined' onClick={()=>handleClickPublish(activity)}>
+                                                <span>プライベート（フィードに表示しない）</span>
+                                            </Button>
+                                            :
+                                            <Button size="small" variant='outlined'  onClick={()=>handleClickPublish(activity)}>
+                                                <span>パブリック（フィードに表示する）</span>
+                                            </Button>
+                                            // <Button size="small" variant='outlined' onClick={()=>handleClickPublish(activity)}>
+                                            //     <span>パブリック（フィードに表示する）</span>
+                                            // </Button>
+                                         }
+                                        {/* <Button size="small" variant='outlined'>プライベート（フィードに表示しない）</Button> */}
                                         
                                     </CardContent>
                                     <CardActions>

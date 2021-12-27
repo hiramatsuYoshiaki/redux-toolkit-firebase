@@ -2,7 +2,7 @@ import { getFirestore, collection, getDocs, query, where} from  'firebase/firest
 
 export const getDocActivities = (profile) => {
     return new Promise((resolve, reject) => {
-        console.log('getDocActivities ===> firestore getdoc')
+        // console.log('getDocActivities ===> firestore getdoc')
         const activities = []
         const db = getFirestore() 
 

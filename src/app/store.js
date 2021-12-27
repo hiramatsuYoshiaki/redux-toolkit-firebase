@@ -30,10 +30,18 @@ export const store = configureStore({
             'puttering/setData',
             'firebase/addPuttering/fulfilled',
             'sports_bike/createAction',
-            'sports/createActivity/fulfilled',
+
+            'sports/createActivity/pending',
+            'sports/createActivity/fulfilled', 
             'sports/createActivity/rejected',
+
+            'sports/getActivities/pending',
             'sports/getActivities/fulfilled',
             'sports/getActivities/reject',
+
+            'sports/updateActivityesPublish/pending',
+            'sports/updateActivityesPublish/fulfilled',
+            'sports/updateActivityesPublish/rejected'
         ],
 
         // Ignore these field paths in all actions--------------

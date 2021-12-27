@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk  } from '@reduxjs/toolkit'
 import { uploadStrageImages } from '../storage/uploadStrageImages'
 import { getDocActivities } from './getDocActivities'
 import { setDocActivity} from './setDocActivity'
+import { updatePublish} from './updatePublish'
 
 const initialState = {
     activities:{
@@ -37,37 +38,54 @@ const initialState = {
     //     message:'',
     // }
 }
+export const updateActivityPublish = createAsyncThunk(
+    'sports/updateActivityesPublish',
+    async(updateActivity,{rejectWithValue})=>{
+        try{
+            console.log('sportsSlice updateActivityPublis===> try')
+            const res = await updatePublish(updateActivity)
+            console.log('sportsSlice res ok----------',res.data)
+            return res
+        }
+        catch(error){
+            console.log(error.code)
+            console.log(error.message)
+            console.log('sportsSlice updateActivityPublis===> catch error')
+            return rejectWithValue(error)
+        }
+    }
+)
 export const getActivities = createAsyncThunk(
     'sports/getActivities',
     async(profile,{rejectWithValue})=>{
         try{
-            console.log('sportsSlice getActivities===> try')
+            // console.log('sportsSlice getActivities===> try')
             const res = await getDocActivities(profile)
-            console.log(res)
+            // console.log(res)
             return res
         }
         catch(error){
             console.log('getActivities===> catch error')
-            console.log(error)
+            console.log(error.code)
+            console.log(error.message)
             return rejectWithValue(error)
         }
     }
- 
 )
 export const createActivity = createAsyncThunk(
     'sports/createActivity',
     async(activityData,{rejectWithValue})=>{
         try{
-            console.log('createActivity===> try')
-            console.log('activityData:',activityData)
+            // console.log('createActivity===> try')
+            // console.log('activityData:',activityData)
             //strageにアップロードしurlを取得
             const url = await uploadStrageImages(activityData.file,'map','image/jpeg')
-            console.log('url=========>',url)
+            // console.log('url=========>',url)
             activityData.couse_map = url.data.downloadURL
-            console.log('activityData.file=========>',activityData.file)
+            // console.log('activityData.file=========>',activityData.file)
             //firestoreのactivities_bikeコレクションに追加
             const res = await setDocActivity(activityData)
-            console.log(res)
+            // console.log(res)
             return res 
         }catch(error){
             console.log('createActivity===> catch error')
@@ -103,17 +121,31 @@ const sportsSlice = createSlice({
             state.activities.status = 'loading'
           })
         .addCase(getActivities.fulfilled, (state, action) => {
-            console.log('getActivities fulfilled')
-            console.log('state.all',state.all)
+            // console.log('getActivities fulfilled')
+            // console.log('state.all',state.all)
             state.activities.all = action.payload.data
             state.activities.status = 'idle'
         })
         .addCase(getActivities.rejected, (state, action) => {
             state.activities.status = 'idle'
         })
+        //firestore update public public/private
+        .addCase(updateActivityPublish.pending, (state) => {
+            state.activities.status = 'loading'
+          })
+        .addCase(updateActivityPublish.fulfilled, (state, action) => {
+            console.log('updateActivityPublish fulfilled')
+            console.log('action.payload.data.activity',action.payload.data.activity)
+            state.activities.all = [...state.activities.all, action.payload.data.activity]
+            state.activities.status = 'idle'
+        })
+        .addCase(updateActivityPublish.rejected, (state, action) => { 
+            state.activities.errors = action.data
+            state.activities.status = 'idle'
+        })
     } 
 
-}); 
+});   
 
 export const {
     createAction
