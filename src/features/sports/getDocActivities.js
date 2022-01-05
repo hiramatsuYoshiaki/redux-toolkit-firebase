@@ -8,7 +8,12 @@ export const getDocActivities = (profile) => {
 
         getDocs(collection(db,'activities_bike'))
         const activitiesRef = collection(db,'activities_bike')
-        const q= query(activitiesRef,where('owner.uid','==',profile.uid))
+        let q = null
+        if(profile === null) {
+            q= query(activitiesRef,where('owner.uid','!=', null))
+        }else{
+            q= query(activitiesRef,where('owner.uid','==', profile.uid))
+        }
         getDocs(q)
         .then(querySnapshot=>{
             querySnapshot.forEach(doc=>{

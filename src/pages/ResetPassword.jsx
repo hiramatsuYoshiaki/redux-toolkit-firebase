@@ -1,10 +1,10 @@
-import React,{useState} from 'react'
-import {Redirect} from 'react-router-dom'
+import React from 'react'
+// import {Redirect} from 'react-router-dom'
 // import {InputForm} from '../components/index'
 // import {InputUser} from '../components/InputUser'
 import {useSelector,useDispatch} from 'react-redux'
 import {signOutAsync,selectUser} from '../features/auth/authSlice'
-import { useHistory, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './page.scss'
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import {Button, TextField} from '@mui/material'
@@ -22,9 +22,9 @@ const ResetPassword = () => {
     console.log('reset password start----------------++++++');
     const dispatch = useDispatch()
     const profile = useSelector(selectUser)
-    const history = useHistory()
-    const [isSended,setIsSended] = useState(false)
-    const [inputEmail,setInputEmail] = useState('')
+    // const history = useHistory()
+    // const [isSended,setIsSended] = useState(false)
+    // const [inputEmail,setInputEmail] = useState('')
     //react-hook from
     const {handleSubmit, control} = useForm()
     // const resetPasswordSendEmail = (email) => {
@@ -54,7 +54,7 @@ const ResetPassword = () => {
             sendPasswordResetEmail(auth, email)
             .then(() => {
                 console.log('Password reset email sent!++++++++++++++++++++++++')
-                setIsSended(true)
+                // setIsSended(true)
                 dispatch(signOutAsync())
                 resolve ()
             })
@@ -70,7 +70,7 @@ const ResetPassword = () => {
         try{
             console.log('try++++++++++++++++++++++++++++++++++++')
             await resetPasswordSendEmail(data.email)
-            setInputEmail(data.email)
+            // setInputEmail(data.email)
             console.log('push /singin+++++++++++++++++++++++++++')
             // history.push('/signin')
         }catch(error){
@@ -169,7 +169,8 @@ const ResetPassword = () => {
                                         message: 'メールアドレスは4０文字以内です。' 
                                     },
                                     pattern: {
-                                        value: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                        // value: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                        value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                                         message: 'メールアドレスの形式が不正です',
                                     },
                                 }}

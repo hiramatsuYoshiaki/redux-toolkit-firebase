@@ -20,9 +20,9 @@ const EditProfile = () => {
     }
     return (
         <div className="page-fexed-container">  
-            <div>UI ライブラリを使用してする</div>
+            {/* <div>UI ライブラリを使用してする</div>
             <div>バリデーションを適用する</div>
-            <div>エラーを適用する</div>
+            <div>エラーを適用する</div> */}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <Controller

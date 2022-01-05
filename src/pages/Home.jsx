@@ -1,15 +1,33 @@
-import React from 'react'
+import React, {useEffect,useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {getActivities, selectAll} from '../features/sports/sportsSlice'
 import {Link} from 'react-router-dom'
-import {useSelector} from 'react-redux'
 import {selectUser} from '../features/auth/authSlice'
 import { Button } from '@mui/material'
 import {LoadingSpiner} from '../components/index'
+import { format} from 'date-fns'
+
+
 import './page.scss'
 
 const Home = () => { 
-    // console.log('home -------------------');
+    console.log('home -------------------');
+    const dispatch = useDispatch()
     const profile = useSelector(selectUser)
-    // console.log(profile);
+    const allActivities = useSelector(selectAll)
+    const [activities,setActicities] = useState(null)
+    console.log(allActivities);
+    console.log(activities);
+
+    useEffect(()=>{
+            dispatch(getActivities(null))
+            setActicities(allActivities)
+    },[])
+    useEffect(()=>{
+        setActicities(allActivities) 
+    },[dispatch,allActivities])
+
+    // console.log(,[profile);
     // const items = [
     //     {id:'01',name:'ダッシュボード',link:'/activities/dashbord', 
     //         guide:''}, 
@@ -26,6 +44,11 @@ const Home = () => {
     //     {id:'08',name:'Chats',link:'/activities/chats'},
         
     // ]
+    const starttime = (dateTime) =>{
+        const jsTimestamp = dateTime.toDate()
+        const fromtDateTime = format(jsTimestamp, 'yyyy年MM月dd日 HH:mm')
+        return  fromtDateTime
+    }
     return (
         <div className='page-fexed-container'>
             {/* <div className='page-home-container'> */}
@@ -40,7 +63,7 @@ const Home = () => {
                                         <Button variant='outlined'>Sports</Button>
                                     </Link>
                                     {/* <Link to='/camera' > */}
-                                        <Button variant='outlined' disabled={true}>Camera</Button>
+                                        {/* <Button variant='outlined' disabled={true}>Camera</Button> */}
                                     {/* </Link> */}
                                 {/* <div>
                                     <CardLayoutLink items={items} />   
@@ -67,7 +90,7 @@ const Home = () => {
                                         </Button>
                                     </Link>
                                 </section>
-                                <section>
+                                <section className='page-home-section'>
                                     {/* <div>アカウントを作って開始します。</div> */}
                                     <Link to='/createaccount'>
                                         {/* <button>アカウントを作成する</button> */}
@@ -75,6 +98,40 @@ const Home = () => {
                                         アカウントを作成する
                                         </Button>
                                     </Link>
+                                </section>
+                                <section className='page-home-section'>
+                                    <h1>New Activities</h1>
+                                    { activities != null && activities.length > 0 
+                                        ? activities.map(activity=>(
+                                            <div key={activity.id}>
+                                                {
+                                                    activity.public === 'public' && !activity.done
+                                                    ? 
+                                                    <div>
+                                                        <div>{starttime(activity.date)}</div>
+                                                        <div>{activity.title}</div>
+                                                        <div>予定</div>
+                                                        <div>{activity.public}</div>
+                                                    </div>
+                                                    : null
+                                                }
+                                                {
+                                                    activity.public === 'public' && activity.done
+                                                    ? 
+                                                    <div>
+                                                       
+                                                        <div>{starttime(activity.date)}</div>
+                                                        <div>{activity.title}</div>
+                                                         <div>実施済み</div>
+                                                        <div>{activity.public}</div>
+                                                        
+                                                    </div>
+                                                    : null
+                                                }
+                                            </div>
+                                        )) 
+                                        : null 
+                                    }
                                 </section>
                             </div>
                     }

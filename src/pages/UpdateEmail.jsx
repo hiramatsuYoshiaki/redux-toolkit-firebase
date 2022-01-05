@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import {  useSelector } from 'react-redux'
 import {selectUser} from '../features/auth/authSlice'
 // import { getAuth, isSignInWithEmailLink,  reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth"
 import {getAuth, reauthenticateWithCredential, EmailAuthProvider} from 'firebase/auth'
-import {useHistory,Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {Button, TextField} from '@mui/material';
 import {useForm, Controller} from 'react-hook-form'
 import {EmailUpdateForm} from '../components/account/index'
@@ -13,8 +13,8 @@ import {LoadingSpiner} from '../components/index'
 
 
 const UpdateEmail = () => {
-    const history = useHistory()
-    const dispatch = useDispatch()
+    // const history = useHistory()
+    // const dispatch = useDispatch()
     const profile = useSelector(selectUser)
     console.log(profile);
     
@@ -87,10 +87,10 @@ const UpdateEmail = () => {
         })
         // .......
     }
-    const handleUpdateEmail = () => {
-        console.log('handleUpdateEmail')
-        alert('update email adress')
-    }
+    // const handleUpdateEmail = () => {
+    //     console.log('handleUpdateEmail')
+    //     alert('update email adress')
+    // }
 
     return (
         <div className="page-fexed-container">

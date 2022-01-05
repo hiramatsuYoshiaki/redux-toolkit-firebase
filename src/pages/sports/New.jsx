@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react'
+import {Link,useHistory} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {selectUser} from  '../../features/auth/authSlice'
 import { createActivity, 
          getActivities, 
          updateActivityPublish,
          selectAll, 
-         selectNew, 
-         selectActivities,
+        //  selectNew, 
+        //  selectActivities,
          selectActivitiesStatus,
         } from  '../../features/sports/sportsSlice'
 import {useForm, Controller} from 'react-hook-form'
@@ -27,6 +28,7 @@ import CardMedia from '@mui/material/CardMedia';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import MenuItem from '@mui/material/MenuItem';
 import {LoadingSpiner} from '../../components/index'
+
 import { format} from 'date-fns'
 import { Timestamp } from "firebase/firestore"; 
 
@@ -36,8 +38,8 @@ import './sports.scss'
 // md, medium: 900px
 // lg, large: 1200px
 // xl, extra-large: 1536px
-import no_image from '../../assets/img/no_image.jpg'
-import { avatarClasses } from '@mui/material'
+// import no_image from '../../assets/img/no_image.jpg'
+// import { avatarClasses } from '@mui/material'
 // import map from '../../assets/img/map.PNG'
 // import syoudoshima from '../../assets/img/syoudoshima.PNG'
 const styles={
@@ -61,6 +63,7 @@ const styles={
 }
 const New = () => {
     console.log('start---->New.jsx');
+    const history = useHistory()
     const dispatch = useDispatch()
     const profile = useSelector(selectUser)
     // console.log('profile',profile);
@@ -75,6 +78,7 @@ const New = () => {
     const activitiesStatus = useSelector(selectActivitiesStatus)
 
     const [selectPhoto,setSelectPhoto] = useState('')
+    const [allActivities,setAllActicities] = useState([])
     const [file,setFile] = useState(null)
 
     const [expanded, setExpanded] = useState(false);
@@ -109,7 +113,7 @@ const New = () => {
         console.log(activityData);
         // dispatch(createAction(activityData))
         dispatch(createActivity(activityData))
-        dispatch(getActivities(profile))
+        // dispatch(getActivities(profile))
 
         //firestoreに新規アクティビティーを追加
         // dispatch(addActivities(inputValues)) 
@@ -154,6 +158,37 @@ const New = () => {
         // console.log('activity: ' , activity)
         dispatch(updateActivityPublish(activity)) 
     }
+    //実施完了
+    const handleClickDone = (activity) => {
+        console.log('handleClickDone ');
+        // dispatch(removeActivityPublish(activity)) 
+        history.push(
+            {
+                pathname: "/sports/done",
+                state:{ activity:activity,
+                        profile:profile,
+                }
+            }
+        )
+    }
+    //修正
+    const handleClickEdit = (activity) => {
+        console.log('handleClickEdit ');
+        history.push(
+            {
+                pathname: "/sports/edit",
+                state:{ activity:activity,
+                        profile:profile,
+                }
+            }
+        )
+    }
+    //削除
+    const handleClickDelete = (activity) => {
+        console.log('handleClickDelete ');
+        alert('Delete')
+        // dispatch(removeActivityPublish(activity)) 
+    }
 
     useEffect(()=>{
         // console.log('useEffect call dispatch getActivities');
@@ -161,7 +196,11 @@ const New = () => {
             dispatch(getActivities(profile))
         }
     },[dispatch,profile])
-    
+    useEffect(()=>{
+        console.log();
+        setAllActicities(all)
+    },[dispatch,all])
+   
 
     return (
         <div className='l-sports-container'>
@@ -465,8 +504,6 @@ const New = () => {
                                     }
                                 }}
                             />
-                            
-                            
                             <div>
                                 <Button type='submit' variant='outlined'>
                                     SUBMIT
@@ -478,13 +515,16 @@ const New = () => {
                     </Accordion>
                 </div>
             </div>
-           
+           <Link to='/sports/add'>
+            <Button size="small"  variant='outlined' >新しいアクティビティを追加します。</Button>
+           </Link>
             <div>
-                {all.length > 0 
+                {allActivities.length > 0 
                 ?   <div className='l-sports-card-container'>
-                        {all.map(activity=>(
+                        {allActivities.map(activity=>(
                             <div className='l-sports-card-item' key={activity.id}>
                                <Card sx={{ width: '100%'}}>
+                                        <div>{activity.id}</div>
                                         <div>{activity.title}</div>
                                         <div>{starttime(activity.date)}</div>
                                         <a href={activity.couse_link} target="_blank" rel="noopener noreferrer">
@@ -515,7 +555,7 @@ const New = () => {
                                         <div>コメント</div>
                                         <div>{activity.coment}</div>
                                         {/* <div>public:{activity.public}</div> */}
-                                        <div>参加者:{activity.participation}</div>
+                                        <div>参加者:</div>
                                         <div>{activity.participation}</div>
                                         {/* <div>done:{activity.done?'完了':'予定イベント'}</div> */}
                                         {/* <div>garmin:{activity.garmin}</div>
@@ -541,10 +581,9 @@ const New = () => {
                                         
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="small" variant='outlined'>実走データ入力</Button>
-                                        {/* <Button size="small">完了</Button> */}
-                                        <Button size="small"  variant='outlined'>変更</Button>
-                                        <Button size="small"  variant='outlined'>削除</Button>
+                                        <Button size="small" variant='outlined' onClick={()=>handleClickDone(activity)}>実走データ入力</Button>
+                                        <Button size="small"  variant='outlined' onClick={()=>handleClickEdit(activity)}>変更</Button>
+                                        <Button size="small"  variant='outlined' onClick={()=>handleClickDelete(activity)}>削除</Button>
                                     </CardActions>
                                 </Card>
                             </div>

@@ -14,7 +14,7 @@ export const setDocActivity = (activityData) => {
             start:activityData.start, 
             gole:activityData.gole,
             distance:activityData.distance,
-            elevation:activityData.elevation,
+            elevation:activityData.elevation, 
             couse_map:activityData.couse_map,
             couse_link:activityData.couse_link,
             segment:activityData.segment,

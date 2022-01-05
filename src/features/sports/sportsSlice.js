@@ -5,7 +5,7 @@ import { setDocActivity} from './setDocActivity'
 import { updatePublish} from './updatePublish'
 
 const initialState = {
-    activities:{
+    activities:{ 
         all:[],
         new:{},
         errors:[],
@@ -79,10 +79,13 @@ export const createActivity = createAsyncThunk(
             // console.log('createActivity===> try')
             // console.log('activityData:',activityData)
             //strageにアップロードしurlを取得
-            const url = await uploadStrageImages(activityData.file,'map','image/jpeg')
-            // console.log('url=========>',url)
-            activityData.couse_map = url.data.downloadURL
-            // console.log('activityData.file=========>',activityData.file)
+            if(activityData.file !== null) {
+                const url = await uploadStrageImages(activityData.file,'map','image/jpeg')
+                // console.log('url=========>',url)
+                activityData.couse_map = url.data.downloadURL
+                // console.log('activityData.file=========>',activityData.file)
+            }
+            
             //firestoreのactivities_bikeコレクションに追加
             const res = await setDocActivity(activityData)
             // console.log(res)

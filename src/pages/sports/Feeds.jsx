@@ -2,6 +2,7 @@ import React, { useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectUser } from '../../features/auth/authSlice'
 import { getActivities, selectAll } from '../../features/sports/sportsSlice'
+import Divider from '@mui/material/Divider';
 import { format} from 'date-fns'
 
 
@@ -32,10 +33,11 @@ const Feeds = () => {
                                  activity.public === 'public' && !activity.done
                                  ? 
                                  <div>
+                                     <div>{starttime(activity.date)}</div>
+                                     <div>{activity.title}</div>
                                      <div>予定</div>
                                      <div>{activity.public}</div>
-                                     <div>{activity.title}</div>
-                                     <div>{starttime(activity.date)}</div>
+                                    <Divider />
                                  </div>
                                  : null
                             }
@@ -43,10 +45,11 @@ const Feeds = () => {
                                  activity.public === 'public' && activity.done
                                  ? 
                                  <div>
+                                     <div>{starttime(activity.date)}</div>
+                                     <div>{activity.title}</div>
                                      <div>実施済み</div>
                                      <div>{activity.public}</div>
-                                     <div>{starttime(activity.date)}</div>
-                                     
+                                     <Divider />
                                  </div>
                                  : null
                             }

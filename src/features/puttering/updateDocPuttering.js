@@ -16,7 +16,7 @@ export const updateDocPuttering = (puttering) => {
             uid:puttering.uid
             } 
             resolve({ 
-                data: updateTodo
+                data: updateTodo 
             })
           })
         .catch((error) => {

@@ -14,6 +14,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "caniuse-lite": "^1.0.30001296",
     "firebase": "^9.0.2",
     "moment": "^2.29.1",
     "nanoid": "^3.1.29",

@@ -8,8 +8,8 @@ export const updatePublish = (updateActivity) => {
         console.log('public:',updateActivity)
 
         const db = getFirestore()
-        const putteringRef = doc(db, "activities_bike", updateActivity.id);
-        updateDoc(putteringRef, {
+        const Ref = doc(db, "activities_bike", updateActivity.id);
+        updateDoc(Ref, {
           public: updateActivity.public === 'public' ? 'private' : 'public'
           })
         .then((res)=>{
