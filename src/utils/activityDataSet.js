@@ -27,3 +27,31 @@ export const activityDataSet = (profile,data,file) => {
     }
     return activityData
 }
+export const activityDataInit = (profile) => {
+    const activityData ={
+        id:'',
+        owner:profile,
+        title:null,
+        date:null,//js date --> firebase timestamp
+        couse:null,
+        start:null,
+        gole:null,
+        distance:null,
+        elevation:null,
+        couse_map:null,
+        couse_link:null,
+        segment:null,
+        coment:null,
+        public:null,
+        participation:[],
+        done:false,
+        garmin:null,
+        relive:null,
+        strava:null,
+        file:null,
+        create_at:null,
+        update_at:null,
+        starus:'idle',
+    }
+    return activityData
+}
