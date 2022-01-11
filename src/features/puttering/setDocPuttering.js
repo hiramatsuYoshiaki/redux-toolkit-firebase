@@ -14,7 +14,7 @@ export const setDocPuttering = (values) => {
             done: values.done,
             uid:values.uid,
             create_at:serverTimestamp(),
-            update_at:serverTimestamp(),
+            update_at:serverTimestamp(), 
         } 
         setDoc(newTodoRef, addPuttering )   
         .then((res)=>{ 

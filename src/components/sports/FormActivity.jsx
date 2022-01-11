@@ -1,4 +1,6 @@
 import React,{useState} from 'react'
+import {useDispatch} from 'react-redux'
+import {updateActivity} from '../../features/sports/sportsSlice'
 import { useForm, Controller } from 'react-hook-form'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
@@ -13,15 +15,59 @@ import {getSegments} from '../../defaultValue/defaultValue'
 import './FormActivity.scss'
 
 const FormActivity = ({profile,activity}) => {
+    const dispatch = useDispatch()
     const [couseMap,setCouseMap] = useState(activity.couse_map)
     const [file,setFile] = useState(null)
     console.log('uploadfile',file);
     const {handleSubmit, control} = useForm()  
+    // const activityData ={
+    //     id:'',
+    //     owner:profile,
+    //     title:data.title,
+    //     date:Timestamp.fromDate(data.datePicker),//js date --> firebase timestamp
+    //     couse:data.couse,
+    //     start:data.start,
+    //     gole:data.gole,
+    //     distance:data.distance,
+    //     elevation:data.elevation,
+    //     couse_map:'',
+    //     couse_link:data.link,
+    //     segment:data.segment,
+    //     coment:data.coment,
+    //     public:'private', 
+    //     participation:[],
+    //     done:false,
+    //     garmin:'',
+    //     relive:'',
+    //     strava:'',
+    //     file:file,
+    //     create_at:null,
+    //     update_at:null,
+    //     starus:'idle',
+    // }
     const onSubmit = data => {
         console.log('form input data ',data)
-        
-        const activityDat = activityDataSet(profile,data,file)
-        console.log('activityDat--->',activityDat);
+        //file check 
+        //activity.couse_map set
+        data = {
+            ...data,
+            id: activity.id,
+            owner:profile,
+            couse_map: activity.couse_map,
+            public: activity.public,
+            participation: activity.participation,
+            done:activity.done,
+            garmin:activity.garmin,
+            relive:activity.relive,
+            strava:activity.strava,
+            file:file,
+            create_at:activity.create_at,
+            update_at:activity.update_at,
+            starus:activity.starus,
+        }
+        const activityData = activityDataSet(data)
+        console.log('activityDat--->',activityData);
+        dispatch(updateActivity(activityData))
     }
     const segments = getSegments()
     return (
@@ -218,6 +264,7 @@ const FormActivity = ({profile,activity}) => {
                 helperText={error? error.message :null}
                 fullWidth
                 margin='normal'
+                disabled
             />
         }
         rules={{

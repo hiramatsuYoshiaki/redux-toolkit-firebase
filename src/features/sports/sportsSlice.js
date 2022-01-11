@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk  } from '@reduxjs/toolkit'
 import { uploadStrageImages } from '../storage/uploadStrageImages'
 import { getDocActivities } from './getDocActivities'
+import { updateDocActivity } from './updateDocActivity'
 import { setDocActivity} from './setDocActivity'
 import { updatePublish} from './updatePublish'
 
 const initialState = {
     activities:{ 
         all:[],
-        new:{},
+        // new:{},
         errors:[],
         status:'idle'
     }
@@ -44,7 +45,7 @@ export const updateActivityPublish = createAsyncThunk(
         try{
             console.log('sportsSlice updateActivityPublis===> try')
             const res = await updatePublish(updateActivity)
-            console.log('sportsSlice res ok----------',res.data)
+            console.log('pdateActivityPubli sportsSlice res ok----------',res.data)
             return res
         }
         catch(error){
@@ -96,6 +97,29 @@ export const createActivity = createAsyncThunk(
             return rejectWithValue(error)
         }
     }
+)   
+
+export const updateActivity = createAsyncThunk(
+    'sports/updateActivity',
+    async(activityData,{rejectWithValue})=> {
+        try{
+            console.log('updateActivity===> try')
+            if(activityData.file !== null) {
+                const url = await uploadStrageImages(activityData.file,'map','image/jpeg')
+                console.log('url=========>',url)
+                activityData.couse_map = url.data.downloadURL
+                console.log('activityData.file=========>',activityData.file)
+            }
+            const res = await updateDocActivity(activityData)
+            console.log('updateActivity res-->',res)
+            return res 
+
+        }catch(error){
+            console.log('updateActivity===> catch error')
+            console.log(error)
+            return rejectWithValue(error)
+        }
+    }
 )
 
 const sportsSlice = createSlice({
@@ -113,12 +137,14 @@ const sportsSlice = createSlice({
             state.activities.status = 'loading'
           })
         .addCase(createActivity.fulfilled, (state, action) => {
-            state.new = action.payload.data
+            // state.new = action.payload.data
+            state.activities.all = [...state.activities.all, action.payload.data]
             state.activities.status = 'idle'
         })
         .addCase(createActivity.rejected, (state, action) => {
             state.activities.status = 'idle'
         })
+
         //firestore getDoc collection:sports_bike all
         .addCase(getActivities.pending, (state) => {
             state.activities.status = 'loading'
@@ -132,17 +158,40 @@ const sportsSlice = createSlice({
         .addCase(getActivities.rejected, (state, action) => {
             state.activities.status = 'idle'
         })
+
+
         //firestore update public public/private
         .addCase(updateActivityPublish.pending, (state) => {
             state.activities.status = 'loading'
           })
         .addCase(updateActivityPublish.fulfilled, (state, action) => {
             console.log('updateActivityPublish fulfilled')
-            console.log('action.payload.data.activity',action.payload.data.activity)
-            state.activities.all = [...state.activities.all, action.payload.data.activity]
+            console.log('action.payload.data.activity',action.payload.data)
+            const alls = state.activities.all
+            const index = alls.findIndex(all=> all.id === action.payload.data.id)
+            state.activities.all[index] = action.payload.data
+            // state.activities.all = [...state.activities.all, action.payload.data]
             state.activities.status = 'idle'
         })
         .addCase(updateActivityPublish.rejected, (state, action) => { 
+            state.activities.errors = action.data
+            state.activities.status = 'idle'
+        })
+
+        //firestore update  
+        .addCase(updateActivity.pending, (state) => {
+            state.activities.status = 'loading'
+          })
+        .addCase(updateActivity.fulfilled, (state, action) => {
+            console.log('updateActivity fulfilled')
+            console.log('action.payload.data.activity-->',action.payload.data)
+            console.log('action.payload.data.id-->',action.payload.data.id)
+            const alls = state.activities.all
+            const index = alls.findIndex(all=> all.id === action.payload.data.id)
+            state.activities.all[index] = action.payload.data
+            state.activities.status = 'idle'
+        })
+        .addCase(updateActivity.rejected, (state, action) => { 
             state.activities.errors = action.data
             state.activities.status = 'idle'
         })

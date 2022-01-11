@@ -73,16 +73,17 @@ const New = () => {
     // console.log('new',activities);
     //すべてのアクティビティー
     const all = useSelector(selectAll)
-    // console.log('all',all);
+    console.log('all',all);
 
     const activitiesStatus = useSelector(selectActivitiesStatus)
 
     const [selectPhoto,setSelectPhoto] = useState('')
     const [allActivities,setAllActicities] = useState([])
     const [file,setFile] = useState(null)
+    console.log(allActivities);
 
     const [expanded, setExpanded] = useState(false);
-    const {handleSubmit, control} = useForm()
+    const {handleSubmit, control} = useForm() 
     const onSubmit = data =>{
         console.log('from input data',data)
         const activityData ={
@@ -99,7 +100,7 @@ const New = () => {
             couse_link:data.link,
             segment:data.segment,
             coment:data.coment,
-            public:'private',
+            public:'private', 
             participation:[],
             done:false,
             garmin:'',
@@ -113,6 +114,9 @@ const New = () => {
         console.log(activityData);
         // dispatch(createAction(activityData))
         dispatch(createActivity(activityData))
+        if(profile){
+            dispatch(getActivities(profile))
+        }
         // dispatch(getActivities(profile))
 
         //firestoreに新規アクティビティーを追加
@@ -157,6 +161,10 @@ const New = () => {
         console.log('handleClickPublic ');
         // console.log('activity: ' , activity)
         dispatch(updateActivityPublish(activity)) 
+        if(profile){
+            dispatch(getActivities(profile))
+        }
+
     }
     //実施完了
     const handleClickDone = (activity) => {
@@ -191,13 +199,14 @@ const New = () => {
     }
 
     useEffect(()=>{
-        // console.log('useEffect call dispatch getActivities');
+        console.log('useEffect call dispatch getActivities');
         if(profile){
             dispatch(getActivities(profile))
         }
     },[dispatch,profile])
+
     useEffect(()=>{
-        console.log();
+        console.log('useEffect setAllActicities(all) change>>>>>>>>>>');
         setAllActicities(all)
     },[dispatch,all])
    
@@ -524,7 +533,7 @@ const New = () => {
                         {allActivities.map(activity=>(
                             <div className='l-sports-card-item' key={activity.id}>
                                <Card sx={{ width: '100%'}}>
-                                        <div>{activity.id}</div>
+                                        {/* <div>{activity.id}</div> */}
                                         <div>{activity.title}</div>
                                         <div>{starttime(activity.date)}</div>
                                         <a href={activity.couse_link} target="_blank" rel="noopener noreferrer">
@@ -564,6 +573,7 @@ const New = () => {
                                         {/* <div>create_at:{starttime(activities.create_at)}</div>
                                         <div>update_at:{starttime(activities.update_at)}</div> */}
                                         {/* <div>status:{activities.status}</div> */}
+                                        <div>公開:{activity.public}</div>
                                         {activity.public === 'public' 
                                             ?
                                             <Button size="small" variant='outlined' onClick={()=>handleClickPublish(activity)}>

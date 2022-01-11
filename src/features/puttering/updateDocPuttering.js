@@ -16,9 +16,9 @@ export const updateDocPuttering = (puttering) => {
             uid:puttering.uid
             } 
             resolve({ 
-                data: updateTodo 
+                data: updateTodo  
             })
-          })
+          }) 
         .catch((error) => {
             console.log('firestore updateDoc error ');
             console.log(error);

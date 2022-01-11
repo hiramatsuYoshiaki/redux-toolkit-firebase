@@ -6,7 +6,7 @@ export const removeDocPuttering = (puttering) => {
         // const cityRef = doc(db, 'cities', 'BJ');
         // Remove the 'capital' field from the document
         // await updateDoc(cityRef, {
-        //     capital: deleteField()
+        //     capital: deleteField() 
         // });
         // const putteringRef = doc(db, "putterings", puttering.id);
         deleteDoc(doc(db, "putterings", puttering.id))
