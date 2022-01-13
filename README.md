@@ -948,11 +948,118 @@ const onReaAuth = () => {
  }
 ```
 # firebase strage v9 docs
-https://firebase.google.cn/docs/storage/web/upload-files?hl=en&%3Bskip_cache=true&skip_cache=true 
+https://firebase.google.cn/docs/storage/web/upload-files?hl=en&%3Bskip_cache=true&skip_cache=true  
 
 
-# 【LINE】LIFFアプリをReactで動かす
+# 【LINE】LIFFアプリをReactで動かす 
 https://zenn.dev/bulb/articles/fb0666bb027a79
+
+# 複数のローカル画像を表示する方法(Array.fromでArrayに変換) 
+https://developer.mozilla.org/ja/docs/Web/API/File/Using_files_from_web_applications
+https://lab.syncer.jp/Web/JavaScript/Snippet/17/ 
+https://zenn.dev/tokiya_horikawa/articles/8270949e4f027fce4d66 
+Blob URL、またはData URIを取得し、それをそのままimg要素のsrc属性に指定し表示する
+1. 選択されたファイルへのアクセス
+  1-1 File API により、ユーザーが選択したファイルを表す File オブジェクトを含む FileList にアクセスすることができます。
+  1-2 multiple 属性を input 要素に付けることで、ユーザーが複数のファイルを選択することができるようになります。
+  1-3 type属性を`type="file"`にする
+  1-4 click() メソッドを使用して非表示の input 要素を使用するためスタイルで`display:'none'`を指定して隠す
+  1-5 change イベントでの選択されたファイルへのアクセスする`onChange={(event) => uploadImage(event)}`
+```
+<input style={{display:'none'}}
+    type="file"
+    id="image"
+    accept={"image/jpeg,image/png"}
+    multiple
+    onChange={(event) => uploadImage(event)}
+/>
+``` 
+2. ユーザーが選択した画像のサムネイルを表示
+  2-1 FileListはArrayでないため、変換して配列として処理する 
+  `const files = Array.from(event.target.files)`
+  2-1 画像の読み込みと img 要素へのアタッチを非同期で処理するための FileReader を確立します。 
+  `const reader = new FileReader()`
+  2-3 readAsDataURL() を呼び出してバックグラウンドで読み込み処理を開始します。画像ファイルのコンテンツ全体が読み込まれると、それらは data: URL に変換される 
+  ```
+  reader.onload = (e) => {
+              setPhotos(prevPhotos =>[...prevPhotos,e.target.result])
+          }
+          reader.readAsDataURL(file)
+  ```
+  2-4 stateの配列へ追加する
+  `setPhotos(prevPhotos =>[...prevPhotos,e.target.result])`
+
+3. img 要素の src 属性が読み込まれた画像に設定され、その結果、画像がユーザの画面のサムネイルに表示されます。
+  ```
+  {photos.length > 0
+            ? 
+            photos.map((Photo,index)=>(
+                <div className="page-avaterContainer" key={index}> 
+                    <img src={Photo} alt="couse map" style={styles.map} />
+                </div>
+            ))
+            : null
+        } 
+  ```
+サンプル全体
+```
+import React,{useState} from 'react'
+import IconButton from '@mui/material/IconButton';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+const styles={
+    icon: {
+        marginRight: 8,
+        height: 48,
+        width: 48
+    }
+}
+const Viewlocalfiles = () => {
+  const [photos,setPhotos] = useState([])
+  const uploadImage = async (event) => {
+      const files = Array.from(event.target.files)
+      files.forEach(file=>{
+          const reader = new FileReader()
+          reader.onload = (e) => {
+              setPhotos(prevPhotos =>[...prevPhotos,e.target.result])
+          }
+          reader.readAsDataURL(file)
+      })
+  }
+  return (
+      <>
+        <div>
+            写真を選択してください
+            <IconButton style={styles.icon}>
+                <label>
+                    <AddPhotoAlternateIcon fontSize="large"/>
+                    <input style={{display:'none'}}
+                        type="file"
+                        id="image"
+                        accept={"image/jpeg,image/png"}
+                        multiple
+                        onChange={(event) => uploadImage(event)}
+                    />
+                </label>
+            </IconButton>
+        </div>
+        {photos.length > 0
+            ? 
+            photos.map((Photo,index)=>(
+                <div className="page-avaterContainer" key={index}> 
+                    <img src={Photo} alt="couse map" style={styles.map} />
+                </div>
+            ))
+            : null
+        } 
+      </>
+  )
+}
+
+export default Viewlocalfiles
+
+```
+
+
 
 
 

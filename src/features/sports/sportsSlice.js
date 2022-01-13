@@ -4,6 +4,8 @@ import { getDocActivities } from './getDocActivities'
 import { updateDocActivity } from './updateDocActivity'
 import { setDocActivity} from './setDocActivity'
 import { updatePublish} from './updatePublish'
+import { removeDocActivity} from './removeDocActivity'
+import { updateDoneActivity} from './updateDoneActivity'
 
 const initialState = {
     activities:{ 
@@ -71,7 +73,7 @@ export const getActivities = createAsyncThunk(
             console.log(error.message)
             return rejectWithValue(error)
         }
-    }
+    }　
 )
 export const createActivity = createAsyncThunk(
     'sports/createActivity',
@@ -113,11 +115,40 @@ export const updateActivity = createAsyncThunk(
             const res = await updateDocActivity(activityData)
             console.log('updateActivity res-->',res)
             return res 
-
         }catch(error){
             console.log('updateActivity===> catch error')
             console.log(error)
             return rejectWithValue(error)
+        }
+    }
+)
+export const removeActivity = createAsyncThunk(
+    'sports/removeActivity',
+    async(activityData,{rejectWithValue})=>{
+        try{
+            console.log('removeActivity ===> try')
+            const res = await removeDocActivity(activityData)
+            console.log('removeActivity res-->',res)
+            return res 
+        }
+        catch(error){
+            console.log('updateActivity===> catch error')
+            console.log(error)
+            return rejectWithValue(error)
+        }
+    }
+)
+export const doneActivity = createAsyncThunk(
+    'sports/doneActivity',
+    async(data)=>{
+        try{
+            console.log('doneActivity---------') 
+            console.log('done data--------', data)
+            const res = await updateDoneActivity(data)
+            console.log('res',res)
+        }
+        catch(error){
+
         }
     }
 )
@@ -192,6 +223,24 @@ const sportsSlice = createSlice({
             state.activities.status = 'idle'
         })
         .addCase(updateActivity.rejected, (state, action) => { 
+            state.activities.errors = action.data
+            state.activities.status = 'idle'
+        })
+
+        //firestore remove activity  
+        .addCase(removeActivity.pending, (state) => {
+            state.activities.status = 'loading'
+          })
+        .addCase(removeActivity.fulfilled, (state, action) => {
+            console.log('removeActivity fulfilled')
+            console.log('action.payload.data.activity-->',action.payload.data)
+            console.log('action.payload.data.id-->',action.payload.data.id)
+            const alls = state.activities.all
+            const removeActivity = alls.filter(all=> all.id !== action.payload.data.id)
+            state.activities.all = removeActivity
+            state.activities.status = 'idle'
+        })
+        .addCase(removeActivity.rejected, (state, action) => { 
             state.activities.errors = action.data
             state.activities.status = 'idle'
         })

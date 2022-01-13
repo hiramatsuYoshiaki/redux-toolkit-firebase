@@ -46,6 +46,14 @@ export const store = configureStore({
             'sports/updateActivity/pending',
             'sports/updateActivity/fulfilled',
             'sports/updateActivity/rejected',
+            
+            'sports/removeActivity/pending',
+            'sports/removeActivity/fulfilled',
+            'sports/removeActivity/rejected',
+            
+            'sports/doneActivity/pending',
+            'sports/doneActivity/fulfilled',
+            'sports/doneActivity/rejected',
         ],
 
         // Ignore these field paths in all actions--------------

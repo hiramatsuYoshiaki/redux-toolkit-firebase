@@ -1,4 +1,4 @@
-import {getFirestore, collection, doc, setDoc, serverTimestamp} from 'firebase/firestore'
+import {getFirestore, doc, setDoc, serverTimestamp} from 'firebase/firestore'
 export const updateDocActivity = (activityData) => {
     return new Promise ((resolve,reject) => {
         console.log('updateDocActivity***********')

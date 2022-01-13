@@ -61,6 +61,12 @@ const FormActivity = ({profile,activity}) => {
             relive:activity.relive,
             strava:activity.strava,
             file:file,
+
+
+
+
+
+            
             create_at:activity.create_at,
             update_at:activity.update_at,
             starus:activity.starus,
@@ -69,7 +75,7 @@ const FormActivity = ({profile,activity}) => {
         console.log('activityDat--->',activityData);
         dispatch(updateActivity(activityData))
     }
-    const segments = getSegments()
+    const segments = getSegments() 
     return (
         <div className='l-form-activitiy-container'>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -363,12 +369,12 @@ const FormActivity = ({profile,activity}) => {
     />
         <div>
             <Button type='submit' variant='outlined'>
-                SUBMIT
+                修正
             </Button>
         </div>
         </form>
         </div>
     )
-}
+} 
 
 export default FormActivity

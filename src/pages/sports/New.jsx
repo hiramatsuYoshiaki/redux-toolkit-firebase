@@ -8,6 +8,7 @@ import { createActivity,
          selectAll, 
         //  selectNew, 
         //  selectActivities,
+        removeActivity,
          selectActivitiesStatus,
         } from  '../../features/sports/sportsSlice'
 import {useForm, Controller} from 'react-hook-form'
@@ -103,6 +104,11 @@ const New = () => {
             public:'private', 
             participation:[],
             done:false,
+            // doneDistance:'',
+            // doneElevation:'',
+            // doneAverage:'',
+            // doneTimehh:'',
+            // doneTimemm:'', 
             garmin:'',
             relive:'',
             strava:'',
@@ -158,8 +164,6 @@ const New = () => {
     ]
     //パブリック　プライベート変更
     const handleClickPublish = (activity) => {
-        console.log('handleClickPublic ');
-        // console.log('activity: ' , activity)
         dispatch(updateActivityPublish(activity)) 
         if(profile){
             dispatch(getActivities(profile))
@@ -168,8 +172,6 @@ const New = () => {
     }
     //実施完了
     const handleClickDone = (activity) => {
-        console.log('handleClickDone ');
-        // dispatch(removeActivityPublish(activity)) 
         history.push(
             {
                 pathname: "/sports/done",
@@ -177,11 +179,10 @@ const New = () => {
                         profile:profile,
                 }
             }
-        )
+        ) 
     }
     //修正
     const handleClickEdit = (activity) => {
-        console.log('handleClickEdit ');
         history.push(
             {
                 pathname: "/sports/edit",
@@ -193,9 +194,10 @@ const New = () => {
     }
     //削除
     const handleClickDelete = (activity) => {
-        console.log('handleClickDelete ');
-        alert('Delete')
-        // dispatch(removeActivityPublish(activity)) 
+        dispatch(removeActivity(activity))  
+        if(profile){
+            dispatch(getActivities(profile))
+        }
     }
 
     useEffect(()=>{

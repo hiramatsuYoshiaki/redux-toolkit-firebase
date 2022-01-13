@@ -1,6 +1,5 @@
 import React,{useState} from 'react'
 import {useHistory} from 'react-router-dom'
-import {EditActivities} from '../../components/sports/index'
 import { FormActivity } from '../../components/sports'
 import {formatdate} from '../../utils/formatdate'
 import {activityDataInit} from '../../utils/activityDataSet'
@@ -12,7 +11,7 @@ const Edit = () => {
     const activity = history.location.state.activity;
     const profile = history.location.state.profile;
     // console.log('activity',activity)
-    // console.log('profile',profile)
+    // console.log('profile',profile) 
 
     
     
@@ -49,9 +48,9 @@ const Edit = () => {
     //     // dispatch(createAction(activityData))
     // }
     
-
+ 
     
-    return (
+    return ( 
         <div>
             <h1>アクティビティ予定を変更</h1>
             <FormActivity profile={profile} activity={activity} />
@@ -73,7 +72,6 @@ const Edit = () => {
             <div>coment:{activity.coment}</div>
             <div>participation:{activity.participation}</div>
             <div>done:{activity.done?'完了':'予定イベント'}</div>
-            <EditActivities />
            
         </div>
     )
