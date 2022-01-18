@@ -37,6 +37,7 @@ const FormDane = ({profile,activity}) => {
     const {handleSubmit, control} = useForm()
     const onSubmit = data =>{
         console.log('input from data', data) 
+        
         data = {
             ...activity,
             doneDistance:data.doneDistance,
@@ -48,10 +49,12 @@ const FormDane = ({profile,activity}) => {
             relive:data.relive,
             strava:data.strava, 
             photos:photos,
-            video:[],
+            video:[], 
         }
+        data.done = true
         console.log('data',data)
         dispatch(doneActivity(data))
+        
     }
     // const uploadImage = async (event) => {
     //     const files = Array.from(event.target.files)

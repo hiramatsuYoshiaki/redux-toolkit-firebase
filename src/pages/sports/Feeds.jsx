@@ -4,19 +4,16 @@ import { selectUser } from '../../features/auth/authSlice'
 import { getActivities, selectAll } from '../../features/sports/sportsSlice'
 import Divider from '@mui/material/Divider';
 import { format} from 'date-fns'
+import {formatdate} from '../../utils/formatdate' 
+// {formatdate(activity.date,'yyyy年MM月dd日 HH時mm分')}
 
 
-const Feeds = () => {
+const Feeds = () => { 
     const dispatch = useDispatch()
     const profile = useSelector(selectUser)
     const activities = useSelector(selectAll)
     console.log(profile);
     console.log(activities);
-    const starttime = (dateTime) =>{
-        const jsTimestamp = dateTime.toDate()
-        const fromtDateTime = format(jsTimestamp, 'yyyy年MM月dd日 HH:mm')
-        return  fromtDateTime
-    }
     useEffect(()=>{
         console.log('Feeds call dispatch getActivities');
         dispatch(getActivities(profile))
@@ -30,10 +27,10 @@ const Feeds = () => {
                     ? activities.map(activity=>(
                         <div key={activity.id}>
                             {
-                                 activity.public === 'public' && !activity.done
+                                 activity.public === 'public' && activity.done === false
                                  ? 
                                  <div>
-                                     <div>{starttime(activity.date)}</div>
+                                     <div>{formatdate(activity.date,'yyyy年MM月dd日 HH時mm分')} </div>
                                      <div>{activity.title}</div>
                                      <div>予定</div>
                                      <div>{activity.public}</div>
@@ -42,10 +39,10 @@ const Feeds = () => {
                                  : null
                             }
                             {
-                                 activity.public === 'public' && activity.done
+                                 activity.public === 'public' && activity.done === true
                                  ? 
                                  <div>
-                                     <div>{starttime(activity.date)}</div>
+                                     <div>{formatdate(activity.date,'yyyy年MM月dd日 HH時mm分')} </div>
                                      <div>{activity.title}</div>
                                      <div>実施済み</div>
                                      <div>{activity.public}</div>

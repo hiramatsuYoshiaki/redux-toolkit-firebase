@@ -47,7 +47,7 @@ const UpdateAccountPhoto = () => {
 
 
     const preview =(previewFile) =>{
-        const reader = new FileReader()
+        const reader = new FileReader()  
         reader.onload = (e) => {
         setSelectPhoto(e.target.result)
         }
@@ -58,7 +58,7 @@ const UpdateAccountPhoto = () => {
         //変更画像のプレビュー
         setFile(event.target.files)
         // console.log(file)
-        preview(event.target.files[0])
+        preview(event.target.files[0]) 
         }
     const updateAvator = () => {
         //変更画像をfirebase strageにアップロードし、authのphotoURLを変更

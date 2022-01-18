@@ -21,10 +21,19 @@ export const updateDocActivity = (activityData) => {
             public:activityData.public,
             participation:activityData.participation,
             done:activityData.done,
+
+            doneDistance:'0',
+            doneElevation:'0',
+            doneAverage:'0',
+            doneTimehh:'0',
+            doneTimemm:'0',
+            photos:[],
+            video:[], 
+
             garmin:activityData.garmin,
             relive:activityData.relive,
             strava:activityData.strava,
-            file:null,
+            // file:null,
             create_at:activityData.create_at,
             update_at:serverTimestamp(),
             starus:'idle', 
@@ -32,8 +41,8 @@ export const updateDocActivity = (activityData) => {
             message:'',
         } 
         //上書き
-        const cityRef = doc(db, 'activities_bike', id )
-        setDoc(cityRef, activitiy)
+        const bikeRef = doc(db, 'activities_bike', id )
+        setDoc(bikeRef, activitiy)
         .then(res=>{
             console.log('setDocActivity firestore setDoc ok')
             console.log('setDocActivity firestore setDoc ok activitiy',activitiy)

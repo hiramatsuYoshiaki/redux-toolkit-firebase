@@ -29,6 +29,7 @@ import CardMedia from '@mui/material/CardMedia';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import MenuItem from '@mui/material/MenuItem';
 import {LoadingSpiner} from '../../components/index'
+import {CardNewActivities} from '../../components/sports/index'
 
 import { format} from 'date-fns'
 import { Timestamp } from "firebase/firestore"; 
@@ -129,12 +130,12 @@ const New = () => {
         // dispatch(addActivities(inputValues)) 
         //変更画像をfirebase strageにアップロードし,
         //firestoreのmap urlを更新
-        // dispatch(updatePhotoURLAsync(file))
+        // dispatch(updatePhotoURLAsync(file)) 
     } 
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
       }
-    
+     
     const preview =(previewFile) =>{
         const reader = new FileReader()
         reader.onload = (e) => {
@@ -180,7 +181,7 @@ const New = () => {
                 }
             }
         ) 
-    }
+    } 
     //修正
     const handleClickEdit = (activity) => {
         history.push(
@@ -208,7 +209,7 @@ const New = () => {
     },[dispatch,profile])
 
     useEffect(()=>{
-        console.log('useEffect setAllActicities(all) change>>>>>>>>>>');
+        // console.log('useEffect setAllActicities(all) change>>>>>>>>>>');
         setAllActicities(all)
     },[dispatch,all])
    
@@ -533,72 +534,17 @@ const New = () => {
                 {allActivities.length > 0 
                 ?   <div className='l-sports-card-container'>
                         {allActivities.map(activity=>(
-                            <div className='l-sports-card-item' key={activity.id}>
-                               <Card sx={{ width: '100%'}}>
-                                        {/* <div>{activity.id}</div> */}
-                                        <div>{activity.title}</div>
-                                        <div>{starttime(activity.date)}</div>
-                                        <a href={activity.couse_link} target="_blank" rel="noopener noreferrer">
-                                            <CardMedia
-                                                component="img"
-                                                sx={{width: '100%', height:300}}
-                                                image={activity.couse_map}
-                                                alt="image map"
-                                            />
-                                         </a>
-                                        <CardContent> 
-                                        <a href={activity.couse_link} target="_blank" rel="noopener noreferrer">
-                                            <div>コース詳細を見る</div>
-                                        </a>
-                                        <div>{activity.segment}</div>
-                                        
-                                        <div>
-                                            <span>{activity.distance}Km</span>
-                                            <span>{activity.elevation}m</span>
-                                        </div>
-                                        <div>{activity.couse}</div>
-                                        
-                                        {/* <div>couse_map:{activity.couse_map}</div> */}
-                                        
-                                        
-                                        <div>集合場所：{activity.start}</div>
-                                        {/* <div>解散場所{activity.gole}</div> */}
-                                        <div>コメント</div>
-                                        <div>{activity.coment}</div>
-                                        {/* <div>public:{activity.public}</div> */}
-                                        <div>参加者:</div>
-                                        <div>{activity.participation}</div>
-                                        {/* <div>done:{activity.done?'完了':'予定イベント'}</div> */}
-                                        {/* <div>garmin:{activity.garmin}</div>
-                                        <div>relive:{activity.relive}</div>
-                                        <div>strava:{activity.strava}</div> */}
-                                        {/* <div>create_at:{starttime(activities.create_at)}</div>
-                                        <div>update_at:{starttime(activities.update_at)}</div> */}
-                                        {/* <div>status:{activities.status}</div> */}
-                                        <div>公開:{activity.public}</div>
-                                        {activity.public === 'public' 
-                                            ?
-                                            <Button size="small" variant='outlined' onClick={()=>handleClickPublish(activity)}>
-                                                <span>プライベート（フィードに表示しない）</span>
-                                            </Button>
-                                            :
-                                            <Button size="small" variant='outlined'  onClick={()=>handleClickPublish(activity)}>
-                                                <span>パブリック（フィードに表示する）</span>
-                                            </Button>
-                                            // <Button size="small" variant='outlined' onClick={()=>handleClickPublish(activity)}>
-                                            //     <span>パブリック（フィードに表示する）</span>
-                                            // </Button>
-                                         }
-                                        {/* <Button size="small" variant='outlined'>プライベート（フィードに表示しない）</Button> */}
-                                        
-                                    </CardContent>
-                                    <CardActions>
-                                        <Button size="small" variant='outlined' onClick={()=>handleClickDone(activity)}>実走データ入力</Button>
-                                        <Button size="small"  variant='outlined' onClick={()=>handleClickEdit(activity)}>変更</Button>
-                                        <Button size="small"  variant='outlined' onClick={()=>handleClickDelete(activity)}>削除</Button>
-                                    </CardActions>
-                                </Card>
-                            </div>
+                            activity.done === false ?
+                                <div className='l-sports-card-item' key={activity.id}>
+                                    <CardNewActivities 
+                                        activity={activity} 
+                                        handleClickPublish={handleClickPublish} 
+                                        handleClickDone={handleClickDone} 
+                                        handleClickEdit={handleClickEdit}
+                                        handleClickDelete={handleClickDelete}
+                                />
+                                </div>
+                            :null
                         ))}
                      </div> 
                 :   null }

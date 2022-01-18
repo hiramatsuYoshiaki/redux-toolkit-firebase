@@ -134,21 +134,30 @@ export const removeActivity = createAsyncThunk(
         catch(error){
             console.log('updateActivity===> catch error')
             console.log(error)
-            return rejectWithValue(error)
+            return rejectWithValue(error) 
         }
     }
 )
 export const doneActivity = createAsyncThunk(
     'sports/doneActivity',
-    async(data)=>{
+    async(data,{rejectWithValue})=>{
         try{
             console.log('doneActivity---------') 
             console.log('done data--------', data)
+            // if(activityData.file !== null) {
+            //     const url = await uploadStrageImages(activityData.file,'map','image/jpeg')
+            //     console.log('url=========>',url)
+            //     activityData.couse_map = url.data.downloadURL
+            //     console.log('activityData.file=========>',activityData.file)
+            // }
             const res = await updateDoneActivity(data)
-            console.log('res',res)
+            console.log('res',res) 
+            return res
         }
         catch(error){
-
+            console.log('doneActivity ===> catch error')
+            console.log(error)
+            return rejectWithValue(error) 
         }
     }
 )
@@ -223,6 +232,24 @@ const sportsSlice = createSlice({
             state.activities.status = 'idle'
         })
         .addCase(updateActivity.rejected, (state, action) => { 
+            state.activities.errors = action.data
+            state.activities.status = 'idle'
+        })
+        //firestore update  
+        .addCase(doneActivity.pending, (state) => {
+            state.activities.status = 'loading' 
+          })
+        .addCase(doneActivity.fulfilled, (state, action) => {
+            console.log('doneActivity fulfilled')
+            console.log('action.payload.data.activity-->',action.payload)
+            // console.log('action.payload.data.activity-->',action.payload.data)
+            // console.log('action.payload.data.id-->',action.payload.data.id)
+            const alls = state.activities.all
+            const index = alls.findIndex(all=> all.id === action.payload.data.id)
+            state.activities.all[index] = action.payload.data
+            state.activities.status = 'idle'
+        })
+        .addCase(doneActivity.rejected, (state, action) => { 
             state.activities.errors = action.data
             state.activities.status = 'idle'
         })

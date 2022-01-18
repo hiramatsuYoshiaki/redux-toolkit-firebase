@@ -41,7 +41,7 @@ export const uploadStrageAvater = (file) => {
                     }
                 })
             }))
-        }).catch((error)=>{
+        }).catch((error)=>{ 
             console.log('storage uploadFile error');
             console.log(error);
             reject({
