@@ -12,6 +12,20 @@ const CardDoneActivities = ({activity}) => {
         <Card sx={{ width: '100%'}}>
                 <div>{activity.title}</div>
                 <div>{formatdate(activity.date,'yyyy年MM月dd日 HH時mm分')}</div>
+                <div>{activity.title}</div>
+                <div>{activity.doneDistance}km</div>
+                <div>{activity.doneElevation}m</div>
+                <div>平均{activity.doneAverage}km</div>
+                <div><span>{activity.doneTimehh}</span>時間<span>{activity.doneTimemm}</span>分</div>
+               <div>
+               <iframe src={activity.garmin} title='garmin' width='465' height='500' frameborder='0'></iframe>
+               </div>
+               <div>
+               <iframe src={activity.relive} title='garmin' width='465' height='500' frameborder='0'></iframe>
+               </div>
+               <div>
+               <iframe src={activity.strava} title='garmin' width='465' height='500' frameborder='0'></iframe>
+               </div>
                 {/* <iframe src='https://connect.garmin.com/modern/activity/embed/7520257989' title='三幡～牛窓オリーブ園～長嶋愛生園' width='465' height='500' frameborder='0'></iframe>
                 <iframe src='https://connect.garmin.com/modern/activity/embed/7520257989' title='garmin' width='465' height='500' frameborder='0'></iframe>
                 <iframe src='https://www.relive.cc/view/vWqBrxYPAYq' title='relive' width='465' height='500' frameborder='0'></iframe>
