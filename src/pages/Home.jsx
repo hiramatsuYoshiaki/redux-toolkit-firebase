@@ -3,15 +3,17 @@ import {useDispatch, useSelector} from 'react-redux'
 import {getActivities, selectAll} from '../features/sports/sportsSlice'
 import {Link} from 'react-router-dom'
 import {selectUser} from '../features/auth/authSlice'
-import { Button } from '@mui/material'
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button'
 import {LoadingSpiner} from '../components/index'
-import { format} from 'date-fns'
-
-
+import {HomeHeader} from '../components/index'
+import {CardNewActivitiesSummery} from '../components/sports/index'
+import {CardDoneActivitiesSummery} from '../components/sports/index'
+import {formatdate} from '../utils/formatdate'
 import './page.scss'
-
+ 
 const Home = () => { 
-    console.log('home -------------------');
+    console.log('home -------------------')
     const dispatch = useDispatch()
     const profile = useSelector(selectUser)
     const allActivities = useSelector(selectAll)
@@ -44,18 +46,14 @@ const Home = () => {
     //     {id:'08',name:'Chats',link:'/activities/chats'},
         
     // ]
-    const starttime = (dateTime) =>{
-        const jsTimestamp = dateTime.toDate()
-        const fromtDateTime = format(jsTimestamp, 'yyyy年MM月dd日 HH:mm')
-        return  fromtDateTime
-    }
+    
     return (
-        <div className='page-fexed-container'>
+        <div className=''>
             {/* <div className='page-home-container'> */}
                     {profile.isSignIn 
                         ? profile.emailVerified   
                             ?    
-                            <div>
+                            <section className='page-fexed-container'>
                                 {/* <div>ようこそ!</div>
                                 <div>{profile.username}さん</div> */}
                                 <div>アクティビティタイプ</div>
@@ -67,10 +65,11 @@ const Home = () => {
                                     {/* </Link> */}
                                 {/* <div>
                                     <CardLayoutLink items={items} />   
-                                </div> */} 
-                            </div>
-                            :    <div>
-                                    <div>アカウントの作成が完了していません。</div>
+                                </div> */}  
+                            </section>
+                            :
+                            <section className='page-fexed-container'>
+                                <div>アカウントの作成が完了していません。</div>
                                     {/* <div>メールアドレスの認証をしてください。</div> */} 
                                     <Link to='/createaccount' >
                                         {/* <button>アクティベイト</button> */}
@@ -78,9 +77,45 @@ const Home = () => {
                                         アカウントの有効化
                                         </Button>
                                     </Link>
-                                </div>
-                        :   <div>
-                                <h3>アクティビティを計画しよう！</h3> 
+                            </section>
+                        :<Container fixed>
+                            <header >
+                                <HomeHeader />
+                            </header>
+                            <section > 
+                                { activities != null && activities.length > 0 
+                                    ? activities.map(activity=>(
+                                        <div key={activity.id}>
+                                            {
+                                                activity.public === 'public' && !activity.done
+                                                ? <CardNewActivitiesSummery activity={activity}/>
+                                                : null
+                                            }
+                                            {
+                                                activity.public === 'public' && activity.done
+                                                ? <CardDoneActivitiesSummery activity={activity}/> 
+                                                : null
+                                            }
+                                        </div>
+                                    )) 
+                                    : null 
+                                }
+                            </section>
+                                <section>
+                                    <h3>アクティビティを計画する。</h3> 
+                                    {/* <LinkButton 
+                                        items={[
+                                            {id:1,name:'サインイン',link:'/signin',color:'primary',variant:'outlined'},
+                                            {id:2,name:'アカウントを作成',link:'/createaccount',color:'primary',variant:'outlined'},
+                                        ]}
+                                    /> */}
+                                </section> 
+                                {/* <section>
+                                    <CardDoneActivities />
+                                    <CardNewActivities />
+                                </section> */}
+                                <h3>アクティビティを計画する。</h3> 
+
                                 <section className='page-home-section'>
                                     {/* <div>サインインする</div> */}
                                     <Link to='/signin' >
@@ -90,17 +125,19 @@ const Home = () => {
                                         </Button>
                                     </Link>
                                 </section>
+                                
                                 <section className='page-home-section'>
                                     {/* <div>アカウントを作って開始します。</div> */}
                                     <Link to='/createaccount'>
                                         {/* <button>アカウントを作成する</button> */}
                                         <Button variant="outlined">
-                                        アカウントを作成する
+                                        アカウントを作成
                                         </Button>
                                     </Link>
                                 </section>
+
                                 <section className='page-home-section'>
-                                    <h1>New Activities</h1>
+                                    {/* <h1>New Activities</h1> */}
                                     { activities != null && activities.length > 0 
                                         ? activities.map(activity=>(
                                             <div key={activity.id}>
@@ -108,7 +145,7 @@ const Home = () => {
                                                     activity.public === 'public' && !activity.done
                                                     ? 
                                                     <div>
-                                                        <div>{starttime(activity.date)}</div>
+                                                        <div>{formatdate(activity.date,'yyyy年MM月dd日 HH時mm分')}</div>
                                                         <div>{activity.title}</div>
                                                         <div>予定</div>
                                                         <div>{activity.public}</div>
@@ -120,7 +157,7 @@ const Home = () => {
                                                     ? 
                                                     <div>
                                                        
-                                                        <div>{starttime(activity.date)}</div>
+                                                       <div>{formatdate(activity.date,'yyyy年MM月dd日 HH時mm分')}</div>
                                                         <div>{activity.title}</div>
                                                          <div>実施済み</div>
                                                         <div>{activity.public}</div>
@@ -133,7 +170,7 @@ const Home = () => {
                                         : null 
                                     }
                                 </section>
-                            </div>
+                        </Container>
                     }
                 {/* </div>  */}
            

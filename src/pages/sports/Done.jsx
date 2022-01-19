@@ -27,7 +27,7 @@ const Done = () => {
                     alt="image map"
                 />
             </Card>
-            <FormDone profile={profile} activity={activity} />
+            <FormDone profile={profile} activity={activity} /> 
             {profile 
                 ?
                     <div>

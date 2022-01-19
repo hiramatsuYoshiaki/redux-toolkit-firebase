@@ -11,11 +11,11 @@ import {Viewlocalfiles} from '../../components/sports/index'
 //     map:{
 //         borderRadius: '16px',
 //         width:"300px",
-//         height:"200px",  
+//         height:"200px",    
 //         border:"1px solid gery", 
 //     },
 //     icon: {
-//         marginRight: 8,
+//         marginRight: 8, 
 //         height: 48,
 //         width: 48
 //     },

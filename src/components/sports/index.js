@@ -5,3 +5,6 @@ export {default as FormDone} from './FormDone'
 export {default as Viewlocalfiles} from './Viewlocalfiles'
 export {default as CardDoneActivities} from './CardDoneActivities'
 export {default as CardNewActivities} from './CardNewActivities'
+export {default as CardNewActivitiesSummery} from './CardNewActivitiesSummery'
+export {default as CardDoneActivitiesSummery} from './CardDoneActivitiesSummery'
+

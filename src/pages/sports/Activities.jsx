@@ -22,7 +22,7 @@ const Activities = () => {
                     </div>
                     :null
                 ))
-                :null
+                :null 
             }
         </div>
     )

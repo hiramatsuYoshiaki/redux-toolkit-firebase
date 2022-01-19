@@ -21,6 +21,7 @@ $fullhdBreakPoint: 1536px; //1536
     align-items: center;
     justify-content: center; 
 }
+
 .page-fexed-container{
     min-height: calc(100vh - 3.2rem);
     width:100%;
@@ -34,14 +35,16 @@ $fullhdBreakPoint: 1536px; //1536
     //     margin:0;
     //     padding:0 10rem;
     // } 
-    @media (min-width: $widescreenBreakPoint) {
-        margin:0;
-        padding:0 10rem;
-    } 
-    @media (min-width: $fullhdBreakPoint) {
-        margin:0;
-        padding:0 20rem;
-    } 
+    // @media (min-width: $widescreenBreakPoint) {
+    //     margin:0;
+    //     padding:0 10rem;
+    // } 
+    // @media (min-width: $fullhdBreakPoint) {
+    //     margin:0;
+    //     padding:0 20rem;
+    // } 
+    border:1px solid red;
+    background-color:lightgreen;
 }
 .page-home-container{
     align-items: center;
