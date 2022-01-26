@@ -106,7 +106,7 @@ const FormDane = ({profile,activity}) => {
                         <TextField 
                             id='doneElevation'
                             label='獲得標高(m)'
-                            type="number"
+                            type="number" 
                             value={value}
                             onChange={onChange}
                             error={!!error}

@@ -370,13 +370,14 @@ const New = () => {
                                             maxWidth:200,
                                         }}
                                     />
-                                }
+                                } 
                                 rules={{
                                     required:'距離は必須です。',
                                     minLength : {
                                         value: 0,
                                         message: '距離は０Km以上です。' 
-                                    }
+                                    },
+                                    // valueAsNumber: true,
                                 }}
                             />
                             <Controller
@@ -404,7 +405,8 @@ const New = () => {
                                     minLength : {
                                         value: 0,
                                         message: '距離は０Km以上です。' 
-                                    }
+                                    },
+                                    // valueAsNumber: true,
                                 }}
                             />
                            <div>
@@ -527,9 +529,9 @@ const New = () => {
                     </Accordion>
                 </div>
             </div>
-           <Link to='/sports/add'>
+           {/* <Link to='/sports/add'>
             <Button size="small"  variant='outlined' >新しいアクティビティを追加します。</Button>
-           </Link>
+           </Link> */}
             <div>
                 {allActivities.length > 0 
                 ?   <div className='l-sports-card-container'>

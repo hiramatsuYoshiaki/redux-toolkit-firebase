@@ -102,7 +102,7 @@ const Home = () => {
                                 }
                             </section>
                                 <section>
-                                    <h3>アクティビティを計画する。</h3> 
+                                    {/* <h3>アクティビティを計画する。</h3>  */}
                                     {/* <LinkButton 
                                         items={[
                                             {id:1,name:'サインイン',link:'/signin',color:'primary',variant:'outlined'},
@@ -110,16 +110,9 @@ const Home = () => {
                                         ]}
                                     /> */}
                                 </section> 
-                                {/* <section>
-                                    <CardDoneActivities />
-                                    <CardNewActivities />
-                                </section> */}
-                                <h3>アクティビティを計画する。</h3> 
 
-                                <section className='page-home-section'>
-                                    {/* <div>サインインする</div> */}
+                                {/* <section className='page-home-section'>
                                     <Link to='/signin' >
-                                        {/* <button>サインイン</button>  */}
                                         <Button variant="outlined">
                                         サインイン
                                         </Button>
@@ -127,17 +120,14 @@ const Home = () => {
                                 </section>
                                 
                                 <section className='page-home-section'>
-                                    {/* <div>アカウントを作って開始します。</div> */}
                                     <Link to='/createaccount'>
-                                        {/* <button>アカウントを作成する</button> */}
                                         <Button variant="outlined">
                                         アカウントを作成
                                         </Button>
                                     </Link>
-                                </section>
+                                </section> */}
 
-                                <section className='page-home-section'>
-                                    {/* <h1>New Activities</h1> */}
+                                {/* <section className='page-home-section'>
                                     { activities != null && activities.length > 0 
                                         ? activities.map(activity=>(
                                             <div key={activity.id}>
@@ -169,7 +159,7 @@ const Home = () => {
                                         )) 
                                         : null 
                                     }
-                                </section>
+                                </section> */}
                         </Container>
                     }
                 {/* </div>  */}

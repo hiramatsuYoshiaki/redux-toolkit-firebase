@@ -7,4 +7,5 @@ export {default as CardDoneActivities} from './CardDoneActivities'
 export {default as CardNewActivities} from './CardNewActivities'
 export {default as CardNewActivitiesSummery} from './CardNewActivitiesSummery'
 export {default as CardDoneActivitiesSummery} from './CardDoneActivitiesSummery'
+export {default as CardContentLine} from './CardContentLine'
 

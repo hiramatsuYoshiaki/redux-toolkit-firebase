@@ -61,12 +61,6 @@ const FormActivity = ({profile,activity}) => {
             relive:activity.relive,
             strava:activity.strava,
             file:file,
-
-
-
-
-
-            
             create_at:activity.create_at,
             update_at:activity.update_at,
             starus:activity.starus,

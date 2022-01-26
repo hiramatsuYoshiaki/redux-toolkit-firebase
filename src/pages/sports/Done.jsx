@@ -24,7 +24,7 @@ const Done = () => {
                     component="img"
                     sx={{width: '100%', height:'300px', maxWidth:'500px'}}
                     image={activity.couse_map}
-                    alt="image map"
+                    alt="image map" 
                 />
             </Card>
             <FormDone profile={profile} activity={activity} /> 

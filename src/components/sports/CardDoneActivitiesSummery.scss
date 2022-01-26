@@ -1,0 +1,34 @@
+/* ブレイクポイント */
+// $mobileBreakPoint: 600px; //600
+// $tabletBreakPoint: 768px; // 768
+// $desktopBreakPoint: 960px; //960
+// $widescreenBreakPoint: 1280px; //1280
+// $fullhdBreakPoint: 1920px; //1920
+$mobileBreakPoint: 600px; //600
+$desktopBreakPoint: 900px; //900
+$widescreenBreakPoint: 1200px; //1200
+$fullhdBreakPoint: 1536px; //1536
+// xs, extra-small: 0px
+// sm, small: 600px
+// md, medium: 900px
+// lg, large: 1200px
+// xl, extra-large: 1536px
+.c-record-area{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.c-record-areaElement{
+    flex-basis: 25%;
+    @media (min-width: $desktopBreakPoint) {
+        flex-basis: 50%;
+    }  
+}
+.c-card-media{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    background-color:lightblue;
+    width:508px;
+}
