@@ -24,8 +24,7 @@ const CardDoneActivitiesSummery = ({activity}) => {
         setExpanded(!expanded);
     }
     
-    return ( 
-        // <Card sx={{ maxWidth: 470 }}>
+    return (  
         <Card >
             <CardHeader
                 avatar={
@@ -57,36 +56,87 @@ const CardDoneActivitiesSummery = ({activity}) => {
              </CardContent>
              {activity.garmin
               ?
-                <CardMedia
-                        component="iframe"
-                        height="508"
-                        maxWidth='508'
-                        image={activity.garmin}
-                        alt={activity.title}
-                        frameborder="2"
-                        // allowfullscreen="allowfullscreen"
-                    />
-                // <CardMedia
-                //     component="iframe"
-                //     height="508"
-                //     width='478'
-                //     image={activity.relive}
-                //     alt={activity.title}
-                // />
-                // <CardMedia
-                //     component="iframe"
-                //     height="380"
-                //     width='478'
-                //     image={activity.strava}
-                //     alt={activity.title}
-                // /> 
+                <div class="c-wraper-card-media">
+                    <div class="c-card-media">
+                        <CardMedia
+                                component="iframe"
+                                height="508"
+                                maxWidth='508'
+                                image={activity.garmin}
+                                alt={activity.title}
+                                frameborder="0"
+                                sx={{ boxShadow: 'none' }}
+                            />
+                    </div>
+                </div>
+                :activity.strava
+                ?
+                <div class="c-wraper-card-media">
+                    <div class="c-card-media">
+                        <CardMedia
+                                component="iframe"
+                                height="508"
+                                maxWidth='508'
+                                image={activity.garmin}
+                                alt={activity.title}
+                                frameborder="0"
+                                sx={{ boxShadow: 'none' }}
+                            />
+                    </div>
+                </div>
+                :<div class="c-wraper-card-media">
+                    <div class="c-card-media">
+                        <CardMedia
+                                component="img"
+                                height="508"
+                                image={activity.couse_map}
+                                alt={activity.title}
+                                frameborder="0"
+                                sx={{ boxShadow: 'none' }}
+                            />
+                    </div>
+                </div>
+            }
+            {/* {activity.garmin
+              ?
+                <div class="c-wraper-card-media">
+                    <div class="c-card-media">
+                        <CardMedia
+                            component="iframe"
+                            height="380"
+                            width='478'
+                            image={activity.strava}
+                            alt={activity.title}
+                            frameborder="0"
+                            sx={{ boxShadow: 'none' }}
+                        /> 
+                    </div>
+                </div>
 
                 :null
-            }
+            } */}
+            {/* {activity.couse_map
+              ?
+                <div class="c-wraper-card-media">
+                    <div class="c-card-media">
+                        <CardMedia
+                                component="img"
+                                height="auto"
+                                width='100%'
+                                image={activity.couse_map}
+                                alt={activity.title}
+                                frameborder="0"
+                                sx={{ boxShadow: 'none' }}
+                            />
+                    </div>
+                </div>
+
+                :null
+            } */}
              
             
             <CardActions disableSpacing>
-                    {/* <IconButton aria-label="add to favorites">
+                {/* <IconButton aria-label="add to favorites">
                 <FavoriteIcon />
                 </IconButton>
                 <IconButton aria-label="share">
@@ -95,39 +145,18 @@ const CardDoneActivitiesSummery = ({activity}) => {
                 <IconButton aria-label="more" onClick={handleExpandClick}>
                     {expanded?<ExpandLessIcon />:<ExpandMoreIcon />}
                 </IconButton >
-                <div>詳細</div>
+                <div>Relive</div>
             </CardActions>
-            {/* <CardMedia
-                    component="iframe"
-                    height="508"
-                    width='100%'
-                    image={activity.garmin}
-                    alt={activity.title}
-                    // frameborder="2"
-                    // allowfullscreen="allowfullscreen"
-                /> */}
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-                {/* <CardMedia
-                    component="iframe"
-                    height="508"
-                    width='478'
-                    image={activity.garmin}
-                    alt={activity.title}
-                />
                 <CardMedia
                     component="iframe"
-                    height="508"
+                    height="600"
                     width='478'
                     image={activity.relive}
                     alt={activity.title}
+                    frameborder="0"
+                    sx={{ boxShadow: 'none' }}
                 />
-                <CardMedia
-                    component="iframe"
-                    height="350"
-                    width='478'
-                    image={activity.strava}
-                    alt={activity.title}
-                /> */}
             </Collapse>
            
            

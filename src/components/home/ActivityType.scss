@@ -1,3 +1,4 @@
+/* ブレイクポイント */
 // $mobileBreakPoint: 600px; //600
 // $tabletBreakPoint: 768px; // 768
 // $desktopBreakPoint: 960px; //960
@@ -12,20 +13,19 @@ $fullhdBreakPoint: 1536px; //1536
 // md, medium: 900px
 // lg, large: 1200px
 // xl, extra-large: 1536px
-
-.l-sports-container{
+.c-activity-type-container{
     min-height: calc(100vh - 3.2rem);
     width:100%;
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    // align-items: center; 
     // justify-content: center; 
-    margin:0 0 3.2rem 0;
-    padding:0 8px;
+    margin:0;
+    padding:0 8px; 
     // @media (min-width: $desktopBreakPoint) {
     //     margin:0;
     //     padding:0 10rem;
-    // }  
+    // } 
     // @media (min-width: $widescreenBreakPoint) {
     //     margin:0;
     //     padding:0 10rem;
@@ -34,34 +34,24 @@ $fullhdBreakPoint: 1536px; //1536
     //     margin:0;
     //     padding:0 20rem;
     // } 
+    // border:1px solid red;
+    // background-color:lightgreen;
 }
-.l-sports-card-container{
-    min-height: calc(100vh - 3.2rem);
+.c-activity-type-card-wraper{ 
     width:100%;
-    padding:16px 0;
     display: flex;
-    flex-wrap: wrap;
-    margin-left: -8px;
-    margin-right: -8px;
-} 
-.l-sports-card-item{
-    width:100%;
-    min-width:345px;
-    flex-basis: 100%;
-    display: flex;
+    flex-direction: column;
+    align-items: center; 
     justify-content: center; 
-    padding-left: 8px;
-    padding-right: 8px;
-    @media (min-width: $desktopBreakPoint) {
-        flex-basis: 50%;
-    }  
+    padding:16px 0;
+    // @media (min-width: $desktopBreakPoint) {
+    //     margin:0;
+    //     padding:0 10rem;
+    // } 
     @media (min-width: $widescreenBreakPoint) {
-        flex-basis: 33.3333%;
+        flex-direction: row;
     } 
-    @media (min-width: $fullhdBreakPoint) {
-        flex-basis: 25%;
-    } 
+    // border:1px solid red;
+    // background-color:lightgreen;
+
 }
-   
-
-

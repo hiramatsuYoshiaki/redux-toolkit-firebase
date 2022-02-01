@@ -10,6 +10,7 @@ import {HomeHeader} from '../components/index'
 import {CardNewActivitiesSummery} from '../components/sports/index'
 import {CardDoneActivitiesSummery} from '../components/sports/index'
 import {formatdate} from '../utils/formatdate'
+import {ActivityType} from '../components/home/index'
 import './page.scss'
  
 const Home = () => { 
@@ -22,7 +23,7 @@ const Home = () => {
     console.log(activities);
 
     useEffect(()=>{
-            dispatch(getActivities(null))
+            dispatch(getActivities(null)) 
             setActicities(allActivities)
     },[])
     useEffect(()=>{
@@ -52,21 +53,7 @@ const Home = () => {
             {/* <div className='page-home-container'> */}
                     {profile.isSignIn 
                         ? profile.emailVerified   
-                            ?    
-                            <section className='page-fexed-container'>
-                                {/* <div>ようこそ!</div>
-                                <div>{profile.username}さん</div> */}
-                                <div>アクティビティタイプ</div>
-                                    <Link to='/sports' >
-                                        <Button variant='outlined'>Sports</Button>
-                                    </Link>
-                                    {/* <Link to='/camera' > */}
-                                        {/* <Button variant='outlined' disabled={true}>Camera</Button> */}
-                                    {/* </Link> */}
-                                {/* <div>
-                                    <CardLayoutLink items={items} />   
-                                </div> */}  
-                            </section>
+                            ? <ActivityType />
                             :
                             <section className='page-fexed-container'>
                                 <div>アカウントの作成が完了していません。</div>
@@ -86,7 +73,7 @@ const Home = () => {
                                 { activities != null && activities.length > 0 
                                     ? activities.map(activity=>(
                                         <div key={activity.id}>
-                                            {
+                                            { 
                                                 activity.public === 'public' && !activity.done
                                                 ? <CardNewActivitiesSummery activity={activity}/>
                                                 : null

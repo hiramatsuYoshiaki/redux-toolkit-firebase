@@ -31,7 +31,7 @@ const CardNewActivities = ({
             <a href={activity.couse_link} target="_blank" rel="noopener noreferrer">
                 <div>コース詳細を見る</div>
             </a>
-            <div>{activity.segment}</div>
+            <div>{activity.segment}</div> 
             
             <div>
                 <span>{activity.distance}Km</span>

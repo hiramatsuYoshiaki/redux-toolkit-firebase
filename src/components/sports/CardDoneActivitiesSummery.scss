@@ -19,16 +19,24 @@ $fullhdBreakPoint: 1536px; //1536
 }
 
 .c-record-areaElement{
-    flex-basis: 25%;
+    flex-basis: 50%;
     @media (min-width: $desktopBreakPoint) {
-        flex-basis: 50%;
+        flex-basis: 25%;
     }  
 }
-.c-card-media{
+.c-wraper-card-media{
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin: 20px;
-    background-color:lightblue;
-    width:508px;
+    align-items: center;
+    
+    flex-wrap: wrap;
+    // border:5px solid green;
+    width:100%;
+}
+.c-card-media{
+    // border:5px solid red;
+    width:480px;
+    // @media (min-width: $desktopBreakPoint) {
+    //     flex-basis: 600px;
+    // } 
 }

@@ -8,13 +8,12 @@ import CardMedia from '@mui/material/CardMedia';
 import {formatdate} from '../../utils/formatdate'
 
 const CardDoneActivities = ({activity}) => {
-    return (
+    return (  
         <Card sx={{ width: '100%'}}>
                 <div>{activity.title}</div>
                 <div>{formatdate(activity.date,'yyyy年MM月dd日 HH時mm分')}</div>
-                <div>{activity.title}</div>
                 <div>{activity.doneDistance}km</div>
-                <div>{activity.doneElevation}m</div>
+                <div>{activity.doneElevation}m</div> 
                 <div>平均{activity.doneAverage}km</div>
                 <div><span>{activity.doneTimehh}</span>時間<span>{activity.doneTimemm}</span>分</div>
                <div>

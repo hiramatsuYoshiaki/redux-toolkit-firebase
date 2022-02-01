@@ -24,7 +24,7 @@ import { activityDataInit, } from '../../utils/activityDataSet'
 import {CardContentLine} from './index'
 const styles={
     marginR:{
-        marginRight:"8px",
+        marginRight:"8px", 
     },
     distanceArea:{
         display: 'flex',
@@ -125,8 +125,6 @@ const CardNewActivitiesSummery = ({activity}) => {
                     <div style={styles.distanceAreaElement}>
                         <CardContentLine title='獲得標高' value={activity.elevation.toLocaleString()} unit='m'/>
                     </div>
-                    
-                    
                 </div>
                 <CardContentLine title='コメント' value={activity.coment} unit=''/>
                 <CardContentLine title='コース名' value={activity.couse} unit=''/>

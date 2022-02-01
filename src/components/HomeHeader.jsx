@@ -13,8 +13,8 @@ const styles={
 const HomeHeader = () => {
     return (
         <div>
-           <h1>Activities</h1>
-        </div>
+           <h1>Activities</h1> 
+        </div> 
     )
 }
 
