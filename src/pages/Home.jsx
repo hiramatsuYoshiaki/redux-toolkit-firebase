@@ -19,8 +19,8 @@ const Home = () => {
     const profile = useSelector(selectUser)
     const allActivities = useSelector(selectAll)
     const [activities,setActicities] = useState(null)
-    console.log(allActivities);
-    console.log(activities);
+    // console.log(allActivities);
+    // console.log(activities);
 
     useEffect(()=>{
             dispatch(getActivities(null)) 

@@ -8,4 +8,6 @@ export {default as CardNewActivities} from './CardNewActivities'
 export {default as CardNewActivitiesSummery} from './CardNewActivitiesSummery'
 export {default as CardDoneActivitiesSummery} from './CardDoneActivitiesSummery'
 export {default as CardContentLine} from './CardContentLine'
+export {default as DashbordCycle} from './DashbordCycle'
+export {default as RecodeDisplay} from './RecodeDisplay'
 

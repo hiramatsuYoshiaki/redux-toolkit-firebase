@@ -34,7 +34,7 @@ import {CardNewActivities} from '../../components/sports/index'
 import { format} from 'date-fns'
 import { Timestamp } from "firebase/firestore"; 
 
-import './sports.scss'
+import './Sports.scss'
 // xs, extra-small: 0px
 // sm, small: 600px
 // md, medium: 900px
@@ -202,7 +202,7 @@ const New = () => {
     }
 
     useEffect(()=>{
-        console.log('useEffect call dispatch getActivities');
+        // console.log('useEffect call dispatch getActivities');
         if(profile){
             dispatch(getActivities(profile))
         }
