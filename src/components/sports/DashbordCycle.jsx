@@ -14,9 +14,16 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { blueGrey } from '@mui/material/colors';
 import { RecodeDisplay } from '../../components/sports/index';
+import { RecodeDisplayTime } from '../../components/sports/index';
+import { BestRecodeDispaly } from '../../components/sports/index';
+import { format} from 'date-fns'
+import {formatdate} from '../../utils/formatdate'
 import './DashbordCycle.scss'
 
-const DashbordCycle = ({profile, activities, count, distance, year}) => {
+const DashbordCycle = ({profile, activities, count, distance,elevation,rideTime, maxDistance,maxAvarage,maxElevation,year}) => {
+    console.log('DashbordCycle');
+    console.log(maxDistance);
+    
   return (
       <Card sx={{  width:'100%', maxWidth: '1200px' , margin:'18px 8px', boxShadow:'none', backgroundColor:'whitesmoke'}}>
           <CardHeader
@@ -26,27 +33,50 @@ const DashbordCycle = ({profile, activities, count, distance, year}) => {
                 title={ <Typography variant="body1" component="div" color="text.secondary">
                         {profile.username}
                         </Typography>} 
-                subheader={
-                    <Typography gutterBottom variant="caption" component="div" color="text.secondary">
-                        {year}年
-                    </Typography>
-                }
+                // subheader={
+                    // <Typography gutterBottom variant="caption" component="div" color="text.secondary">
+                    //     {year}年
+                    // </Typography>
+                // }
             />
-            <CardContent>
+            <CardContent sx={{ backgroundColor:'white'}}> 
+                <div className='c-dashbord-cycle-recode-title'>MY RECOAD</div>
                 <div className='c-dashbord-cycle-recode-wraper'>
-                    {/* <Typography variant="body1" component="div" color="text.secondary">
-                        {count}回
-                    </Typography>
-                    <Typography variant="body1" component="div" color="text.secondary">
-                            {distance}Km
-                    </Typography> */}
-                    <RecodeDisplay title='ライド' recode={count} unit='回'/>
+                    <RecodeDisplay title='ライド' recode={count} unit='回'/> 
                     <RecodeDisplay title='距離' recode={distance} unit='Kｍ'/>
-                    {/* <RecodeDisplay title='距離' recode={distance} unit='Kｍ'/>
-                    <RecodeDisplay title='距離' recode={distance} unit='Kｍ'/>
-                    <RecodeDisplay title='距離' recode={distance} unit='Kｍ'/> */}
+                    <RecodeDisplay title='獲得標高' recode={elevation} unit='ｍ'/>
+                </div>
+                <div className='c-dashbord-cycle-recode-wraper'>
+                    <RecodeDisplayTime title='タイム' recode={rideTime} unit='時間：分：秒'/> 
+                     <RecodeDisplay title='平均速度' recode={Math.round( (distance/( rideTime/3600 )) * 10 ) /10} unit='Kｍ'/> 
                 </div>
             </CardContent>
+            <CardContent sx={{ backgroundColor:'white'}}> 
+                <div className='c-dashbord-cycle-recode-title'>BEST RECOAD</div>
+                <div className='c-dashbord-cycle-recode-wraper'>
+                    <BestRecodeDispaly title='最長距離' recode={maxDistance.doneDistance} unit='Km' type='' link='' /> 
+                    <BestRecodeDispaly title='Activityへ移動' recode={formatdate(maxDistance.date,'MM月dd日')} unit='' type='detale' link=''/> 
+                </div>
+                <div className='c-dashbord-cycle-recode-wraper'>
+                    <BestRecodeDispaly title='獲得標高' recode={250} unit='m' type='' link='' /> 
+                    <BestRecodeDispaly title='Activityへ移動' recode='2022-01-07' unit='' type='detale' link=''/> 
+                </div>
+                <div className='c-dashbord-cycle-recode-wraper'>
+                    <BestRecodeDispaly title='平均速度' recode={250} unit='Km' type='' link='' /> 
+                    <BestRecodeDispaly title='Activityへ移動' recode='2022-01-07' unit='' type='detale' link=''/> 
+                </div>
+                <div>{maxDistance.doneDistance}</div>
+
+                 
+            </CardContent>
+            <CardContent sx={{ backgroundColor:'white'}}> 
+                <div className='c-dashbord-cycle-recode-title'>PLAN</div>
+            </CardContent>
+            <CardContent sx={{ backgroundColor:'white'}}> 
+                <div className='c-dashbord-cycle-recode-title'>GROUP</div>
+            </CardContent>
+            
+           
       </Card>
    
   )

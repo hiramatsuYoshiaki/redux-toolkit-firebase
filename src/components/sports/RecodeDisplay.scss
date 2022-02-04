@@ -4,4 +4,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-bottom:1px solid lightgrey;
+    padding:8px 0;
+}
+.c-recode-display-time{
+    width:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -150,7 +150,7 @@ export const doneActivity = createAsyncThunk(
             //     activityData.couse_map = url.data.downloadURL
             //     console.log('activityData.file=========>',activityData.file)
             // }
-            const res = await updateDoneActivity(data)
+            const res = await updateDoneActivity(data) 
             console.log('res',res) 
             return res
         }

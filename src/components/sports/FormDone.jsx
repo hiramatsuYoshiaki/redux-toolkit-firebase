@@ -4,9 +4,14 @@ import {doneActivity} from '../../features/sports/sportsSlice'
 import {useForm, Controller} from 'react-hook-form'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import TimePicker from '@mui/lab/TimePicker';
+import DateTimePicker from '@mui/lab/DateTimePicker';
 // import IconButton from '@mui/material/IconButton'
 // import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
 import {Viewlocalfiles} from '../../components/sports/index'
+import { Timestamp } from "firebase/firestore"; 
 // const styles={
 //     map:{
 //         borderRadius: '16px',
@@ -43,8 +48,9 @@ const FormDane = ({profile,activity}) => {
             doneDistance:data.doneDistance,
             doneElevation:data.doneElevation,
             doneAverage:data.doneAverage,
-            doneTimehh:data.doneTimehh,
-            doneTimemm:data.doneTimemm,
+            // doneTimehh:data.doneTimehh,
+            // doneTimemm:data.doneTimemm,
+            doneRideTime:Timestamp.fromDate(data.doneRideTime),//js date --> firebase timestamp
             garmin:data.garmin, 
             relive:data.relive,
             strava:data.strava, 
@@ -73,7 +79,7 @@ const FormDane = ({profile,activity}) => {
                 <Controller
                     name='doneDistance'
                     control={control}
-                    defaultValue={0}
+                    defaultValue={''}
                     render={({field:{onChange,value},fieldState:{error}}) =>
                         <TextField 
                             id='doneDistance'
@@ -101,7 +107,7 @@ const FormDane = ({profile,activity}) => {
                 <Controller 
                     name='doneElevation'
                     control={control}
-                    defaultValue={0}
+                    defaultValue={''}
                     render={({field:{onChange,value},fieldState:{error}}) =>
                         <TextField 
                             id='doneElevation'
@@ -129,7 +135,7 @@ const FormDane = ({profile,activity}) => {
                 <Controller
                     name='doneAverage'
                     control={control}
-                    defaultValue={0}
+                    defaultValue={''}
                     render={({field:{onChange,value},fieldState:{error}}) =>
                         <TextField 
                             id='doneAverage'
@@ -154,10 +160,10 @@ const FormDane = ({profile,activity}) => {
                         }
                     }}
                 />
-                <Controller
+                {/* <Controller
                     name='doneTimehh'
                     control={control}
-                    defaultValue={0}
+                    defaultValue={''}
                     render={({field:{onChange,value},fieldState:{error}}) =>
                         <TextField 
                             id='doneTimehh'
@@ -170,7 +176,7 @@ const FormDane = ({profile,activity}) => {
                             fullWidth
                             margin='normal'
                             sx={{
-                                maxWidth:200,
+                                maxWidth:200, 
                             }}
                         />
                     }
@@ -185,7 +191,7 @@ const FormDane = ({profile,activity}) => {
                 <Controller
                     name='doneTimemm'
                     control={control}
-                    defaultValue={0}
+                    defaultValue={''}
                     render={({field:{onChange,value},fieldState:{error}}) =>
                         <TextField 
                             id='doneTimemm'
@@ -212,6 +218,56 @@ const FormDane = ({profile,activity}) => {
                             value: 0,
                             message: 'タイム(分)は0分以上です。' 
                         }
+                    }}
+                /> */}
+                <Controller
+                    name="doneRideTime"
+                    control={control}
+                    defaultValue={new Date(2000,0,1,0,0,0)}
+                    render={({ field: { onChange, value }, fieldState: { error } }) =>
+                    
+                    <LocalizationProvider dateAdapter={AdapterDateFns} >
+                            {/* <DateTimePicker
+                                renderInput={(props) => <TextField {...props} />}
+                                label="スタート日時"
+                                value={value}
+                                onChange={onChange}
+                                // minDateTime={new Date()}
+                                inputFormat="yyyy/MM/dd hh:mm a"
+                            /> */}
+                            {/* <DateTimePicker
+                                renderInput={(props) => <TextField {...props} />}
+                                label="DateTimePicker"
+                                value={value}
+                                onChange={(newValue) => {
+                                setValue(newValue);
+                                }}
+                            /> */}
+                            <TimePicker
+                                renderInput={(params) => <TextField {...params} />}
+                                label="タイム"
+                                value={value}
+                                onChange={onChange}
+                                views={['hours', 'minutes', 'seconds']}
+                                inputFormat="HH:mm:ss"
+                                mask="__:__:__"
+                                ampm={false}
+                                openTo="hours"
+                                toolbarTitle="走行時間"
+                            />
+                            {/* <StaticTimePicker
+                                renderInput={(params) => <TextField {...params} />}
+                                displayStaticWrapperAs="mobile"
+                                value={value}
+                                onChange={(newValue) => {
+                                setValue(newValue);
+                                }}
+                                
+                            /> */}
+                        </LocalizationProvider>
+                    }
+                    rules={{
+                        required:'スタート日時は必須です。',
                     }}
                 />
                 <Controller

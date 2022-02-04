@@ -9,7 +9,7 @@ const RecodeDisplay = ({title, recode, unit}) => {
                 </Typography>
              </div>
             <div>
-                <Typography gutterBottom variant="h5" component="div" color="text.secondary">{recode}
+                <Typography gutterBottom variant="h5" component="div" color="text.secondary">{Number(recode).toLocaleString()}
                 </Typography>
             </div>
              <div>

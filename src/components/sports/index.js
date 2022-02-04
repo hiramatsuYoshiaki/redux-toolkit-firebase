@@ -10,4 +10,6 @@ export {default as CardDoneActivitiesSummery} from './CardDoneActivitiesSummery'
 export {default as CardContentLine} from './CardContentLine'
 export {default as DashbordCycle} from './DashbordCycle'
 export {default as RecodeDisplay} from './RecodeDisplay'
+export {default as BestRecodeDispaly} from './BestRecodeDispaly'
+export {default as RecodeDisplayTime} from './RecodeDisplayTime'
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Link,useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {selectUser} from  '../../features/auth/authSlice'
 import { createActivity, 
@@ -31,7 +31,7 @@ import MenuItem from '@mui/material/MenuItem';
 import {LoadingSpiner} from '../../components/index'
 import {CardNewActivities} from '../../components/sports/index'
 
-import { format} from 'date-fns'
+// import { format} from 'date-fns'
 import { Timestamp } from "firebase/firestore"; 
 
 import './Sports.scss'
@@ -139,7 +139,7 @@ const New = () => {
     const preview =(previewFile) =>{
         const reader = new FileReader()
         reader.onload = (e) => {
-        setSelectPhoto(e.target.result)
+        setSelectPhoto(e.target.result) 
         }
         reader.readAsDataURL(previewFile)
     }
@@ -150,11 +150,11 @@ const New = () => {
         // console.log(file)
         preview(event.target.files[0])
         }
-    const starttime = (dateTime) =>{
-        const jsTimestamp = dateTime.toDate()
-        const fromtDateTime = format(jsTimestamp, 'yyyy年MM月dd日 HH:mm')
-        return  fromtDateTime
-    }
+    // const starttime = (dateTime) =>{
+    //     const jsTimestamp = dateTime.toDate()
+    //     const fromtDateTime = format(jsTimestamp, 'yyyy年MM月dd日 HH:mm')
+    //     return  fromtDateTime
+    // }
     const segments = [
         { value: 'ポタリング',label: '50km以下の距離をゆっくり走る',},
         { value: 'ショートライド',label: '100km以下の距離を走る',},
@@ -352,7 +352,7 @@ const New = () => {
                                 }}
                             />
                             <Controller
-                                name='distance'
+                                name='distance' 
                                 control={control}
                                 defaultValue={100}
                                 render={({field:{onChange,value},fieldState:{error}}) =>

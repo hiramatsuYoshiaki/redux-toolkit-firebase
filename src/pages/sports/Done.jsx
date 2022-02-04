@@ -2,7 +2,7 @@ import React from 'react'
 import {useHistory} from 'react-router-dom'
 import {FormDone} from '../../components/sports/index'
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+// import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import {formatdate} from '../../utils/formatdate' 
@@ -29,9 +29,9 @@ const Done = () => {
             </Card>
             <FormDone profile={profile} activity={activity} /> 
             {profile 
-                ?
+                ? 
                     <div>
-                        <div>username:{profile.username}</div>
+                        <div>username:{profile.username}</div> 
                         <div>email:{profile.email}</div>
                     </div>
                 : null}

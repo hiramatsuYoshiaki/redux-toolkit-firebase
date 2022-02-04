@@ -79,7 +79,7 @@ const CardNewActivitiesSummery = ({activity}) => {
             />
             <Menu
                 anchorEl={anchorEl}
-                open={open}
+                open={open} 
                 onClose={handleCloseMoreVertIcon}
             >
                 <MenuItem onClick={handleCloseMoreVertIcon}>プロフィール</MenuItem>
