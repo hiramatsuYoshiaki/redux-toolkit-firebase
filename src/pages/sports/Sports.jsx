@@ -5,9 +5,10 @@ import {selectUser} from  '../../features/auth/authSlice'
 import {selectAll } from  '../../features/sports/sportsSlice'
 
 import {DashbordCycle} from '../../components/sports/index'
+import {NewPlanCycle} from '../../components/sports/index'
 import { format, getYear, getMonth,getDate, getHours,getMinutes, getSeconds} from 'date-fns'
 import './Sports.scss'
-
+ 
 
 const Sports = () => {
      console.log('start---->Sports.jsx');
@@ -84,13 +85,13 @@ const Sports = () => {
             setCount((prevCount)=> prevCount + 1)
         })
         const maxDistanceReduce = userActivities.reduce( (prev, current) => ((prev.doneDistance > current) ?  prev : current) )
-        // const maxAvelageReduce = userActivities.reduce( (prev, current) => ((prev.doneAverage > current) ?  prev.doneDistance : current) )
-        // const maxElevationReduce = userActivities.reduce( (prev, current) => ((prev.doneElevation > current) ?  prev.doneDistance : current) )
-        console.log('maxDistanceReduce',maxDistanceReduce);
-        console.log('maxDistance.doneDistance',maxDistanceReduce.doneDistance);
+        const maxAvelageReduce = userActivities.reduce( (prev, current) => ((prev.doneAverage > current) ?  prev.doneDistance : current) )
+        const maxElevationReduce = userActivities.reduce( (prev, current) => ((prev.doneElevation > current) ?  prev.doneDistance : current) )
+        // console.log('maxDistanceReduce',maxDistanceReduce);
+        // console.log('maxDistance.doneDistance',maxDistanceReduce.doneDistance);
         setMaxDistance(maxDistanceReduce)
-        // setMaxAvarage(maxAvelageReduce)
-        // setMaxElavation(maxElevationReduce)
+        setMaxAvarage(maxAvelageReduce)
+        setMaxElavation(maxElevationReduce)
 
 
         // console.log(rideTime);
@@ -100,9 +101,9 @@ const Sports = () => {
        <div className='l-sports-container'> 
 
             {/* <div>DashBordダッシュボード</div> */}
-            <DashbordCycle  
+            <DashbordCycle  　
                 profile={profile} 
-                activities={activities} 
+                activities={activities} 　
                 count={count} 
                 distance={distance} 
                 elevation={elevation} 
@@ -111,9 +112,15 @@ const Sports = () => {
                 maxAvarage={maxAvarage}
                 maxElevation={maxElevation}
                 year={year}/>
-            {/* <div>Cycling planサイクリング計画</div>
+            <div>予定しているアクティビティ</div>
+            {activities.map(activity=>(
+                activity.public === 'public'&& !activity.done
+                ? <NewPlanCycle activity={activity}/>
+                : null
+            ))}
+            
 
-            <div>Frends仲間</div> */}
+            {/* <div>Frends仲間</div> */}
 
             {/* <Card sx={{  margin:'18px 8px 36px 8px', boxShadow:'none'}}>
                 <CardMedia

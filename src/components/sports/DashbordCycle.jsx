@@ -23,6 +23,8 @@ import './DashbordCycle.scss'
 const DashbordCycle = ({profile, activities, count, distance,elevation,rideTime, maxDistance,maxAvarage,maxElevation,year}) => {
     console.log('DashbordCycle');
     console.log(maxDistance);
+    console.log(maxAvarage);
+    console.log(maxElevation);
     
   return (
       <Card sx={{  width:'100%', maxWidth: '1200px' , margin:'18px 8px', boxShadow:'none', backgroundColor:'whitesmoke'}}>
@@ -53,7 +55,7 @@ const DashbordCycle = ({profile, activities, count, distance,elevation,rideTime,
             </CardContent>
             <CardContent sx={{ backgroundColor:'white'}}> 
                 <div className='c-dashbord-cycle-recode-title'>BEST RECOAD</div>
-                <div className='c-dashbord-cycle-recode-wraper'>
+                {/* <div className='c-dashbord-cycle-recode-wraper'>
                     <BestRecodeDispaly title='最長距離' recode={maxDistance.doneDistance} unit='Km' type='' link='' /> 
                     <BestRecodeDispaly title='Activityへ移動' recode={formatdate(maxDistance.date,'MM月dd日')} unit='' type='detale' link=''/> 
                 </div>
@@ -64,19 +66,27 @@ const DashbordCycle = ({profile, activities, count, distance,elevation,rideTime,
                 <div className='c-dashbord-cycle-recode-wraper'>
                     <BestRecodeDispaly title='平均速度' recode={250} unit='Km' type='' link='' /> 
                     <BestRecodeDispaly title='Activityへ移動' recode='2022-01-07' unit='' type='detale' link=''/> 
+                </div> */}
+                {/* <div>{maxDistance.doneDistance}</div> */}
+                {maxDistance ? 
+                <div className='c-dashbord-cycle-recode-wraper'>
+                    <BestRecodeDispaly title='最長距離' recode={maxDistance.doneDistance} unit='Km' type='' link='' /> 
+                    <BestRecodeDispaly title='Activityへ移動' recode={formatdate(maxDistance.date,'MM月dd日')} unit='' type='detale' link=''/> 
                 </div>
-                <div>{maxDistance.doneDistance}</div>
-
-                 
+                : null}
+                {maxAvarage?
+                <div className='c-dashbord-cycle-recode-wraper'>
+                    <BestRecodeDispaly title='平均速度' recode={maxAvarage.doneAverage} unit='Km' type='' link='' /> 
+                    <BestRecodeDispaly title='Activityへ移動' recode={formatdate(maxDistance.date,'MM月dd日')} unit='' type='detale' link=''/> 
+                </div> 
+                :null}
+                {maxElevation?
+                <div className='c-dashbord-cycle-recode-wraper'>
+                    <BestRecodeDispaly title='獲得標高' recode={maxElevation.doneElevation} unit='m' type='' link='' /> 
+                    <BestRecodeDispaly title='Activityへ移動' recode={formatdate(maxDistance.date,'MM月dd日')} unit='' type='detale' link=''/> 
+                </div>    
+                :null} 
             </CardContent>
-            <CardContent sx={{ backgroundColor:'white'}}> 
-                <div className='c-dashbord-cycle-recode-title'>PLAN</div>
-            </CardContent>
-            <CardContent sx={{ backgroundColor:'white'}}> 
-                <div className='c-dashbord-cycle-recode-title'>GROUP</div>
-            </CardContent>
-            
-           
       </Card>
    
   )
