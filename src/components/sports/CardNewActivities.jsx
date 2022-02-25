@@ -12,13 +12,11 @@ const CardNewActivities = ({
         handleClickEdit,
         handleClickDelete, }) => {
 
-    console.log('CardNewActivities');
+    console.log('CardNewActivities'); 
     return ( 
         <Card sx={{ width: '100%'}}>
-            {/* <div>{activity.id}</div> */}
             <div>{activity.title}</div>
             <div>{formatdate(activity.date,'yyyy年MM月dd日 HH時mm分')}</div>
-            {/* <div>{starttime(activity.date)}</div> */}
             <a href={activity.couse_link} target="_blank" rel="noopener noreferrer">
                 <CardMedia
                     component="img"
@@ -39,10 +37,9 @@ const CardNewActivities = ({
             </div>
             <div>{activity.couse}</div>
             
-            {/* <div>couse_map:{activity.couse_map}</div> */}
           
             
-            
+             
             <div>集合場所:{activity.start}</div>
             {/* <div>解散場所{activity.gole}</div> */}
             <div>コメント</div>

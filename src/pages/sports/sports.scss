@@ -61,7 +61,8 @@ $fullhdBreakPoint: 1536px; //1536
     @media (min-width: $fullhdBreakPoint) {
         flex-basis: 25%;
     } 
-}
+    border:1px solid red;
+} 
    
 
 

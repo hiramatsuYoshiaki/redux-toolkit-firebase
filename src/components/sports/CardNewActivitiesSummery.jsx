@@ -23,7 +23,7 @@ import { style } from '@mui/system'
 import { activityDataInit, } from '../../utils/activityDataSet'
 import {CardContentLine} from './index'
 const styles={
-    marginR:{
+    marginR:{ 
         marginRight:"8px", 
     },
     distanceArea:{
@@ -59,7 +59,7 @@ const CardNewActivitiesSummery = ({activity}) => {
     
 
     return (
-        <Card>
+        <Card sx={{marginBottom:'16px', backgroundColor:'whitesmoke'}}>
             <CardHeader 
                 avatar={
                 <Avatar src={activity.owner.photoURL} />
@@ -86,16 +86,22 @@ const CardNewActivitiesSummery = ({activity}) => {
                 {/* <MenuItem onClick={handleCloseMoreVertIcon}>My account</MenuItem>
                 <MenuItem onClick={handleCloseMoreVertIcon}>Logout</MenuItem> */}
             </Menu>
-            <CardMedia
-                    component="img"
-                    // height="508"
-                    // width='478'
+            {/* <CardMedia
                     width='100%'
                     image={activity.couse_map}
                     alt={activity.title}
-                    // frameborder="2"
-                    // allowfullscreen="allowfullscreen"
-                />
+                    frameborder="0"
+                    sx={{ boxShadow: 'none' }}
+            /> */}
+            <CardMedia
+                    component="iframe"
+                    height="508"
+                    maxWidth='508'
+                    image={activity.couse_link}
+                    alt={activity.title}
+                    frameborder="0"
+                    sx={{ boxShadow: 'none' }}
+            />
             <CardContent>
                 
                 {activity.start === activity.gole 

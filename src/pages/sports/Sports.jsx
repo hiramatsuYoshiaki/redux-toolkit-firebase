@@ -6,6 +6,7 @@ import {selectAll } from  '../../features/sports/sportsSlice'
 
 import {DashbordCycle} from '../../components/sports/index'
 import {NewPlanCycle} from '../../components/sports/index'
+import {DoneActivityCycle} from '../../components/sports/index'
 import { format, getYear, getMonth,getDate, getHours,getMinutes, getSeconds} from 'date-fns'
 import './Sports.scss'
  
@@ -101,9 +102,9 @@ const Sports = () => {
        <div className='l-sports-container'> 
 
             {/* <div>DashBordダッシュボード</div> */}
-            <DashbordCycle  　
+            <DashbordCycle  
                 profile={profile} 
-                activities={activities} 　
+                activities={activities} 
                 count={count} 
                 distance={distance} 
                 elevation={elevation} 
@@ -116,6 +117,12 @@ const Sports = () => {
             {activities.map(activity=>(
                 activity.public === 'public'&& !activity.done
                 ? <NewPlanCycle activity={activity}/>
+                : null
+            ))}
+            <div>アクティビティ リスト</div>
+            {activities.map(activity=>(
+                activity.public === 'public'&& activity.done
+                ? <DoneActivityCycle activity={activity}/>
                 : null
             ))}
             

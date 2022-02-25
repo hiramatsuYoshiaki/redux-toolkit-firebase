@@ -34,7 +34,7 @@ import {CardNewActivities} from '../../components/sports/index'
 // import { format} from 'date-fns'
 import { Timestamp } from "firebase/firestore"; 
 
-import './Sports.scss'
+import './Sports.scss' 
 // xs, extra-small: 0px
 // sm, small: 600px
 // md, medium: 900px
@@ -537,7 +537,8 @@ const New = () => {
                 ?   <div className='l-sports-card-container'>
                         {allActivities.map(activity=>(
                             activity.done === false ?
-                                <div className='l-sports-card-item' key={activity.id}>
+                                // <div className='l-sports-card-item' key={activity.id}>
+                                <div  key={activity.id}>
                                     <CardNewActivities 
                                         activity={activity} 
                                         handleClickPublish={handleClickPublish} 
@@ -547,14 +548,14 @@ const New = () => {
                                 />
                                 </div>
                             :null
-                        ))}
+                        ))} 
                      </div> 
                 :   null }
             </div>
             
             <LoadingSpiner isLoading={profile.status}/>
             <LoadingSpiner isLoading={activitiesStatus}/>
-        </div>
+        </div> 
     )
 }
 

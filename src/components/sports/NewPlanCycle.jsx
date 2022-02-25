@@ -42,7 +42,7 @@ const NewPlanCycle = ({activity}) => {
                             </div>
                             
                         }
-                    />
+                    /> 
                 </div >
                 <div className='c-new-plan-card-items-left'>
                     <a href={activity.couse_link} target="_blank" rel="noopener noreferrer">

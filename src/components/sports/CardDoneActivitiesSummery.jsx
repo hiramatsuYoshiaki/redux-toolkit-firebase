@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import {Link} from 'react-router-dom'
 import Button from '@mui/material/Button'
 import Avatar from '@mui/material/Avatar'
 import { red } from '@mui/material/colors'
@@ -14,10 +15,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import {CardContentLine} from './index'
 
-import {formatdate} from '../../utils/formatdate'
+import {formatdate} from '../../utils/formatdate' 
 import './CardDoneActivitiesSummery.scss'
 
-
+ 
 const CardDoneActivitiesSummery = ({activity}) => {
     const [expanded, setExpanded] = useState(false)
     const handleExpandClick = () => {
@@ -25,7 +26,7 @@ const CardDoneActivitiesSummery = ({activity}) => {
     }
     
     return (  
-        <Card >
+        <Card sx={{marginBottom:'16px'}}>
             <CardHeader
                 avatar={
                 <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" src={activity.owner.photoURL} />
@@ -40,7 +41,7 @@ const CardDoneActivitiesSummery = ({activity}) => {
             />
              <CardContent>
                 <div className="c-record-area">
-                    <div className="c-record-areaElement">
+                    <div className="c-record-areaElement"> 
                         <CardContentLine title='距離' value={activity.doneDistance.toLocaleString()} unit='Km'/>
                     </div>
                     <div className="c-record-areaElement">
@@ -50,11 +51,14 @@ const CardDoneActivitiesSummery = ({activity}) => {
                         <CardContentLine title='平均速度' value={activity.doneAverage.toLocaleString()} unit='km/h'/>
                     </div>
                     <div className="c-record-areaElement">
-                        <CardContentLine title='タイム' value={`${activity.doneTimehh}時間${activity.doneTimemm}分`} unit=''/>
+                        <CardContentLine title='タイム' 
+                                         value={formatdate(activity.doneRideTime,'HH:mm:ss')}
+                                         unit=''/>
                     </div>
                 </div>
-             </CardContent>
-             {activity.garmin
+            </CardContent>
+             
+             {activity.garmin !== null & activity.garmin !== undefined & activity.garmin !== ""
               ?
                 <div class="c-wraper-card-media">
                     <div class="c-card-media">
@@ -69,7 +73,7 @@ const CardDoneActivitiesSummery = ({activity}) => {
                             />
                     </div>
                 </div>
-                :activity.strava
+                :activity.strava !== null & activity.strava !== undefined & activity.strava !== ""
                 ?
                 <div class="c-wraper-card-media">
                     <div class="c-card-media">
@@ -77,7 +81,7 @@ const CardDoneActivitiesSummery = ({activity}) => {
                                 component="iframe"
                                 height="508"
                                 maxWidth='508'
-                                image={activity.garmin}
+                                image={activity.strava}
                                 alt={activity.title}
                                 frameborder="0"
                                 sx={{ boxShadow: 'none' }}
@@ -87,61 +91,28 @@ const CardDoneActivitiesSummery = ({activity}) => {
                 :<div class="c-wraper-card-media">
                     <div class="c-card-media">
                         <CardMedia
-                                component="img"
+                                component="iframe"
                                 height="508"
-                                image={activity.couse_map}
+                                maxWidth='508'
+                                image={activity.couse_link}
+                                // image='https://connect.garmin.com/modern/course/embed/87305537'
                                 alt={activity.title}
                                 frameborder="0"
                                 sx={{ boxShadow: 'none' }}
                             />
                     </div>
+                    {/* <a href={activity.couse_link}  target="_blank" rel="noopener noreferrer">
+                        <CardActions>
+                            <Button size="small">マップを見る</Button>
+                        </CardActions>
+                    </a>
+                    <div>{activity.couse_link}</div> */}
                 </div>
             }
-            {/* {activity.garmin
-              ?
-                <div class="c-wraper-card-media">
-                    <div class="c-card-media">
-                        <CardMedia
-                            component="iframe"
-                            height="380"
-                            width='478'
-                            image={activity.strava}
-                            alt={activity.title}
-                            frameborder="0"
-                            sx={{ boxShadow: 'none' }}
-                        /> 
-                    </div>
-                </div>
 
-                :null
-            } */}
-            {/* {activity.couse_map
-              ?
-                <div class="c-wraper-card-media">
-                    <div class="c-card-media">
-                        <CardMedia
-                                component="img"
-                                height="auto"
-                                width='100%'
-                                image={activity.couse_map}
-                                alt={activity.title}
-                                frameborder="0"
-                                sx={{ boxShadow: 'none' }}
-                            />
-                    </div>
-                </div>
-
-                :null
-            } */}
-             
+{/*              
             
             <CardActions disableSpacing>
-                {/* <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                <ShareIcon />
-                </IconButton> */}
                 <IconButton aria-label="more" onClick={handleExpandClick}>
                     {expanded?<ExpandLessIcon />:<ExpandMoreIcon />}
                 </IconButton >
@@ -157,13 +128,9 @@ const CardDoneActivitiesSummery = ({activity}) => {
                     frameborder="0"
                     sx={{ boxShadow: 'none' }}
                 />
-            </Collapse>
+            </Collapse> */}
            
            
-                {/* <div>{activity.title}</div>
-                <div>{formatdate(activity.date,'yyyy年MM月dd日 HH時mm分')}</div> */}
-                
-               {/* <iframe src={activity.garmin} title={activity.title} width='465'  height='500' frameborder='0'></iframe> */}
                
         </Card>
     )
